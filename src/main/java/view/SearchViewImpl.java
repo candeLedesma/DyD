@@ -14,12 +14,11 @@ public class SearchViewImpl implements SearchView {
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;
     private SearchPanel searchPanel;
-    private JPanel storagePanel;
-    private JComboBox storedSeriesComboBox;
-    private JTextPane storedInfoTextPane;
     private RatedPanel ratedPanel;
+    private StoragePanel storagePanel;
+    //private StoragePanel storagePanel;
 
-    DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+
     String selectedResultTitle = null; //For storage purposes, it may not coincide with the searched term (see below)
 
 
@@ -42,7 +41,8 @@ public class SearchViewImpl implements SearchView {
         searchPanel.setPresenter(searchPresenter);
 
 
-        setSavedPanel();
+        storagePanel.setPresenter(searchPresenter);
+        storagePanel.setSavedPanel();
 
         searchPanel.setUpView();
         searchPanel.setVisible(true);
@@ -71,57 +71,33 @@ public class SearchViewImpl implements SearchView {
     //------------------StoragePanel methods------------------
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
-        storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
-        storedSeriesComboBox.addActionListener(actionEvent -> {
-            System.out.println("Seleccioando "+ storedSeriesComboBox.getSelectedItem());
-        });
+        storagePanel.setSelectSavedComboBox(savedTitles);
     }
 
 
     private void setSavedPanel() {
-
-        setComboBox();
-
-        storedInfoTextPane.setContentType("text/html");
-
-        setPopupMenu();
+        storagePanel.setSavedPanel();
 
     }
 
     private void setPopupMenu() {
-        JPopupMenu storedInfoPopup = new JPopupMenu();
-
-        JMenuItem deleteItem = new JMenuItem("Delete!");
-        deleteItem.addActionListener(actionEvent -> {
-            System.out.println("eliminando "+ storedSeriesComboBox.getSelectedItem());
-            searchPresenter.deleteStoredInfo();
-        });
-        storedInfoPopup.add(deleteItem);
-
-        JMenuItem saveItem = new JMenuItem("Save Changes!");
-        saveItem.addActionListener(actionEvent -> {
-            System.out.println("Guardando "+ storedSeriesComboBox.getSelectedItem());
-            searchPresenter.saveStoredInfo();
-        });
-        storedInfoPopup.add(saveItem);
-
-        storedInfoTextPane.setComponentPopupMenu(storedInfoPopup);
+        storagePanel.setPopupMenu();
 
     }
 
     private void setComboBox() {
-       storedSeriesComboBox.setModel(new DefaultComboBoxModel(DataBaseImp.getTitles().stream().sorted().toArray()));
+        storagePanel.setComboBox();
     }
 
 
 
     public boolean existSavedTitle() {
-        return storedSeriesComboBox.getSelectedItem() != null;
+        return storagePanel.existSavedTitle();
     }
 
 
     public String getSeletedSavedTitle() {
-        return (String) storedSeriesComboBox.getSelectedItem();
+        return storagePanel.getSeletedSavedTitle();
     }
 
     //------------------RatedPanel methods------------------
