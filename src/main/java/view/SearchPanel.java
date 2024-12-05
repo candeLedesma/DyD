@@ -20,7 +20,9 @@ public class SearchPanel extends JPanel implements SearchView {
 
     public SearchPanel() {
         this.setVisible(true);
+
         this.add(searchPanel);
+
     }
 
     public void setUpView() {

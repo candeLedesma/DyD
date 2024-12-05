@@ -99,6 +99,7 @@ public class SearchPresenterImp implements SearchPresenter {
             if(lastSearchedSeries != null) {
                 model.saveLocally();
                 view.showSuccessMessage("The series was correctly saved!");
+                view.setSelectSavedComboBox(model.getSavedTitles());
             }
         } catch(Exception e){
             view.showErrorMessage(e.getMessage());

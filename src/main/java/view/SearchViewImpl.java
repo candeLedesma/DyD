@@ -26,6 +26,7 @@ public class SearchViewImpl implements SearchView {
 
     public SearchViewImpl(SearchPresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
+
     }
 
 
@@ -37,6 +38,7 @@ public class SearchViewImpl implements SearchView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        frame.setSize(400, 428);//width=400,height=428
 
         searchPanel.setPresenter(searchPresenter);
 
