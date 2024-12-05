@@ -14,13 +14,7 @@ public class StoragePanel extends JPanel implements SearchView {
 
     private JList savedSeriesList;
 
-    private JTabbedPane textPaneSavedSeries;
-
-    private JPanel ratedPanel;
-
     private SearchPresenterImp searchPresenter;
-
-    DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
     private JComboBox storedSeriesComboBox;
 
@@ -29,8 +23,6 @@ public class StoragePanel extends JPanel implements SearchView {
 
     public StoragePanel() {
         this.setVisible(true);
-
-        storagePanel = new JPanel();
 
         this.add(storagePanel);
     }
@@ -84,7 +76,6 @@ public class StoragePanel extends JPanel implements SearchView {
     }
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
-        JComboBox<Object> storedSeriesComboBox = null;
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
         storedSeriesComboBox.addActionListener(actionEvent -> {
             System.out.println("Seleccioando "+ storedSeriesComboBox.getSelectedItem());

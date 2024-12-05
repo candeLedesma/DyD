@@ -16,7 +16,6 @@ public class SearchViewImpl implements SearchView {
     private SearchPanel searchPanel;
     private RatedPanel ratedPanel;
     private StoragePanel storagePanel;
-    //private StoragePanel storagePanel;
 
 
     String selectedResultTitle = null; //For storage purposes, it may not coincide with the searched term (see below)
@@ -75,22 +74,6 @@ public class SearchViewImpl implements SearchView {
     }
 
 
-    private void setSavedPanel() {
-        storagePanel.setSavedPanel();
-
-    }
-
-    private void setPopupMenu() {
-        storagePanel.setPopupMenu();
-
-    }
-
-    private void setComboBox() {
-        storagePanel.setComboBox();
-    }
-
-
-
     public boolean existSavedTitle() {
         return storagePanel.existSavedTitle();
     }
@@ -105,9 +88,7 @@ public class SearchViewImpl implements SearchView {
 
     public void showRating(int rating) {
 
-
     }
-
 
     public int getRatingInput() {
         return 0;
@@ -121,7 +102,6 @@ public class SearchViewImpl implements SearchView {
     private void setRatedSeriesPanel() {
         ratedPanel.setRatedSeriesPanel();
     }
-
 
 
     //------------------SearchPanel methods------------------
