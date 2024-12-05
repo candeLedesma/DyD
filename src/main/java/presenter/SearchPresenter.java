@@ -12,12 +12,6 @@ public interface SearchPresenter {
 
     void saveStoredInfo();
 
-    //for new functionality
-    void saveRating();
-
-    void loadRating();
-
-    void showAllRatedSeries();
 
     void saveLocally();
 

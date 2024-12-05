@@ -5,24 +5,23 @@ import presenter.SearchPresenter;
 import presenter.SearchPresenterImp;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.LinkedList;
 
-public class SearchPanel extends JPanel implements SearchView {
+public class SearchPanel extends JPanel{
     private JPanel searchPanel;
     private JTextField searchText;
     private JButton searchButton;
     private JTextPane searchResultsTextPane;
     private JButton saveLocallyButton;
+    private JPanel setScorePanel;
     private SearchPresenter searchPresenter;
-    String text = ""; // Last searched text! this variable is central for everything
+    String serieName = ""; // Last searched text! this variable is central for everything
     private SearchResult lastSearchedSeries;
 
     public SearchPanel() {
         this.setVisible(true);
 
         this.add(searchPanel);
-
     }
 
     public void setUpView() {
@@ -31,23 +30,18 @@ public class SearchPanel extends JPanel implements SearchView {
         searchButton.addActionListener(e -> searchPresenter.searchSeries());
 
         saveLocallyButton.addActionListener(actionEvent -> {
-            if (!text.isEmpty()) {
+            if (!serieName.isEmpty()) {
                 searchPresenter.saveLocally();
             }
         });
     }
 
-    @Override
-    public void showView() {
-
-    }
-
-    @Override
     public void showResults(LinkedList<SearchResult> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
         for (SearchResult searchResult : results) {
             searchResult.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;
+                serieName = searchResult.getTitle();
                 searchPresenter.getSelectedExtract(searchResult);
             });
             searchOptionsMenu.add(searchResult);
@@ -72,7 +66,6 @@ public class SearchPanel extends JPanel implements SearchView {
     }
 
     public String getSeriesName() {
-        text = searchText.getText();
-        return text;
+        return serieName;
     }
 }

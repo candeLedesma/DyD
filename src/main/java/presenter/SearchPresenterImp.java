@@ -37,6 +37,8 @@ public class SearchPresenterImp implements SearchPresenter {
             LinkedList<SearchResult> results = model.searchSeries(seriesName);
 
             view.showResults(results);
+
+
         });
 
         taskThread.start();
@@ -67,32 +69,6 @@ public class SearchPresenterImp implements SearchPresenter {
         }
     }
 
-    @Override
-    public void saveRating() {
-        if (view.existSavedTitle()) {
-            String title = view.getSeletedSavedTitle();
-            int rating = view.getRatingInput();
-            model.saveRating(title, rating);
-        }
-
-    }
-
-    @Override
-    public void loadRating() {
-        if (view.existSavedTitle()) {
-            String title = view.getSeletedSavedTitle();
-            int rating = model.getRating(title);
-            view.showRating(rating);
-        }
-
-    }
-
-    @Override
-    public void showAllRatedSeries() {
-        view.showRatedSeries(model.getAllRatedSeries());
-    }
-
-    @Override
     public void saveLocally() {
         try{
             SearchResult lastSearchedSeries = view.getLastSearchedSeries();

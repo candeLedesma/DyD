@@ -86,20 +86,6 @@ public class SearchViewImpl implements SearchView {
 
     //------------------RatedPanel methods------------------
 
-
-    public void showRating(int rating) {
-
-    }
-
-    public int getRatingInput() {
-        return 0;
-    }
-
-
-    public void showRatedSeries(List<RatedSeries> ratedSeries) {
-        ratedPanel.showRatedSeries(ratedSeries);
-    }
-
     private void setRatedSeriesPanel() {
         ratedPanel.setRatedSeriesPanel();
     }
