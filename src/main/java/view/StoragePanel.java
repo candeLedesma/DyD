@@ -68,7 +68,7 @@ public class StoragePanel extends JPanel {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(DataBaseImp.getTitles().stream().sorted().toArray()));
         storedSeriesComboBox.addActionListener(actionEvent -> {
             System.out.println("Obteniendo "+ storedSeriesComboBox.getSelectedItem());
-            searchPresenter.handleStoredInfo();
+            searchPresenter.getStoredInfo();
         });
     }
 
@@ -93,7 +93,7 @@ public class StoragePanel extends JPanel {
     public void setStoredTextPane(String extract) {
         SwingUtilities.invokeLater(() -> {
             storedInfoTextPane.setText(TextoHTML.textToHtml(extract));
-            //storedInfoTextPane.setCaretPosition(0);
+            storedInfoTextPane.setCaretPosition(0);
         });
     }
 }

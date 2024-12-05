@@ -62,6 +62,7 @@ public class SearchPanel extends JPanel{
     }
 
     public String getSearchResultTextPane() {
+        System.out.println("RESULTADO DE BUSQUEDA "+searchResultsTextPane.getText());
         return searchResultsTextPane.getText();
     }
 
