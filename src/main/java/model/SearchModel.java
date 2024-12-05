@@ -1,15 +1,15 @@
 package model;
 
-import utils.SearchResult;
+import utils.Serie;
 import presenter.SearchPresenter;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public interface SearchModel {
-    LinkedList<SearchResult> searchSeries(String query);
+    LinkedList<Serie> searchSeries(String query);
 
-    String searchPageExtract(SearchResult searchResult);
+    String searchPageExtract(Serie searchResult);
 
     void deleteSavedInfo(String title);
 
@@ -24,5 +24,5 @@ public interface SearchModel {
 
     int getRating(String title);
 
-    List<RatedSeries> getAllRatedSeries();
+    List<Serie> getAllRatedSeries();
 }

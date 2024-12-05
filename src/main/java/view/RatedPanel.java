@@ -1,7 +1,6 @@
 package view;
 
-import model.RatedSeries;
-import utils.SearchResult;
+import utils.Serie;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,13 +29,13 @@ public class RatedPanel extends JPanel implements SearchView {
     }
 
     @Override
-    public void showResults(LinkedList<SearchResult> results) {
+    public void showResults(LinkedList<Serie> results) {
 
     }
 
-    public void showRatedSeries(List<RatedSeries> ratedSeries) {
-        DefaultListModel<RatedSeries> listModel = new DefaultListModel<>();
-        for (RatedSeries series : ratedSeries) {
+    public void showRatedSeries(List<Serie> ratedSeries) {
+        DefaultListModel<Serie> listModel = new DefaultListModel<>();
+        for (Serie series : ratedSeries) {
             listModel.addElement(series);
         }
         ratedPanel.add(new JList<>(listModel));

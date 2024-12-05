@@ -1,13 +1,10 @@
 package view;
-import model.DataBaseImp;
-import utils.SearchResult;
-import model.RatedSeries;
+import utils.Serie;
 import presenter.SearchPresenterImp;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
-import java.util.List;
 
 public class SearchViewImpl implements SearchView {
     private final SearchPresenterImp searchPresenter;
@@ -114,12 +111,12 @@ public class SearchViewImpl implements SearchView {
         return searchPanel.getSearchResultTextPane();
     }
 
-    public SearchResult getLastSearchedSeries() {
+    public Serie getLastSearchedSeries() {
         return searchPanel.getLastSearchedSeries();
     }
 
     @Override
-    public void showResults(LinkedList<SearchResult> results) {
+    public void showResults(LinkedList<Serie> results) {
         searchPanel.showResults(results);
     }
 

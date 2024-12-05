@@ -1,6 +1,6 @@
 package view;
 
-import utils.SearchResult;
+import utils.Serie;
 import presenter.SearchPresenter;
 import presenter.SearchPresenterImp;
 
@@ -16,7 +16,7 @@ public class SearchPanel extends JPanel{
     private JPanel setScorePanel;
     private SearchPresenter searchPresenter;
     String serieName = ""; // Last searched text! this variable is central for everything
-    private SearchResult lastSearchedSeries;
+    private Serie lastSearchedSeries;
 
     public SearchPanel() {
         this.setVisible(true);
@@ -36,9 +36,9 @@ public class SearchPanel extends JPanel{
         });
     }
 
-    public void showResults(LinkedList<SearchResult> results) {
+    public void showResults(LinkedList<Serie> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
-        for (SearchResult searchResult : results) {
+        for (Serie searchResult : results) {
             searchResult.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;
                 serieName = searchResult.getTitle();
@@ -53,7 +53,7 @@ public class SearchPanel extends JPanel{
         this.searchPresenter = searchPresenter;
     }
 
-    public SearchResult getLastSearchedSeries() {
+    public Serie getLastSearchedSeries() {
         return this.lastSearchedSeries;
     }
 

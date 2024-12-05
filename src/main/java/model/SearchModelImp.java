@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import utils.SearchResult;
+import utils.Serie;
 import model.API.WikipediaPageAPI;
 import model.API.WikipediaSearchAPI;
 import presenter.SearchPresenter;
@@ -39,11 +39,11 @@ public class SearchModelImp implements SearchModel {
     }
 
     @Override
-    public LinkedList<SearchResult> searchSeries(String seriesName) {
+    public LinkedList<Serie> searchSeries(String seriesName) {
 
         Response<String> callForSearchResponse;
 
-        LinkedList<SearchResult> searchResultsArray = new LinkedList<>();
+        LinkedList<Serie> searchResultsArray = new LinkedList<>();
         try {
             //ToAlberto: First, lets search for the term in Wikipedia
             callForSearchResponse = searchAPI.searchForTerm(seriesName + " (Tv series) articletopic:\"television\"").execute();
@@ -64,7 +64,7 @@ public class SearchModelImp implements SearchModel {
                 String searchResultPageId = searchResult.get("pageid").getAsString();
                 String searchResultSnippet = searchResult.get("snippet").getAsString();
 
-                SearchResult sr = new SearchResult(searchResultTitle, searchResultPageId, searchResultSnippet);
+                Serie sr = new Serie(searchResultTitle, searchResultPageId, searchResultSnippet);
                 searchResultsArray.add(sr);
             }
 
@@ -77,7 +77,7 @@ public class SearchModelImp implements SearchModel {
 
 
     @Override
-    public String searchPageExtract(SearchResult searchResult) {
+    public String searchPageExtract(Serie searchResult) {
 
         Response<String> callForPageResponse;
 
@@ -151,7 +151,7 @@ public class SearchModelImp implements SearchModel {
     }
 
     @Override
-    public List<RatedSeries> getAllRatedSeries() {
+    public List<Serie> getAllRatedSeries() {
         return DataBaseImp.getAllRatedSeries();
     }
 

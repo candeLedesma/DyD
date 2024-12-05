@@ -1,5 +1,7 @@
 package model;
 
+import utils.Serie;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -289,38 +291,9 @@ public class DataBaseImp {
     return 0;
   }
 
-  public static List<RatedSeries> getAllRatedSeries() {
-    List<RatedSeries> ratedSeries = new ArrayList<>();
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
-      Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
-      ResultSet rs = statement.executeQuery("select * from catalog WHERE source = 2" );
-      while(rs.next()) ratedSeries.add(new RatedSeries(rs.getString("title"), rs.getInt("extract"), ""));
-    }
-    catch(SQLException e)
-    {
-      // if the error message is "out of memory",
-      // it probably means no database file is found
-      System.err.println("Get title error " + e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
-      }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println(e);
-      }
-    }
-    return ratedSeries;
+  public static List<Serie> getAllRatedSeries() {
+    //TODO
+    return null;
   }
+
 }

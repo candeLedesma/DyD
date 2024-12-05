@@ -2,12 +2,13 @@ package utils;
 
 import javax.swing.*;
 
-public class SearchResult extends JMenuItem {
+public class Serie extends JMenuItem {
     public String title;
     public String pageID;
     public String snippet;
+    public int score;
 
-    public SearchResult(String title, String pageID, String snippet) {
+    public Serie(String title, String pageID, String snippet) {
         String itemText = "<html><font face=\"arial\">" + title + ": " + snippet;
         itemText =itemText.replace("<span class=\"searchmatch\">", "")
                 .replace("</span>", "");
@@ -27,6 +28,14 @@ public class SearchResult extends JMenuItem {
 
     public String getSnippet() {
         return snippet;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
     }
 
 

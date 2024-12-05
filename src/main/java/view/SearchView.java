@@ -1,6 +1,6 @@
 package view;
 
-import utils.SearchResult;
+import utils.Serie;
 
 import java.util.LinkedList;
 
@@ -8,7 +8,7 @@ public interface SearchView {
 
     void showView();
 
-    void showResults(LinkedList<SearchResult> results);
+    void showResults(LinkedList<Serie> results);
 
 
 }

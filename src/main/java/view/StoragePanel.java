@@ -2,11 +2,8 @@ package view;
 
 import model.DataBaseImp;
 import presenter.SearchPresenterImp;
-import utils.SearchResult;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.LinkedList;
 
 import utils.TextoHTML;
 

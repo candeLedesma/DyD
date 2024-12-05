@@ -1,12 +1,12 @@
 package presenter;
 
-import utils.SearchResult;
+import utils.Serie;
 
 public interface SearchPresenter {
 
     void searchSeries();
 
-    void getSelectedExtract(SearchResult searchResult);
+    void getSelectedExtract(Serie searchResult);
 
     void deleteStoredInfo();
 
@@ -15,5 +15,5 @@ public interface SearchPresenter {
 
     void saveLocally();
 
-    SearchResult getLastSearchedSeries();
+    Serie getLastSearchedSeries();
 }

@@ -1,7 +1,7 @@
 package presenter;
 
 import model.DataBaseImp;
-import utils.SearchResult;
+import utils.Serie;
 import model.SearchModelImp;
 import view.SearchViewImpl;
 
@@ -34,7 +34,7 @@ public class SearchPresenterImp implements SearchPresenter {
         taskThread = new Thread(() -> {
             String seriesName = view.getSeriesName();
 
-            LinkedList<SearchResult> results = model.searchSeries(seriesName);
+            LinkedList<Serie> results = model.searchSeries(seriesName);
 
             view.showResults(results);
 
@@ -46,7 +46,7 @@ public class SearchPresenterImp implements SearchPresenter {
     }
 
     @Override
-    public void getSelectedExtract(SearchResult selectedResult){
+    public void getSelectedExtract(Serie selectedResult){
         String extract = model.searchPageExtract(selectedResult);
         view.setSearchResultTextPane(extract);
     }
@@ -71,7 +71,7 @@ public class SearchPresenterImp implements SearchPresenter {
 
     public void saveLocally() {
         try{
-            SearchResult lastSearchedSeries = view.getLastSearchedSeries();
+            Serie lastSearchedSeries = view.getLastSearchedSeries();
             if(lastSearchedSeries != null) {
                 model.saveLocally();
                 view.showSuccessMessage("The series was correctly saved!");
@@ -84,7 +84,7 @@ public class SearchPresenterImp implements SearchPresenter {
     }
 
     @Override
-    public SearchResult getLastSearchedSeries() {
+    public Serie getLastSearchedSeries() {
         return view.getLastSearchedSeries();
     }
 
