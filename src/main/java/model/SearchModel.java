@@ -1,6 +1,6 @@
 package model;
 
-import fulllogic.SearchResult;
+import utils.SearchResult;
 import presenter.SearchPresenter;
 
 import java.util.LinkedList;

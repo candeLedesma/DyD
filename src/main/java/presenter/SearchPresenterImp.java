@@ -1,7 +1,7 @@
 package presenter;
 
 import model.DataBaseImp;
-import fulllogic.SearchResult;
+import utils.SearchResult;
 import model.SearchModelImp;
 import view.SearchViewImpl;
 
@@ -90,6 +90,25 @@ public class SearchPresenterImp implements SearchPresenter {
     @Override
     public void showAllRatedSeries() {
         view.showRatedSeries(model.getAllRatedSeries());
+    }
+
+    @Override
+    public void saveLocally() {
+        try{
+            SearchResult lastSearchedSeries = view.getLastSearchedSeries();
+            if(lastSearchedSeries != null) {
+                model.saveLocally();
+                view.showSuccessMessage("The series was correctly saved!");
+            }
+        } catch(Exception e){
+            view.showErrorMessage(e.getMessage());
+        }
 
     }
+
+    @Override
+    public SearchResult getLastSearchedSeries() {
+        return view.getLastSearchedSeries();
+    }
+
 }

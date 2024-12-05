@@ -1,4 +1,4 @@
-package fulllogic;
+package utils;
 
 import javax.swing.*;
 
@@ -15,6 +15,18 @@ public class SearchResult extends JMenuItem {
         this.title = title;
         this.pageID = pageID;
         this.snippet = snippet;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getPageID() {
+        return pageID;
+    }
+
+    public String getSnippet() {
+        return snippet;
     }
 
 

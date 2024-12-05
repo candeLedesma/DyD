@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import fulllogic.SearchResult;
+import utils.SearchResult;
 import model.API.WikipediaPageAPI;
 import model.API.WikipediaSearchAPI;
 import presenter.SearchPresenter;
@@ -153,5 +153,9 @@ public class SearchModelImp implements SearchModel {
     @Override
     public List<RatedSeries> getAllRatedSeries() {
         return DataBaseImp.getAllRatedSeries();
+    }
+
+    public void saveLocally() {
+        DataBaseImp.saveInfo(searchPresenter.getLastSearchedSeries().getTitle(), searchPresenter.getLastSearchedSeries().getSnippet());
     }
 }

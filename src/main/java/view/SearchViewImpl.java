@@ -1,6 +1,6 @@
 package view;
 import model.DataBaseImp;
-import fulllogic.SearchResult;
+import utils.SearchResult;
 import model.RatedSeries;
 import presenter.SearchPresenterImp;
 
@@ -11,13 +11,9 @@ import java.util.List;
 
 public class SearchViewImpl implements SearchView {
     private final SearchPresenterImp searchPresenter;
-    private JTextField textField1;
-    private JButton searchButton;
     private JPanel contentPane;
-    private JTextPane searchResultsTextPane;
-    private JButton saveLocallyButton;
     private JTabbedPane textPaneRatedSeries;
-    private JPanel searchPanel;
+    private SearchPanel searchPanel;
     private JPanel storagePanel;
     private JComboBox storedSeriesComboBox;
     private JTextPane storedInfoTextPane;
@@ -26,7 +22,7 @@ public class SearchViewImpl implements SearchView {
 
     DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
     String selectedResultTitle = null; //For storage purposes, it may not coincide with the searched term (see below)
-    String text = ""; //Last searched text! this variable is central for everything
+
 
     public SearchViewImpl(SearchPresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
@@ -42,13 +38,13 @@ public class SearchViewImpl implements SearchView {
         frame.pack();
         frame.setVisible(true);
 
-        setSearchPanel();
+        searchPanel.setPresenter(searchPresenter);
+
 
         setSavedPanel();
 
-
-
-        searchPresenter.showAllRatedSeries(); // Load and display rated series
+        searchPanel.setUpView();
+        searchPanel.setVisible(true);
 
         setRatedSeriesPanel();
 
@@ -72,6 +68,7 @@ public class SearchViewImpl implements SearchView {
 
 
     }
+
 
     private void setRatedSeriesPanel() {
         ratedSeriespanel.add(new JScrollPane(ratedSeriesList), BorderLayout.CENTER);
@@ -112,88 +109,29 @@ public class SearchViewImpl implements SearchView {
        storedSeriesComboBox.setModel(new DefaultComboBoxModel(DataBaseImp.getTitles().stream().sorted().toArray()));
     }
 
-    private void setSearchPanel() {
-        searchResultsTextPane.setContentType("text/html");
-
-        textField1.addPropertyChangeListener(propertyChangeEvent -> {
-            System.out.println("TYPED!!!");
-        });
-
-        // From here on is where the magic happends: querying wikipedia, showing results, etc.
-        searchButton.addActionListener(e ->  { searchPresenter.searchSeries();});
-
-        saveLocallyButton.addActionListener(actionEvent -> {
-            if(text != ""){
-                // save to DB  <o/
-                DataBaseImp.saveInfo(selectedResultTitle.replace("'", "`"), text);
-                storedSeriesComboBox.setModel(new DefaultComboBoxModel(DataBaseImp.getTitles().stream().sorted().toArray()));
-            }
-        });
-    }
 
 
-    private void setWorkingStatus() {
-        for(Component c: this.searchPanel.getComponents()) c.setEnabled(false);
-        searchResultsTextPane.setEnabled(false);
-    }
-
-
-    private void setWatingStatus() {
-        for(Component c: this.searchPanel.getComponents()) c.setEnabled(true);
-        searchResultsTextPane.setEnabled(true);
-    }
-
-
-    @Override
-    public String getSeriesName() {
-        return textField1.getText();
-    }
-
-    @Override
-    public void showResults(LinkedList<SearchResult> results) {
-        JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
-        for(SearchResult searchResult : results){
-            searchResult.addActionListener(actionEvent -> {
-                System.out.println("Mostrando resultados "+ searchResult.title);
-                selectedResultTitle = searchResult.title;
-                searchPresenter.getSelectedExtract(searchResult);
-
-            });
-            searchOptionsMenu.add(searchResult);
-            searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
-        }
-        setWatingStatus();
-    }
-
-    @Override
-    public void setSearchResultTextPane(String text) {
-        this.text = text;
-        searchResultsTextPane.setText(text);
-        searchResultsTextPane.setCaretPosition(0);
-    }
-
-    @Override
     public boolean existSavedTitle() {
         return storedSeriesComboBox.getSelectedItem() != null;
     }
 
-    @Override
+
     public String getSeletedSavedTitle() {
         return (String) storedSeriesComboBox.getSelectedItem();
     }
 
-    @Override
+
     public void showRating(int rating) {
 
 
     }
 
-    @Override
+
     public int getRatingInput() {
         return 0;
     }
 
-    @Override
+
     public void showRatedSeries(List<RatedSeries> ratedSeries) {
         DefaultListModel<RatedSeries> listModel = new DefaultListModel<>();
         for (RatedSeries series : ratedSeries) {
@@ -202,7 +140,7 @@ public class SearchViewImpl implements SearchView {
         ratedSeriespanel.add(new JList<>(listModel));
     }
 
-    @Override
+
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
         storedSeriesComboBox.addActionListener(actionEvent -> {
@@ -210,8 +148,36 @@ public class SearchViewImpl implements SearchView {
         });
     }
 
-    public String getSearchResultTextPane() {
-        return searchResultsTextPane.getText();
+
+    //------------------SearchPanel methods------------------
+
+
+    public void showSuccessMessage(String s) {
+        JOptionPane.showMessageDialog(contentPane, s);
     }
 
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(contentPane, message);
+    }
+
+    public String getSeriesName() {
+        return searchPanel.getSeriesName();
+    }
+
+    public void setSearchResultTextPane(String text) {
+        searchPanel.setSearchResultTextPane(text);
+    }
+
+    public String getSearchResultTextPane() {
+        return searchPanel.getSearchResultTextPane();
+    }
+
+    public SearchResult getLastSearchedSeries() {
+        return searchPanel.getLastSearchedSeries();
+    }
+
+    @Override
+    public void showResults(LinkedList<SearchResult> results) {
+        searchPanel.showResults(results);
+    }
 }

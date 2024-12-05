@@ -1,6 +1,6 @@
 package presenter;
 
-import fulllogic.SearchResult;
+import utils.SearchResult;
 
 public interface SearchPresenter {
 
@@ -19,4 +19,7 @@ public interface SearchPresenter {
 
     void showAllRatedSeries();
 
+    void saveLocally();
+
+    SearchResult getLastSearchedSeries();
 }
