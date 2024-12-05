@@ -1,0 +1,92 @@
+Se está desarrollando una aplicación llamada TV Series Info Repo que permite buscar información relacionada a series de TV en Wikipedia con la cual
+se puede armar un catálogo local. Esencialmente la aplicación está caracterizada por dos funcionalidades básicas:
+
+La de búsqueda, donde la aplicación recupera la información (título e introducción) de una página seleccionada resultante de una búsqueda en base a un
+ texto dado. Luego la aplicación muestra esa información y le permite al usuario guardarla localmente si lo desea.
+
+La de manipulación de la información local, donde el usuario puede ver la información almacenada previamente, modificarla y
+borrar aquellas entradas que desee.
+
+Estas funcionalidades básicas serán el core de la aplicación, sabiendo que en futuros sprints se extenderán con nuevas sub-funcionalidades,
+refinamientos, módulos adicionales y diferentes interfaces de usuario.
+
+En la actualidad se cuenta con una demo donde estas funcionalidades básicas están implementadas. Si bien esta implementación es, en general,
+funcionalmente correcta, en vistas de los futuros sprints tiene serios problemas de diseño y desarrollo. Los principales problemas son que se ha
+desarrollado en sin seguir patrones arquitectónicos, no se siguieron buenas prácticas como SOLID o Clean Code, y ha sido testeada de forma improvisada
+(no se cuenta con los casos de prueba). De manera similar, parte de la interfaz con el usuario se encuentra incompleta/desprolija, donde, por ejemplo,
+no se notifica adecuadamente al usuario cuando se produce algún problema o acción de exitosa y reporta varios mensajes de debugging por consola.
+
+Dados estos problemas, para el sprint actual se deberá hacer un rediseño completo de su arquitectura siguiendo buenas prácticas de Diseño y Desarrollo.
+Como parte de esto también se deberá completar la interfaz con el usuario, y mejorar la estrategia general de testeo.
+
+Por otro lado en sprint actual, se seleccionó del backlog una historia de usuario donde se buscará implementar la funcionalidad que le permite al
+ usuario agregar puntajes a las series que busca de wikipedia y tener así un catalogo de la valuación de sus series.
+
+Finalmente, hay tres historias que adicionales que se podrían abordar. Se podría hacer una migración completa de la aplicación a Android.
+También, se podría agregar un link a la pagina original de wikipedia y que al clickearlo la abra en el navegador. Además, se podría traer y
+ mostrar la foto de portada de la serie buscada. Trabajar sobre estas historias será completamente opcional, pero de funcionar sería valorado por el cliente.
+
+A continuación se detallará qué se espera de estas tareas.
+
+Descripción Detallada del Trabajo
+El trabajo a realizar en el proyecto se corresponde con las tareas de la sprint actual. Concretamente, esto implicará:
+
+- Analizar el estado actual del código (ver adjuntos).
+
+- Mejoras de diseño y refactoring:
+
+    - Modificar la estructura de ese código para que corresponda a una arquitectura basada en el patrón arquitectónico MVP.
+
+    - Realizar los cambios necesarios para que el código quede limpio (Clean Code) y cumpla con los principios SOLID.
+
+    - Agregar y modificar el código necesario para reportar adecuadamente al usuario cuando alguna de sus acciones no se pudo ejecutar exitosamente (por ejemplo, no se puede conectar a Wikipedia a buscar algo, no se puede borrar o guardar algo), cuando se guardó o borró una entrada exitosamente, y no mostrar por consola todos mensajes de debugging.
+
+- Historia de Usuario Mandatoria: Nueva funcionalidad para asignar puntajes a las series buscadas.
+
+    -  El usuario puede agregar un puntaje de 1 a 10 a una serie que haya buscado (solo para series buscadas, no para las guardadas – eso
+    queda para futuros sprints)
+
+        - Para esto debe extenderse las pestañas de “Search in Wikipedia” para permitir al usuario puntuar la serie buscada/seleccionada
+
+        - Si la serie ya tenia puntuación, debe mostrarse adecuadamente y permitirse modificar esa puntuación.
+
+        - Debería ser claro para el usuario cuando una serie no tiene puntuación
+
+        - No debe ser obligatorio para el usuario puntuar una serie o que le sistema ponga un valor de puntuación por defecto.
+        El usuario tiene que poder elegir si quiere puntuar algo o no.
+
+        - El almacenamiento de la puntuación es independiente de si la serie fue guardada o no
+
+    - El sistema debe contar con una pestaña adicional donde se muestre un listado con todas las series puntuadas
+
+        - Cada item en el listado debe indicar el nombre de la serie, la puntuación que se le asocio y la última fecha de actualización de la puntuación
+
+        - El listado deberá estar ordenado de menor a mayor por puntuación
+
+        - Al seleccionar un item y el sistema debería repetir la búsqueda/selección (devolviendo el foco a la pestaña de busqueda)
+
+    - Cada vez que se realiza la búsqueda de una serie y se muestra el popupmenu con los resultados de la búsqueda el
+        sistema debe indicar cuales de los elementos del listado tienen puntuacion asignada
+
+        -  La marca debe realizarse con un icono o carácter especial que anteceda al resultado indicando que este ha sido puntuado.
+
+    -  Todo el diseño y desarrollo realizado para esta extensión debe adaptarse a la arquitectura MVP y principios de la tarea de Mejoras de diseño
+        y refactoring.
+
+Testing:
+
+Realizar testing unitario (usando JUnit) tomando como unidad al Modelo(os) resultante(es) de la refactorización en base a MVP. Debe utilizarse la estrategia de Testeo Solitario para manejar las dependencias de tal unidad.
+
+Realizar testing de integración para la aplicación (usando JUnit) tomando como entradas y resultados los valores de los componentes gráficos, es decir, los test deben arrancar en una vista y comprobar el exito en una vista. En este testing deben utilizarse dobles de prueba (Stubs o Mocks) del repositorio/servicio externo, que simulen las respuestas de Wikipedia.
+
+Desarrollo de un informe, explicando los siguientes aspectos:
+
+Todo rediseño que se haya hecho, justificando por qué se hizo.
+
+Dónde y por qué se aplicaron principios SOLID.
+
+Cómo se organizó el testing.
+
+Diagrama de clases.
+
+Toda decisión de diseño/aclaración adicional a lo requerido por el enunciado.
