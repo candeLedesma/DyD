@@ -12,7 +12,7 @@ import java.util.List;
 public class SearchViewImpl implements SearchView {
     private final SearchPresenterImp searchPresenter;
     private JPanel contentPane;
-    private JTabbedPane textPaneRatedSeries;
+    private JTabbedPane tabbedPaneRatedSeries;
     private SearchPanel searchPanel;
     private JPanel storagePanel;
     private JComboBox storedSeriesComboBox;
@@ -66,14 +66,18 @@ public class SearchViewImpl implements SearchView {
         }
 
 
+    }
 
+    //------------------StoragePanel methods------------------
 
+    public void setSelectSavedComboBox(Object[] savedTitles) {
+        storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
+        storedSeriesComboBox.addActionListener(actionEvent -> {
+            System.out.println("Seleccioando "+ storedSeriesComboBox.getSelectedItem());
+        });
     }
 
 
-    private void setRatedSeriesPanel() {
-        ratedPanel.setRatedSeriesPanel();
-    }
     private void setSavedPanel() {
 
         setComboBox();
@@ -120,6 +124,8 @@ public class SearchViewImpl implements SearchView {
         return (String) storedSeriesComboBox.getSelectedItem();
     }
 
+    //------------------RatedPanel methods------------------
+
 
     public void showRating(int rating) {
 
@@ -133,20 +139,13 @@ public class SearchViewImpl implements SearchView {
 
 
     public void showRatedSeries(List<RatedSeries> ratedSeries) {
-        DefaultListModel<RatedSeries> listModel = new DefaultListModel<>();
-        for (RatedSeries series : ratedSeries) {
-            listModel.addElement(series);
-        }
-        ratedPanel.add(new JList<>(listModel));
+        ratedPanel.showRatedSeries(ratedSeries);
     }
 
-
-    public void setSelectSavedComboBox(Object[] savedTitles) {
-        storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
-        storedSeriesComboBox.addActionListener(actionEvent -> {
-            System.out.println("Seleccioando "+ storedSeriesComboBox.getSelectedItem());
-        });
+    private void setRatedSeriesPanel() {
+        ratedPanel.setRatedSeriesPanel();
     }
+
 
 
     //------------------SearchPanel methods------------------
