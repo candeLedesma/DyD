@@ -112,4 +112,20 @@ public class SearchPresenterImp implements SearchPresenter {
         return view.getLastSearchedSeries();
     }
 
+    public void getStoredInfo() {
+        taskThread = new Thread(() -> {
+            String selectedTitle = view.getSeletedSavedTitle();
+            DataBaseImp.getExtract(selectedTitle);
+        });
+        taskThread.start();
+    }
+
+    public void handleStoredInfo() {
+        taskThread = new Thread(() -> {
+            String selectedTitle = view.getSeletedSavedTitle();
+            String extract = DataBaseImp.getExtract(selectedTitle);
+            view.setStoredTextPane(extract);
+        });
+        taskThread.start();
+    }
 }

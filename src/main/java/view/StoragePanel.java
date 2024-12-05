@@ -8,7 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class StoragePanel extends JPanel implements SearchView {
+import utils.TextoHTML;
+
+public class StoragePanel extends JPanel {
 
     private JPanel storagePanel;
 
@@ -27,16 +29,6 @@ public class StoragePanel extends JPanel implements SearchView {
         this.add(storagePanel);
     }
 
-    @Override
-    public void showView() {
-
-    }
-
-    @Override
-    public void showResults(LinkedList<SearchResult> results) {
-
-    }
-
 
     public void setPresenter(SearchPresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
@@ -46,6 +38,7 @@ public class StoragePanel extends JPanel implements SearchView {
         setComboBox();
 
         storedInfoTextPane.setContentType("text/html");
+        storedInfoTextPane.setEditable(true);
 
         setPopupMenu();
 
@@ -73,12 +66,18 @@ public class StoragePanel extends JPanel implements SearchView {
 
     void setComboBox() {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(DataBaseImp.getTitles().stream().sorted().toArray()));
+        storedSeriesComboBox.addActionListener(actionEvent -> {
+            System.out.println("Obteniendo "+ storedSeriesComboBox.getSelectedItem());
+            searchPresenter.handleStoredInfo();
+        });
     }
+
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
         storedSeriesComboBox.addActionListener(actionEvent -> {
-            System.out.println("Seleccioando "+ storedSeriesComboBox.getSelectedItem());
+            System.out.println("Obteniendo "+ storedSeriesComboBox.getSelectedItem());
+            searchPresenter.getStoredInfo();
         });
     }
 
@@ -88,5 +87,13 @@ public class StoragePanel extends JPanel implements SearchView {
 
     public String getSeletedSavedTitle() {
         return (String) storedSeriesComboBox.getSelectedItem();
+    }
+
+
+    public void setStoredTextPane(String extract) {
+        SwingUtilities.invokeLater(() -> {
+            storedInfoTextPane.setText(TextoHTML.textToHtml(extract));
+            //storedInfoTextPane.setCaretPosition(0);
+        });
     }
 }

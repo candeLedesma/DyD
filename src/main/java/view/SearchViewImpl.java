@@ -70,6 +70,7 @@ public class SearchViewImpl implements SearchView {
     //------------------StoragePanel methods------------------
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
+        System.out.println("Setting saved titles");
         storagePanel.setSelectSavedComboBox(savedTitles);
     }
 
@@ -134,5 +135,11 @@ public class SearchViewImpl implements SearchView {
     @Override
     public void showResults(LinkedList<SearchResult> results) {
         searchPanel.showResults(results);
+    }
+
+    public void setStoredTextPane(String extract) {
+        System.out.println("Setting stored text pane");
+        System.out.println("extract "+extract);
+        storagePanel.setStoredTextPane(extract);
     }
 }
