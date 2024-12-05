@@ -17,8 +17,7 @@ public class SearchViewImpl implements SearchView {
     private JPanel storagePanel;
     private JComboBox storedSeriesComboBox;
     private JTextPane storedInfoTextPane;
-    private JPanel ratedSeriespanel;
-    private JList ratedSeriesList;
+    private RatedPanel ratedPanel;
 
     DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
     String selectedResultTitle = null; //For storage purposes, it may not coincide with the searched term (see below)
@@ -73,8 +72,7 @@ public class SearchViewImpl implements SearchView {
 
 
     private void setRatedSeriesPanel() {
-        ratedSeriespanel.add(new JScrollPane(ratedSeriesList), BorderLayout.CENTER);
-        textPaneRatedSeries.addTab("Rated Series", ratedSeriespanel);
+        ratedPanel.setRatedSeriesPanel();
     }
     private void setSavedPanel() {
 
@@ -139,7 +137,7 @@ public class SearchViewImpl implements SearchView {
         for (RatedSeries series : ratedSeries) {
             listModel.addElement(series);
         }
-        ratedSeriespanel.add(new JList<>(listModel));
+        ratedPanel.add(new JList<>(listModel));
     }
 
 
