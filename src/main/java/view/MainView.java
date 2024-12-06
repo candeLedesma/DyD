@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class SearchViewImpl implements SearchView {
+public class MainView implements SearchView {
     private final SearchPresenterImp searchPresenter;
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;
@@ -15,10 +15,7 @@ public class SearchViewImpl implements SearchView {
     private StoragePanel storagePanel;
 
 
-    String selectedResultTitle = null; //For storage purposes, it may not coincide with the searched term (see below)
-
-
-    public SearchViewImpl(SearchPresenterImp searchPresenter) {
+    public MainView(SearchPresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
 
     }
@@ -67,7 +64,6 @@ public class SearchViewImpl implements SearchView {
     //------------------StoragePanel methods------------------
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
-        System.out.println("Setting saved titles");
         storagePanel.setSelectSavedComboBox(savedTitles);
     }
 
@@ -121,8 +117,6 @@ public class SearchViewImpl implements SearchView {
     }
 
     public void setStoredTextPane(String extract) {
-        System.out.println("Setting stored text pane");
-        System.out.println("extract "+extract);
         storagePanel.setStoredTextPane(extract);
     }
 }

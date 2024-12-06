@@ -27,6 +27,8 @@ public class SearchModelImp implements SearchModel {
 
     private Gson gson;
 
+    private LinkedList<Serie> searchResultsArray;
+
     public SearchModelImp() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://en.wikipedia.org/w/")
@@ -43,29 +45,25 @@ public class SearchModelImp implements SearchModel {
 
         Response<String> callForSearchResponse;
 
-        LinkedList<Serie> searchResultsArray = new LinkedList<>();
+        searchResultsArray = new LinkedList<>();
         try {
-            //ToAlberto: First, lets search for the term in Wikipedia
             callForSearchResponse = searchAPI.searchForTerm(seriesName + " (Tv series) articletopic:\"television\"").execute();
 
-            //Show the result for testing reasons, if it works,
-            System.out.println("JSON " + callForSearchResponse.body());
 
             JsonObject jobj = gson.fromJson(callForSearchResponse.body(), JsonObject.class);
             JsonObject query = jobj.get("query").getAsJsonObject();
-            Iterator<JsonElement> resultIterator = query.get("search").getAsJsonArray().iterator();
+            //Iterator<JsonElement> resultIterator = query.get("search").getAsJsonArray().iterator();
             JsonArray jsonResults = query.get("search").getAsJsonArray();
 
-            //toAlberto: shows each result in the JSonArry in a Popupmenu
-            //JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
+
             for (JsonElement je : jsonResults) {
                 JsonObject searchResult = je.getAsJsonObject();
                 String searchResultTitle = searchResult.get("title").getAsString();
                 String searchResultPageId = searchResult.get("pageid").getAsString();
                 String searchResultSnippet = searchResult.get("snippet").getAsString();
 
-                Serie sr = new Serie(searchResultTitle, searchResultPageId, searchResultSnippet);
-                searchResultsArray.add(sr);
+                Serie serie = new Serie(searchResultTitle, searchResultPageId, searchResultSnippet);
+                searchResultsArray.add(serie);
             }
 
         } catch (Exception e) {

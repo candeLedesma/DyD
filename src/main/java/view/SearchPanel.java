@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class SearchPanel extends JPanel{
     private JPanel searchPanel;
-    private JTextField searchText;
+    private JTextField searchSerieField;
     private JButton searchButton;
     private JTextPane searchResultsTextPane;
     private JButton saveLocallyButton;
@@ -57,12 +57,13 @@ public class SearchPanel extends JPanel{
         return this.lastSearchedSeries;
     }
 
-    public void setSearchResultTextPane(String text) {
-        searchResultsTextPane.setText(text);
+    public void setSearchResultTextPane(String seriesName) {
+        this.serieName = seriesName;
+        searchResultsTextPane.setText(seriesName);
+        searchResultsTextPane.setCaretPosition(0);
     }
 
     public String getSearchResultTextPane() {
-        System.out.println("RESULTADO DE BUSQUEDA "+searchResultsTextPane.getText());
         return searchResultsTextPane.getText();
     }
 

@@ -1,6 +1,4 @@
 package view;
-
-import model.DataBaseImp;
 import presenter.SearchPresenterImp;
 
 import javax.swing.*;
@@ -10,8 +8,6 @@ import utils.TextoHTML;
 public class StoragePanel extends JPanel {
 
     private JPanel storagePanel;
-
-    private JList savedSeriesList;
 
     private SearchPresenterImp searchPresenter;
 
@@ -32,28 +28,31 @@ public class StoragePanel extends JPanel {
     }
 
     public void setSavedPanel() {
-        setComboBox();
+        setUpComboBox();
 
-        storedInfoTextPane.setContentType("text/html");
-        storedInfoTextPane.setEditable(true);
+        setUpStoredInfoTextPane();
 
-        setPopupMenu();
+        setUpPopupMenu();
 
     }
 
-    void setPopupMenu() {
+    private void setUpStoredInfoTextPane() {
+        storedInfoTextPane.setContentType("text/html");
+        storedInfoTextPane.setEditable(true);
+    }
+
+    void setUpPopupMenu() {
         JPopupMenu storedInfoPopup = new JPopupMenu();
 
         JMenuItem deleteItem = new JMenuItem("Delete!");
+
         deleteItem.addActionListener(actionEvent -> {
-            System.out.println("eliminando "+ storedSeriesComboBox.getSelectedItem());
             searchPresenter.deleteStoredInfo();
         });
         storedInfoPopup.add(deleteItem);
 
         JMenuItem saveItem = new JMenuItem("Save Changes!");
         saveItem.addActionListener(actionEvent -> {
-            System.out.println("Guardando "+ storedSeriesComboBox.getSelectedItem());
             searchPresenter.saveStoredInfo();
         });
         storedInfoPopup.add(saveItem);
@@ -61,19 +60,15 @@ public class StoragePanel extends JPanel {
         storedInfoTextPane.setComponentPopupMenu(storedInfoPopup);
     }
 
-    void setComboBox() {
-        storedSeriesComboBox.setModel(new DefaultComboBoxModel(DataBaseImp.getTitles().stream().sorted().toArray()));
-        storedSeriesComboBox.addActionListener(actionEvent -> {
-            System.out.println("Obteniendo "+ storedSeriesComboBox.getSelectedItem());
-            searchPresenter.getStoredInfo();
-        });
+    void setUpComboBox() {
+        searchPresenter.initializeSavedPanel();
     }
 
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
+
         storedSeriesComboBox.addActionListener(actionEvent -> {
-            System.out.println("Obteniendo "+ storedSeriesComboBox.getSelectedItem());
             searchPresenter.getStoredInfo();
         });
     }
@@ -88,9 +83,6 @@ public class StoragePanel extends JPanel {
 
 
     public void setStoredTextPane(String extract) {
-        SwingUtilities.invokeLater(() -> {
-            storedInfoTextPane.setText(TextoHTML.textToHtml(extract));
-            storedInfoTextPane.setCaretPosition(0);
-        });
+        storedInfoTextPane.setText(TextoHTML.textToHtml(extract));
     }
 }

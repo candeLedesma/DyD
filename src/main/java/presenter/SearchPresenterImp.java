@@ -3,14 +3,14 @@ package presenter;
 import model.DataBaseImp;
 import utils.Serie;
 import model.SearchModelImp;
-import view.SearchViewImpl;
+import view.MainView;
 
 import java.util.LinkedList;
 
 public class SearchPresenterImp implements SearchPresenter {
 
 
-    private SearchViewImpl view;
+    private MainView view;
 
     private SearchModelImp model;
 
@@ -22,7 +22,7 @@ public class SearchPresenterImp implements SearchPresenter {
     }
 
     public void start(){
-        view = new SearchViewImpl(this);
+        view = new MainView(this);
         view.showView();
 
         DataBaseImp.loadDatabase();
@@ -98,4 +98,7 @@ public class SearchPresenterImp implements SearchPresenter {
     }
 
 
+    public void initializeSavedPanel() {
+        view.setSelectSavedComboBox(model.getSavedTitles());
+    }
 }
