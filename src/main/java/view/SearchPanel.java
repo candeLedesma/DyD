@@ -70,4 +70,8 @@ public class SearchPanel extends JPanel{
     public String getSeriesName() {
         return serieName;
     }
+
+    public String getsSearchSerieField() {
+        return searchSerieField.getText();
+    }
 }

@@ -32,7 +32,7 @@ public class SearchPresenterImp implements SearchPresenter {
     @Override
     public void searchSeries() {
         taskThread = new Thread(() -> {
-            String seriesName = view.getSeriesName();
+            String seriesName = view.getSearchSerieField();
 
             LinkedList<Serie> results = model.searchSeries(seriesName);
 

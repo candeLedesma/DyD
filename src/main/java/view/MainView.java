@@ -119,4 +119,8 @@ public class MainView implements SearchView {
     public void setStoredTextPane(String extract) {
         storagePanel.setStoredTextPane(extract);
     }
+
+    public String getSearchSerieField() {
+        return searchPanel.getsSearchSerieField();
+    }
 }
