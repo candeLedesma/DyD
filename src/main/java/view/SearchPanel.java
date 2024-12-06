@@ -74,4 +74,8 @@ public class SearchPanel extends JPanel{
     public String getsSearchSerieField() {
         return searchSerieField.getText();
     }
+
+    public void showSuccessMessage() {
+        JOptionPane.showMessageDialog(this, "The series was correctly saved!");
+    }
 }

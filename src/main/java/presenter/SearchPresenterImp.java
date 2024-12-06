@@ -53,16 +53,16 @@ public class SearchPresenterImp implements SearchPresenter {
 
     @Override
     public void deleteStoredInfo() {
-        if (view.existSavedTitle()) {
+        if (view.hasSelectedIndex()) { // If there is a selected index in the comboBox
             String title = view.getSeletedSavedTitle();
             model.deleteSavedInfo(title);
-            view.setSelectSavedComboBox(model.getSavedTitles());
+            view.deleteSelectedIndex();
         }
     }
 
     @Override
     public void saveStoredInfo() {
-        if (view.existSavedTitle()) {
+        if (view.hasSelectedIndex()) {
             String title = view.getSeletedSavedTitle();
             String text = view.getSearchResultTextPane();
             model.saveStoredInfo(title, text);

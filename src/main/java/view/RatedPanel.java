@@ -20,10 +20,6 @@ public class RatedPanel extends JPanel implements SearchView {
 
     @Override
     public void showView() {
-
-    }
-
-    void setRatedSeriesPanel() {
         ratedPanel.add(new JScrollPane(ratedSeriesList), BorderLayout.CENTER);
         textPaneRatedSeries.addTab("Rated Series", ratedPanel);
     }

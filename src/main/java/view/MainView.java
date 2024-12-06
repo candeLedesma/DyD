@@ -68,7 +68,7 @@ public class MainView implements SearchView {
     }
 
 
-    public boolean existSavedTitle() {
+    public boolean hasSelectedIndex() {
         return storagePanel.existSavedTitle();
     }
 
@@ -80,7 +80,7 @@ public class MainView implements SearchView {
     //------------------RatedPanel methods------------------
 
     private void setRatedSeriesPanel() {
-        ratedPanel.setRatedSeriesPanel();
+        ratedPanel.showView();
     }
 
 
@@ -122,5 +122,10 @@ public class MainView implements SearchView {
 
     public String getSearchSerieField() {
         return searchPanel.getsSearchSerieField();
+    }
+
+    public void deleteSelectedIndex() {
+        storagePanel.deleteSelectedIndex();
+        searchPanel.showSuccessMessage();
     }
 }

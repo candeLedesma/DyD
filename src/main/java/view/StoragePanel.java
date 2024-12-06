@@ -74,15 +74,20 @@ public class StoragePanel extends JPanel {
     }
 
     public boolean existSavedTitle() {
-        return storedSeriesComboBox.getSelectedItem() != null;
+        return storedSeriesComboBox.getSelectedIndex() > -1;
     }
 
     public String getSeletedSavedTitle() {
-        return (String) storedSeriesComboBox.getSelectedItem();
+        return storedSeriesComboBox.getSelectedItem().toString();
     }
 
 
     public void setStoredTextPane(String extract) {
         storedInfoTextPane.setText(TextoHTML.textToHtml(extract));
+    }
+
+    public void deleteSelectedIndex() {
+        storedSeriesComboBox.removeItemAt(storedSeriesComboBox.getSelectedIndex());
+        storedInfoTextPane.setText("");
     }
 }
