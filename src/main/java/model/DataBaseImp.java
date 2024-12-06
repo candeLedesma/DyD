@@ -296,4 +296,36 @@ public class DataBaseImp {
     return null;
   }
 
+  public static void setScore(Serie serie) {
+    Connection connection = null;
+    try
+    {
+      // create a database connection
+      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
+
+      Statement statement = connection.createStatement();
+      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+      System.out.println("INSERT  " + serie.getTitle() + "', '"+ serie.getScore());
+
+      statement.executeUpdate("replace into catalog values(null, '"+ serie.getTitle() + "', '"+ serie.getScore() + "', 2)");
+    }
+    catch(SQLException e)
+    {
+      System.err.println("Error saving " + e.getMessage());
+    }
+    finally
+    {
+      try
+      {
+        if(connection != null)
+          connection.close();
+      }
+      catch(SQLException e)
+      {
+        // connection close failed.
+        System.err.println( e);
+      }
+    }
+  }
 }

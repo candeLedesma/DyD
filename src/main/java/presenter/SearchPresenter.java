@@ -16,4 +16,6 @@ public interface SearchPresenter {
     void saveLocally();
 
     Serie getLastSearchedSeries();
+
+    void recordScore();
 }

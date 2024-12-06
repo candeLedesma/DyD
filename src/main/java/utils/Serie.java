@@ -49,6 +49,7 @@ public class Serie extends JMenuItem {
 
     public void setScore(int score) {
         this.score = score;
+        hasScore = true;
     }
 
     public int getScore() {

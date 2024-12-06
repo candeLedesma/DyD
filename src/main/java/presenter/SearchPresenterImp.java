@@ -88,6 +88,14 @@ public class SearchPresenterImp implements SearchPresenter {
         return view.getLastSearchedSeries();
     }
 
+    @Override
+    public void recordScore() {
+        Serie lastSearchedSeries = view.getLastSearchedSeries();
+        int newScore = view.getScore();
+        lastSearchedSeries.setScore(newScore); // Actualizar la puntuación en la serie
+        DataBaseImp.setScore(lastSearchedSeries);
+    }
+
     public void getStoredInfo() {
         taskThread = new Thread(() -> {
             String selectedTitle = view.getSeletedSavedTitle();

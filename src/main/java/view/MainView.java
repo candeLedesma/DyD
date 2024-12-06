@@ -126,4 +126,7 @@ public class MainView implements SearchView {
         searchPanel.showSuccessMessage();
     }
 
+    public int getScore() {
+        return searchPanel.getScore();
+    }
 }

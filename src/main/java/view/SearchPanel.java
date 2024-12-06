@@ -61,30 +61,29 @@ public class SearchPanel extends JPanel{
     }
 
     private void showScorePanel() {
-        System.out.println("Showing score panel");
 
         sliderScore.setVisible(true);
         setScoreButton.setVisible(true);
 
+        int currentScore = 0;
+
         if (lastSearchedSeries.hasScore()) {
-            int currentScore = lastSearchedSeries.getScore();
-            scoreLabel.setText(scoreLabel.getText() + currentScore);
-            sliderScore.setValue(currentScore); // Mostrar puntuación en el slider
+            currentScore = lastSearchedSeries.getScore();
+            scoreLabel.setText("Score: " + currentScore);
         } else {
-            scoreLabel.setText(scoreLabel.getText()+" No score found for this series.");
-            sliderScore.setValue(0); // Slider en 0, pero sin que sea obligatorio puntuar
+            scoreLabel.setText("Score: No score found for this series.");
         }
 
         scoreLabel.repaint();
 
-
-        // Añadir un listener para el slider, permitiendo modificar la puntuación
         sliderScore.addChangeListener(e -> {
             if (!sliderScore.getValueIsAdjusting()) { // Solo guardar cuando el usuario suelte el slider
-                int newScore = sliderScore.getValue();
-                lastSearchedSeries.setScore(newScore); // Actualizar la puntuación en la serie
-                scoreLabel.setText("Score: "+ newScore); // Mostrar la nueva puntuación
+                scoreLabel.setText("Score: "+ sliderScore.getValue()); // Mostrar la nueva puntuación
             }
+        });
+
+        setScoreButton.addActionListener(e -> {
+            searchPresenter.recordScore();
         });
 
 
@@ -119,4 +118,7 @@ public class SearchPanel extends JPanel{
         JOptionPane.showMessageDialog(this, "The series was correctly saved!");
     }
 
+    public int getScore() {
+        return sliderScore.getValue();
+    }
 }
