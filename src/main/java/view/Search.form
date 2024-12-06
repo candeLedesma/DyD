@@ -58,23 +58,51 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="cf575" class="javax.swing.JLabel" binding="scoreLabel">
+          <splitpane id="31cff">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font style="1"/>
-              <text value="Score:"/>
-              <visible value="false"/>
+              <autoscrolls value="true"/>
+              <dividerLocation value="250"/>
+              <dividerSize value="0"/>
+              <enabled value="false"/>
+              <focusable value="true"/>
+              <oneTouchExpandable value="true"/>
+              <requestFocusEnabled value="true"/>
+              <verifyInputWhenFocusTarget value="true"/>
             </properties>
-          </component>
-          <component id="e0687" class="javax.swing.JSlider" binding="sliderScore">
+            <border type="none"/>
+            <children>
+              <component id="4987a" class="javax.swing.JLabel" binding="scoreLabel">
+                <constraints>
+                  <splitpane position="left"/>
+                </constraints>
+                <properties>
+                  <text value="Score:"/>
+                </properties>
+              </component>
+              <component id="9d50b" class="javax.swing.JButton" binding="setScoreButton">
+                <constraints>
+                  <splitpane position="right"/>
+                </constraints>
+                <properties>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <focusPainted value="false"/>
+                  <focusable value="false"/>
+                  <maximumSize width="34" height="34"/>
+                  <minimumSize width="34" height="34"/>
+                  <text value="Set Score"/>
+                </properties>
+              </component>
+            </children>
+          </splitpane>
+          <component id="a6baa" class="javax.swing.JSlider" binding="sliderScore">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <visible value="false"/>
-            </properties>
+            <properties/>
           </component>
         </children>
       </grid>

@@ -19,6 +19,7 @@ public class SearchPanel extends JPanel{
     private Serie lastSearchedSeries;
     private JLabel scoreLabel;
     private JSlider sliderScore;
+    private JButton setScoreButton;
 
     public SearchPanel() {
         this.setVisible(true);
@@ -63,6 +64,7 @@ public class SearchPanel extends JPanel{
         System.out.println("Showing score panel");
 
         sliderScore.setVisible(true);
+        setScoreButton.setVisible(true);
 
         if (lastSearchedSeries.hasScore()) {
             int currentScore = lastSearchedSeries.getScore();
