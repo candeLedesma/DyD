@@ -95,9 +95,6 @@ public class MainView implements SearchView {
         JOptionPane.showMessageDialog(contentPane, message);
     }
 
-    public String getSeriesName() {
-        return searchPanel.getSeriesName();
-    }
 
     public void setSearchResultTextPane(String text) {
         searchPanel.setSearchResultTextPane(text);
@@ -128,4 +125,5 @@ public class MainView implements SearchView {
         storagePanel.deleteSelectedIndex();
         searchPanel.showSuccessMessage();
     }
+
 }

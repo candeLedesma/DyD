@@ -12,6 +12,13 @@ public class Serie extends JMenuItem {
 
     public int score;
 
+    public boolean hasScore() {
+        return hasScore;
+    }
+
+
+    public boolean hasScore = false;
+
 
     public Serie(String title, String pageID, String snippet) {
         this.title = title;
@@ -47,5 +54,7 @@ public class Serie extends JMenuItem {
     public int getScore() {
         return score;
     }
+
+
 
 }
