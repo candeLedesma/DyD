@@ -115,6 +115,6 @@ public class SearchPresenterImp implements SearchPresenter {
     }
 
     public int getScore() {
-        return model.getScore();
+        return view.getScore();
     }
 }

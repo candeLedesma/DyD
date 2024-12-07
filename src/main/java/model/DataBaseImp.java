@@ -76,12 +76,19 @@ public class DataBaseImp implements DataBase {
 
   @Override
   public void saveScore(String title, int score) {
-    executeUpdate(
-            "INSERT INTO scored (title, score) VALUES (?, ?) " +
-                    "ON CONFLICT(title) DO UPDATE SET score = excluded.score",
-            title, score
-    );
+    String query = "INSERT OR REPLACE INTO scored (title, score) VALUES (?, ?)";
+    System.out.println("Guardando puntuación..."+title+" "+score);
+    try (Connection connection = DriverManager.getConnection(DB_URL);
+         PreparedStatement stmt = connection.prepareStatement(query)) {
+      stmt.setString(1, title);
+      stmt.setInt(2, score);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
+
+
 
   @Override
   public int getScore(String title) {
