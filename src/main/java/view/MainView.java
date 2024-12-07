@@ -11,7 +11,7 @@ public class MainView implements SearchView {
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;
     private SearchPanel searchPanel;
-    private RatedPanel ratedPanel;
+    private ScoredSeriesPanel ratedPanel;
     private StoragePanel storagePanel;
 
 
@@ -42,6 +42,7 @@ public class MainView implements SearchView {
 
         setRatedSeriesPanel();
 
+
         try {
             // Set System L&F
             UIManager.put("nimbusSelection", new Color(247,248,250));
@@ -61,7 +62,6 @@ public class MainView implements SearchView {
 
     }
 
-    //------------------StoragePanel methods------------------
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storagePanel.setSelectSavedComboBox(savedTitles);
@@ -77,14 +77,10 @@ public class MainView implements SearchView {
         return storagePanel.getSeletedSavedTitle();
     }
 
-    //------------------RatedPanel methods------------------
 
     private void setRatedSeriesPanel() {
         ratedPanel.showView();
     }
-
-
-    //------------------SearchPanel methods------------------
 
 
     public void showSuccessMessage(String s) {
