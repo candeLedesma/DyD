@@ -41,6 +41,7 @@ public class SearchModelImp implements SearchModel {
         pageAPI = retrofit.create(WikipediaPageAPI.class);
         gson = new Gson();
         database = new DataBaseImp();
+        database.loadDatabase();
     }
 
     @Override
@@ -182,7 +183,4 @@ public class SearchModelImp implements SearchModel {
         return database.getScore(searchPresenter.getLastSearchedSeries().getTitle());
     }
 
-    public void start() {
-        database.loadDatabase();
-    }
 }

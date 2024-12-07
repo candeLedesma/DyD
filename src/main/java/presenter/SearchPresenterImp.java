@@ -25,8 +25,6 @@ public class SearchPresenterImp implements SearchPresenter {
     public void start(){
         view = new MainView(this);
         view.showView();
-
-        model.start();
     }
 
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class DataBaseImp implements DataBase {
 
-  private static final String DB_URL = "jdbc:sqlite:./dictionary.db";
+  private final String DB_URL = "jdbc:sqlite:./dictionary.db";
 
 
   private interface ResultSetHandler<T> {
@@ -84,13 +84,14 @@ public class DataBaseImp implements DataBase {
   }
 
   @Override
-  public Integer getScore(String title) {
+  public int getScore(String title) {
     return executeQuery(
             "SELECT score FROM scored WHERE title = ?",
-            rs -> rs.next() ? rs.getInt("score") : null,
+            rs -> rs.next() ? rs.getInt("score") : 0, // Retorna 0 si no se encuentra
             title
     );
   }
+
 
   @Override
   public void deleteEntry(String title) {
@@ -106,6 +107,8 @@ public class DataBaseImp implements DataBase {
   }
 
   public void loadDatabase() {
+
+    System.out.println("Cargando base de datos...");
     try (Connection connection = DriverManager.getConnection(DB_URL);
          Statement statement = connection.createStatement()) {
       statement.setQueryTimeout(30);
@@ -119,16 +122,16 @@ public class DataBaseImp implements DataBase {
 
 
   private static void createScoredTable(Statement statement) throws SQLException {
-    statement.executeUpdate(
-            "CREATE TABLE IF NOT EXISTS scored (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "title TEXT UNIQUE, " +
-                    "score INTEGER)"
-    );
+    System.out.println("Creando tabla 'scored'...");
+    String createTableSQL = "CREATE TABLE IF NOT EXISTS scored ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE, score INTEGER)";
+    statement.executeUpdate(createTableSQL);
+    System.out.println("Tabla 'scored' creada o ya existía.");
   }
 
 
-  private static void createCatalogTable(Statement statement) throws SQLException {
+
+  private void createCatalogTable(Statement statement) throws SQLException {
+    System.out.println("Creando tabla 'catalog'...");
     statement.executeUpdate(
             "CREATE TABLE IF NOT EXISTS catalog (id INTEGER, title STRING PRIMARY KEY, extract STRING, source INTEGER)"
     );
