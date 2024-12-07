@@ -19,10 +19,4 @@ public interface SearchModel {
 
     void setPresenter(SearchPresenter presenter);
 
-    //for new functionality
-    void saveRating(String title, int rating);
-
-    int getRating(String title);
-
-    List<Serie> getAllRatedSeries();
 }

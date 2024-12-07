@@ -76,8 +76,8 @@ public class SearchPanel extends JPanel{
         scoreLabel.repaint();
 
         sliderScore.addChangeListener(e -> {
-            if (!sliderScore.getValueIsAdjusting()) { // Solo guardar cuando el usuario suelte el slider
-                scoreLabel.setText("Score: "+ sliderScore.getValue()); // Mostrar la nueva puntuación
+            if (!sliderScore.getValueIsAdjusting()) {
+                scoreLabel.setText("Score: "+ sliderScore.getValue());
             }
         });
 

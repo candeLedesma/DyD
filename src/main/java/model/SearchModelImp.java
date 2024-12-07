@@ -86,17 +86,8 @@ public class SearchModelImp implements SearchModel {
         String pageContent = "";
 
         try {
-            //This may take some time, dear user be patient in the meanwhile!
-            //setWorkingStatus();
-            //Now fetch the info of the select page
-
-            //Now fetch the info of the select page
             callForPageResponse = pageAPI.getExtractByPageID(searchResult.pageID).execute();
 
-            System.out.println("JSON " + callForPageResponse.body());
-
-            //toAlberto: This is similar to the code above, but here we parse the wikipage answer.
-            //For more details on Gson look for very important coment 1, or just google it :P
             JsonObject jobj2 = gson.fromJson(callForPageResponse.body(), JsonObject.class);
             JsonObject query2 = jobj2.get("query").getAsJsonObject();
             JsonObject pages = query2.get("pages").getAsJsonObject();
@@ -112,10 +103,6 @@ public class SearchModelImp implements SearchModel {
                 pageContent+= searchResultExtract2.getAsString().replace("\\n", "\n");
                 pageContent = textToHtml(pageContent);
             }
-            /*textPane1.setText(text);
-            textPane1.setCaretPosition(0);
-            //Back to edit time!
-            setWatingStatus();*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,23 +129,6 @@ public class SearchModelImp implements SearchModel {
         this.searchPresenter = (SearchPresenterImp) presenter;
     }
 
-    @Override
-    public void saveRating(String title, int rating) {
-        //
-    }
-
-    @Override
-    public int getRating(String title) {
-       //
-        return 1;
-    }
-
-    @Override
-    public List<Serie> getAllRatedSeries() {
-       //
-        return null;
-    }
-
     public void saveLocally() {
         database.saveInfo(searchPresenter.getLastSearchedSeries().getTitle(), searchPresenter.getLastSearchedSeries().getSnippet());
     }
@@ -174,8 +144,8 @@ public class SearchModelImp implements SearchModel {
     }
 
     public boolean hasScore(Serie lastSearchedSeries) {
-        Integer score = database.getScore(lastSearchedSeries.getTitle());
-        return score != null && score > 0;
+        int score = database.getScore(lastSearchedSeries.getTitle());
+        return score > 0;
     }
 
 

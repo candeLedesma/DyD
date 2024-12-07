@@ -1,7 +1,5 @@
 package presenter;
 
-import model.DataBase;
-import model.DataBaseImp;
 import utils.Serie;
 import model.SearchModelImp;
 import view.MainView;
