@@ -18,4 +18,8 @@ public interface DataBase {
     void saveScore(String title, int score);
 
 
+    Integer getScore(String title);
+
+    void loadDatabase();
+
 }

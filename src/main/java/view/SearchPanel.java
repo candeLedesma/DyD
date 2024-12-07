@@ -65,10 +65,10 @@ public class SearchPanel extends JPanel{
         sliderScore.setVisible(true);
         setScoreButton.setVisible(true);
 
-        int currentScore = 0;
-
-        if (lastSearchedSeries.hasScore()) {
-            currentScore = lastSearchedSeries.getScore();
+        System.out.println("serie: "+lastSearchedSeries);
+        System.out.println("tiene score"+lastSearchedSeries.hasScore());
+        if (searchPresenter.hasScore()) {
+            int currentScore = searchPresenter.getScore();
             scoreLabel.setText("Score: " + currentScore);
         } else {
             scoreLabel.setText("Score: No score found for this series.");

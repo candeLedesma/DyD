@@ -18,4 +18,8 @@ public interface SearchPresenter {
     Serie getLastSearchedSeries();
 
     void recordScore();
+
+    boolean hasScore();
+
+    int getScore();
 }

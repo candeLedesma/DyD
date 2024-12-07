@@ -1,5 +1,6 @@
 package presenter;
 
+import model.DataBase;
 import model.DataBaseImp;
 import utils.Serie;
 import model.SearchModelImp;
@@ -25,7 +26,7 @@ public class SearchPresenterImp implements SearchPresenter {
         view = new MainView(this);
         view.showView();
 
-        DataBaseImp.loadDatabase();
+        model.start();
     }
 
 
@@ -92,8 +93,13 @@ public class SearchPresenterImp implements SearchPresenter {
     public void recordScore() {
         Serie lastSearchedSeries = view.getLastSearchedSeries();
         int newScore = view.getScore();
-        lastSearchedSeries.setScore(newScore); // Actualizar la puntuación en la serie
+        lastSearchedSeries.setScore(newScore);
         model.setScore();
+    }
+
+
+    public boolean hasScore() {
+        return model.hasScore(getLastSearchedSeries());
     }
 
     public void getStoredInfo() {
@@ -108,5 +114,9 @@ public class SearchPresenterImp implements SearchPresenter {
 
     public void initializeSavedPanel() {
         view.setSelectSavedComboBox(model.getSavedTitles());
+    }
+
+    public int getScore() {
+        return model.getScore();
     }
 }

@@ -163,10 +163,26 @@ public class SearchModelImp implements SearchModel {
     }
 
     public void setScore() {
-        //TODO
+        Serie serie = searchPresenter.getLastSearchedSeries();
+        int score = searchPresenter.getScore();
+        database.saveScore(serie.getTitle(),score);
     }
 
     public String getExtract(String title) {
         return database.getExtract(title);
+    }
+
+    public boolean hasScore(Serie lastSearchedSeries) {
+        Integer score = database.getScore(lastSearchedSeries.getTitle());
+        return score != null && score > 0;
+    }
+
+
+    public int getScore() {
+        return database.getScore(searchPresenter.getLastSearchedSeries().getTitle());
+    }
+
+    public void start() {
+        database.loadDatabase();
     }
 }

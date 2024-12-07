@@ -1,5 +1,6 @@
 package model;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -7,12 +8,10 @@ public class DataBaseImp implements DataBase {
 
   private static final String DB_URL = "jdbc:sqlite:./dictionary.db";
 
-  public DataBaseImp() {}
 
   private interface ResultSetHandler<T> {
     T handle(ResultSet rs) throws SQLException;
   }
-
 
   private <T> T executeQuery(String query, ResultSetHandler<T> handler, Object... params) {
     try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -42,7 +41,6 @@ public class DataBaseImp implements DataBase {
       statement.setObject(i + 1, params[i]);
     }
   }
-
 
   public void testDB() {
     executeQuery("SELECT * FROM catalog", rs -> {
@@ -85,6 +83,14 @@ public class DataBaseImp implements DataBase {
     );
   }
 
+  @Override
+  public Integer getScore(String title) {
+    return executeQuery(
+            "SELECT score FROM scored WHERE title = ?",
+            rs -> rs.next() ? rs.getInt("score") : null,
+            title
+    );
+  }
 
   @Override
   public void deleteEntry(String title) {
@@ -99,31 +105,32 @@ public class DataBaseImp implements DataBase {
     );
   }
 
-
-
-  public static void loadDatabase() {
+  public void loadDatabase() {
     try (Connection connection = DriverManager.getConnection(DB_URL);
          Statement statement = connection.createStatement()) {
       statement.setQueryTimeout(30);
 
       createCatalogTable(statement);
-
       createScoredTable(statement);
     } catch (SQLException e) {
       System.err.println("Error al cargar la base de datos: " + e.getMessage());
     }
   }
 
+
   private static void createScoredTable(Statement statement) throws SQLException {
     statement.executeUpdate(
-            "CREATE TABLE IF NOT EXISTS scored (id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING UNIQUE, score INTEGER)"
+            "CREATE TABLE IF NOT EXISTS scored (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "title TEXT UNIQUE, " +
+                    "score INTEGER)"
     );
   }
+
 
   private static void createCatalogTable(Statement statement) throws SQLException {
     statement.executeUpdate(
             "CREATE TABLE IF NOT EXISTS catalog (id INTEGER, title STRING PRIMARY KEY, extract STRING, source INTEGER)"
     );
   }
-
 }
