@@ -29,6 +29,8 @@ public class SearchModelImp implements SearchModel {
 
     private LinkedList<Serie> searchResultsArray;
 
+    private DataBase database;
+
     public SearchModelImp() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://en.wikipedia.org/w/")
@@ -38,6 +40,7 @@ public class SearchModelImp implements SearchModel {
         searchAPI = retrofit.create(WikipediaSearchAPI.class);
         pageAPI = retrofit.create(WikipediaPageAPI.class);
         gson = new Gson();
+        database = new DataBaseImp();
     }
 
     @Override
@@ -120,17 +123,17 @@ public class SearchModelImp implements SearchModel {
 
     @Override
     public void deleteSavedInfo(String title) {
-        DataBaseImp.deleteEntry(title);
+        database.deleteEntry(title);
     }
 
     @Override
     public Object[] getSavedTitles() {
-        return DataBaseImp.getTitles().stream().sorted().toArray();
+        return database.getTitles().stream().sorted().toArray();
     }
 
     @Override
     public void saveStoredInfo(String title, String text) {
-        DataBaseImp.saveInfo(title, text);
+        database.saveInfo(title, text);
     }
 
     @Override
@@ -140,20 +143,28 @@ public class SearchModelImp implements SearchModel {
 
     @Override
     public void saveRating(String title, int rating) {
-        DataBaseImp.saveRating(title, rating);
+        database.saveRating(title, rating);
     }
 
     @Override
     public int getRating(String title) {
-        return DataBaseImp.getRating(title);
+        return database.getRating(title);
     }
 
     @Override
     public List<Serie> getAllRatedSeries() {
-        return DataBaseImp.getAllRatedSeries();
+        return database.getAllRatedSeries();
     }
 
     public void saveLocally() {
-        DataBaseImp.saveInfo(searchPresenter.getLastSearchedSeries().getTitle(), searchPresenter.getLastSearchedSeries().getSnippet());
+        database.saveInfo(searchPresenter.getLastSearchedSeries().getTitle(), searchPresenter.getLastSearchedSeries().getSnippet());
+    }
+
+    public void setScore() {
+        //TODO
+    }
+
+    public String getExtract(String title) {
+        return database.getExtract(title);
     }
 }

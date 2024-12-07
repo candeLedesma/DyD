@@ -6,326 +6,195 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBaseImp {
+public class DataBaseImp implements DataBase{
 
-  public static void loadDatabase() {
-    //If the database doesnt exists we create it
-    String url = "jdbc:sqlite:./dictionary.db";
+  private Connection connection;
 
-    try (Connection connection = DriverManager.getConnection(url)) {
-      if (connection != null) {
+  public DataBaseImp(){
 
-        DatabaseMetaData meta = connection.getMetaData();
-        System.out.println("The driver name is " + meta.getDriverName());
-        //System.out.println("A new database has been created.");
+  }
 
-        Statement statement = connection.createStatement();
-        statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
-        //statement.executeUpdate("create table catalog (id INTEGER PRIMARY KEY AUTOINCREMENT, title string, extract string, source integer)");
-        statement.executeUpdate("create table catalog (id INTEGER, title string PRIMARY KEY, extract string, source integer)");
-        //If the DB was created before, a SQL error is reported but it is not harmfull...
-      }
-
+  // Método para establecer la conexión a la base de datos
+  private void setConection() {
+    String url = "jdbc:sqlite:./dictionary.db"; // Define la URL de la base de datos
+    try {
+      connection = DriverManager.getConnection(url);
+      System.out.println("Conexión establecida correctamente.");
     } catch (SQLException e) {
-      System.out.println(e.getMessage());
+      System.err.println("Error al establecer conexión: " + e.getMessage());
     }
   }
 
-  public static void testDB()
-  {
+  // Método para cerrar la conexión a la base de datos
+  private void closeConection() {
+    try {
+      if (connection != null && !connection.isClosed()) {
+        connection.close();
+        System.out.println("Conexión cerrada correctamente.");
+      }
+    } catch (SQLException e) {
+      System.err.println("Error al cerrar conexión: " + e.getMessage());
+    }
+  }
 
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
+  // Método para cargar la base de datos
+  public static void loadDatabase() {
+    String url = "jdbc:sqlite:./dictionary.db";
+    try (Connection connection = DriverManager.getConnection(url)) {
+      if (connection != null) {
+        DatabaseMetaData meta = connection.getMetaData();
+        System.out.println("The driver name is " + meta.getDriverName());
+        Statement statement = connection.createStatement();
+        statement.setQueryTimeout(30);
+
+        statement.executeUpdate("CREATE TABLE IF NOT EXISTS catalog (id INTEGER, title STRING PRIMARY KEY, extract STRING, source INTEGER)");
+      }
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+    }
+  }
+
+  // Método para probar la base de datos
+  public void testDB() {
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      //statement.executeUpdate("drop table if exists person");
-      //statement.executeUpdate("create table person (id integer, name string)");
-      //statement.executeUpdate("insert into person values(1, 'leo')");
-      //statement.executeUpdate("insert into person values(2, 'yui')");
-      ResultSet rs = statement.executeQuery("select * from catalog");
-      while(rs.next())
-      {
-        // read the result set
+      ResultSet rs = statement.executeQuery("SELECT * FROM catalog");
+      while (rs.next()) {
         System.out.println("id = " + rs.getInt("id"));
         System.out.println("title = " + rs.getString("title"));
         System.out.println("extract = " + rs.getString("extract"));
-        System.out.println("source = " + rs.getString("source"));
-
+        System.out.println("source = " + rs.getInt("source"));
       }
-    }
-    catch(SQLException e)
-    {
-      // if the error message is "out of memory",
-      // it probably means no database file is found
-      System.err.println(e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
-      }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println(e);
-      }
+    } catch (SQLException e) {
+      System.err.println("Error en testDB: " + e.getMessage());
+    } finally {
+      closeConection();
     }
   }
 
-  public static ArrayList<String> getTitles()
-  {
+  // Método para obtener todos los títulos
+  public ArrayList<String> getTitles() {
     ArrayList<String> titles = new ArrayList<>();
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      ResultSet rs = statement.executeQuery("select * from catalog");
-      while(rs.next()) titles.add(rs.getString("title"));
-    }
-    catch(SQLException e)
-    {
-      // if the error message is "out of memory",
-      // it probably means no database file is found
-      System.err.println(e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
+      ResultSet rs = statement.executeQuery("SELECT * FROM catalog");
+      while (rs.next()) {
+        titles.add(rs.getString("title"));
       }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println(e);
-      }
-      return titles;
+    } catch (SQLException e) {
+      System.err.println("Error al obtener títulos: " + e.getMessage());
+    } finally {
+      closeConection();
     }
+    return titles;
   }
 
-
-  public static String getExtract(String title)
-  {
-
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
+  // Método para obtener el extracto de un título específico
+  public String getExtract(String title) {
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      ResultSet rs = statement.executeQuery("select * from catalog WHERE title = '" + title + "'" );
-      rs.next();
-      return rs.getString("extract");
-    }
-    catch(SQLException e)
-    {
-      // if the error message is "out of memory",
-      // it probably means no database file is found
-      System.err.println("Get title error " + e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
+      ResultSet rs = statement.executeQuery("SELECT * FROM catalog WHERE title = '" + title + "'");
+      if (rs.next()) {
+        return rs.getString("extract");
       }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println(e);
-      }
+    } catch (SQLException e) {
+      System.err.println("Error al obtener extracto: " + e.getMessage());
+    } finally {
+      closeConection();
     }
     return null;
   }
 
-  public static void deleteEntry(String title)
-  {
-
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
+  // Método para eliminar una entrada
+  public void deleteEntry(String title) {
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      statement.executeUpdate("DELETE FROM catalog WHERE title = '" + title + "'" );
-
-    }
-    catch(SQLException e)
-    {
-      // if the error message is "out of memory",
-      // it probably means no database file is found
-      System.err.println("Get title error " + e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
-      }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println(e);
-      }
+      statement.executeUpdate("DELETE FROM catalog WHERE title = '" + title + "'");
+    } catch (SQLException e) {
+      System.err.println("Error al eliminar entrada: " + e.getMessage());
+    } finally {
+      closeConection();
     }
   }
 
-
-  public static void saveInfo(String title, String extract)
-  {
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
-
+  // Método para guardar información
+  public void saveInfo(String title, String extract) {
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      System.out.println("INSERT  " + title + "', '"+ extract);
-
-      statement.executeUpdate("replace into catalog values(null, '"+ title + "', '"+ extract + "', 1)");
-    }
-    catch(SQLException e)
-    {
-      System.err.println("Error saving " + e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
-      }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println( e);
-      }
+      statement.executeUpdate("REPLACE INTO catalog VALUES(null, '" + title + "', '" + extract + "', 1)");
+    } catch (SQLException e) {
+      System.err.println("Error al guardar información: " + e.getMessage());
+    } finally {
+      closeConection();
     }
   }
 
-  public static void saveRating(String title, int rating) {
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
-
+  // Método para guardar la calificación de un título
+  public void saveRating(String title, int rating) {
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      System.out.println("INSERT  " + title + "', '"+ rating);
-
-      statement.executeUpdate("replace into catalog values(null, '"+ title + "', '"+ rating + "', 2)");
-    }
-    catch(SQLException e)
-    {
-      System.err.println("Error saving " + e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
-      }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println( e);
-      }
+      statement.executeUpdate("REPLACE INTO catalog VALUES(null, '" + title + "', '" + rating + "', 2)");
+    } catch (SQLException e) {
+      System.err.println("Error al guardar calificación: " + e.getMessage());
+    } finally {
+      closeConection();
     }
   }
 
-  public static int getRating(String title) {
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
+  // Método para obtener la calificación de un título
+  public int getRating(String title) {
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      ResultSet rs = statement.executeQuery("select * from catalog WHERE title = '" + title + "'" );
-      rs.next();
-      return rs.getInt("extract");
-    }
-    catch(SQLException e)
-    {
-      // if the error message is "out of memory",
-      // it probably means no database file is found
-      System.err.println("Get title error " + e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
+      ResultSet rs = statement.executeQuery("SELECT * FROM catalog WHERE title = '" + title + "'");
+      if (rs.next()) {
+        return rs.getInt("extract");
       }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println(e);
-      }
+    } catch (SQLException e) {
+      System.err.println("Error al obtener calificación: " + e.getMessage());
+    } finally {
+      closeConection();
     }
     return 0;
   }
 
-  public static List<Serie> getAllRatedSeries() {
-    //TODO
+  // Método para obtener todas las series calificadas
+  public List<Serie> getAllRatedSeries() {
     return null;
   }
 
-  public static void setScore(Serie serie) {
-    Connection connection = null;
-    try
-    {
-      // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:./dictionary.db");
-
+  // Método para establecer la calificación de una serie
+  public void setScore(Serie serie) {
+    try {
+      setConection();
       Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);  // set timeout to 30 sec.
+      statement.setQueryTimeout(30);
 
-      System.out.println("INSERT  " + serie.getTitle() + "', '"+ serie.getScore());
-
-      statement.executeUpdate("replace into catalog values(null, '"+ serie.getTitle() + "', '"+ serie.getScore() + "', 2)");
-    }
-    catch(SQLException e)
-    {
-      System.err.println("Error saving " + e.getMessage());
-    }
-    finally
-    {
-      try
-      {
-        if(connection != null)
-          connection.close();
-      }
-      catch(SQLException e)
-      {
-        // connection close failed.
-        System.err.println( e);
-      }
+      statement.executeUpdate("REPLACE INTO catalog VALUES(null, '" + serie.getTitle() + "', '" + serie.getScore() + "', 2)");
+    } catch (SQLException e) {
+      System.err.println("Error al establecer calificación: " + e.getMessage());
+    } finally {
+      closeConection();
     }
   }
 }

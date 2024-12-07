@@ -1,11 +1,24 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import utils.Serie;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public interface DataBase {
 
 
+    void saveRating(String title, int rating);
+
+    int getRating(String title);
+
+    List<Serie> getAllRatedSeries();
+
+    void saveInfo(String title, String snippet);
+
+    ArrayList<String> getTitles();
+
+    void deleteEntry(String title);
+
+    String getExtract(String title);
 }

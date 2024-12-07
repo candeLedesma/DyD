@@ -93,13 +93,13 @@ public class SearchPresenterImp implements SearchPresenter {
         Serie lastSearchedSeries = view.getLastSearchedSeries();
         int newScore = view.getScore();
         lastSearchedSeries.setScore(newScore); // Actualizar la puntuación en la serie
-        DataBaseImp.setScore(lastSearchedSeries);
+        model.setScore();
     }
 
     public void getStoredInfo() {
         taskThread = new Thread(() -> {
             String selectedTitle = view.getSeletedSavedTitle();
-            String extract = DataBaseImp.getExtract(selectedTitle);
+            String extract = model.getExtract(selectedTitle);
             view.setStoredTextPane(extract);
         });
         taskThread.start();
