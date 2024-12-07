@@ -10,11 +10,8 @@ public class DataBaseImp implements DataBase{
 
   private Connection connection;
 
-  public DataBaseImp(){
+  public DataBaseImp(){}
 
-  }
-
-  // Método para establecer la conexión a la base de datos
   private void setConection() {
     String url = "jdbc:sqlite:./dictionary.db"; // Define la URL de la base de datos
     try {
@@ -25,7 +22,7 @@ public class DataBaseImp implements DataBase{
     }
   }
 
-  // Método para cerrar la conexión a la base de datos
+
   private void closeConection() {
     try {
       if (connection != null && !connection.isClosed()) {
@@ -37,7 +34,7 @@ public class DataBaseImp implements DataBase{
     }
   }
 
-  // Método para cargar la base de datos
+
   public static void loadDatabase() {
     String url = "jdbc:sqlite:./dictionary.db";
     try (Connection connection = DriverManager.getConnection(url)) {
@@ -54,7 +51,7 @@ public class DataBaseImp implements DataBase{
     }
   }
 
-  // Método para probar la base de datos
+
   public void testDB() {
     try {
       setConection();
@@ -75,7 +72,7 @@ public class DataBaseImp implements DataBase{
     }
   }
 
-  // Método para obtener todos los títulos
+
   public ArrayList<String> getTitles() {
     ArrayList<String> titles = new ArrayList<>();
     try {
@@ -95,7 +92,7 @@ public class DataBaseImp implements DataBase{
     return titles;
   }
 
-  // Método para obtener el extracto de un título específico
+
   public String getExtract(String title) {
     try {
       setConection();
@@ -114,7 +111,7 @@ public class DataBaseImp implements DataBase{
     return null;
   }
 
-  // Método para eliminar una entrada
+
   public void deleteEntry(String title) {
     try {
       setConection();
@@ -129,7 +126,6 @@ public class DataBaseImp implements DataBase{
     }
   }
 
-  // Método para guardar información
   public void saveInfo(String title, String extract) {
     try {
       setConection();
@@ -144,57 +140,22 @@ public class DataBaseImp implements DataBase{
     }
   }
 
-  // Método para guardar la calificación de un título
-  public void saveRating(String title, int rating) {
-    try {
-      setConection();
-      Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);
 
-      statement.executeUpdate("REPLACE INTO catalog VALUES(null, '" + title + "', '" + rating + "', 2)");
-    } catch (SQLException e) {
-      System.err.println("Error al guardar calificación: " + e.getMessage());
-    } finally {
-      closeConection();
-    }
+  public void saveRating(String title, int rating) {
+    //TODO
   }
 
-  // Método para obtener la calificación de un título
   public int getRating(String title) {
-    try {
-      setConection();
-      Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);
-
-      ResultSet rs = statement.executeQuery("SELECT * FROM catalog WHERE title = '" + title + "'");
-      if (rs.next()) {
-        return rs.getInt("extract");
-      }
-    } catch (SQLException e) {
-      System.err.println("Error al obtener calificación: " + e.getMessage());
-    } finally {
-      closeConection();
-    }
+    //TODO
     return 0;
   }
 
-  // Método para obtener todas las series calificadas
   public List<Serie> getAllRatedSeries() {
     return null;
   }
 
-  // Método para establecer la calificación de una serie
-  public void setScore(Serie serie) {
-    try {
-      setConection();
-      Statement statement = connection.createStatement();
-      statement.setQueryTimeout(30);
 
-      statement.executeUpdate("REPLACE INTO catalog VALUES(null, '" + serie.getTitle() + "', '" + serie.getScore() + "', 2)");
-    } catch (SQLException e) {
-      System.err.println("Error al establecer calificación: " + e.getMessage());
-    } finally {
-      closeConection();
-    }
+  public void setScore(Serie serie) {
+    // TODO
   }
 }
