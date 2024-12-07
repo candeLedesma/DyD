@@ -117,4 +117,9 @@ public class SearchPresenterImp implements SearchPresenter {
     public int getScore() {
         return view.getScore();
     }
+
+    @Override
+    public int getScoreSerie(String title) {
+        return model.getScore();
+    }
 }

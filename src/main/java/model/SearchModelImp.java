@@ -166,7 +166,6 @@ public class SearchModelImp implements SearchModel {
     public void setScore() {
         Serie serie = searchPresenter.getLastSearchedSeries();
         int score = searchPresenter.getScore();
-        System.out.println("score: "+score);
         database.saveScore(serie.getTitle(),score);
     }
 

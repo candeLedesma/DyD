@@ -127,6 +127,6 @@ public class MainView implements SearchView {
     }
 
     public int getScore() {
-        return searchPanel.getScore();
+        return searchPanel.getScoreSliderValue();
     }
 }

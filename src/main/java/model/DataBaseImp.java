@@ -77,7 +77,7 @@ public class DataBaseImp implements DataBase {
   @Override
   public void saveScore(String title, int score) {
     String query = "INSERT OR REPLACE INTO scored (title, score) VALUES (?, ?)";
-    System.out.println("Guardando puntuación..."+title+" "+score);
+    System.out.println("Guardando scoro de " + title + ": " + score);
     try (Connection connection = DriverManager.getConnection(DB_URL);
          PreparedStatement stmt = connection.prepareStatement(query)) {
       stmt.setString(1, title);
@@ -92,6 +92,7 @@ public class DataBaseImp implements DataBase {
 
   @Override
   public int getScore(String title) {
+    System.out.println("Buscando score de " + title);
     return executeQuery(
             "SELECT score FROM scored WHERE title = ?",
             rs -> rs.next() ? rs.getInt("score") : 0, // Retorna 0 si no se encuentra

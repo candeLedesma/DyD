@@ -22,4 +22,6 @@ public interface SearchPresenter {
     boolean hasScore();
 
     int getScore();
+
+    int getScoreSerie(String title);
 }
