@@ -7,13 +7,6 @@ import java.util.List;
 
 public interface DataBase {
 
-
-    void saveRating(String title, int rating);
-
-    int getRating(String title);
-
-    List<Serie> getAllRatedSeries();
-
     void saveInfo(String title, String snippet);
 
     ArrayList<String> getTitles();
@@ -21,4 +14,8 @@ public interface DataBase {
     void deleteEntry(String title);
 
     String getExtract(String title);
+
+    void saveScore(String title, int score);
+
+
 }

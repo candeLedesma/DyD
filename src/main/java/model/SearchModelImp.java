@@ -143,17 +143,19 @@ public class SearchModelImp implements SearchModel {
 
     @Override
     public void saveRating(String title, int rating) {
-        database.saveRating(title, rating);
+        //
     }
 
     @Override
     public int getRating(String title) {
-        return database.getRating(title);
+       //
+        return 1;
     }
 
     @Override
     public List<Serie> getAllRatedSeries() {
-        return database.getAllRatedSeries();
+       //
+        return null;
     }
 
     public void saveLocally() {

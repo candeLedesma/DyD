@@ -1,10 +1,7 @@
 package model;
 
-import utils.Serie;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataBaseImp implements DataBase {
 
@@ -30,15 +27,13 @@ public class DataBaseImp implements DataBase {
     }
   }
 
-  private boolean executeUpdate(String query, Object... params) {
+  private void executeUpdate(String query, Object... params) {
     try (Connection connection = DriverManager.getConnection(DB_URL);
          PreparedStatement statement = connection.prepareStatement(query)) {
       setParameters(statement, params);
       statement.executeUpdate();
-      return true;
     } catch (SQLException e) {
       System.err.println("Error en actualización: " + e.getMessage());
-      return false;
     }
   }
 
@@ -82,6 +77,16 @@ public class DataBaseImp implements DataBase {
   }
 
   @Override
+  public void saveScore(String title, int score) {
+    executeUpdate(
+            "INSERT INTO scored (title, score) VALUES (?, ?) " +
+                    "ON CONFLICT(title) DO UPDATE SET score = excluded.score",
+            title, score
+    );
+  }
+
+
+  @Override
   public void deleteEntry(String title) {
     executeUpdate("DELETE FROM catalog WHERE title = ?", title);
   }
@@ -94,32 +99,31 @@ public class DataBaseImp implements DataBase {
     );
   }
 
-  @Override
-  public void saveRating(String title, int rating) {
-    //TODO
-  }
 
-  @Override
-  public int getRating(String title) {
-    return 0;
-  }
-
-  @Override
-  public List<Serie> getAllRatedSeries() {
-    return null;
-  }
-
-  public void setScore(Serie serie) {
-    //TODO
-  }
 
   public static void loadDatabase() {
     try (Connection connection = DriverManager.getConnection(DB_URL);
          Statement statement = connection.createStatement()) {
       statement.setQueryTimeout(30);
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS catalog (id INTEGER, title STRING PRIMARY KEY, extract STRING, source INTEGER)");
+
+      createCatalogTable(statement);
+
+      createScoredTable(statement);
     } catch (SQLException e) {
       System.err.println("Error al cargar la base de datos: " + e.getMessage());
     }
   }
+
+  private static void createScoredTable(Statement statement) throws SQLException {
+    statement.executeUpdate(
+            "CREATE TABLE IF NOT EXISTS scored (id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING UNIQUE, score INTEGER)"
+    );
+  }
+
+  private static void createCatalogTable(Statement statement) throws SQLException {
+    statement.executeUpdate(
+            "CREATE TABLE IF NOT EXISTS catalog (id INTEGER, title STRING PRIMARY KEY, extract STRING, source INTEGER)"
+    );
+  }
+
 }
