@@ -11,13 +11,12 @@ public class MainView implements SearchView {
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;
     private SearchPanel searchPanel;
-    private ScoredSeriesPanel ratedPanel;
+    private ScoredSeriesPanel scoredSeriesPanel;
     private StoragePanel storagePanel;
 
 
     public MainView(SearchPresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
-
     }
 
 
@@ -29,24 +28,17 @@ public class MainView implements SearchView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame.setSize(400, 428);//width=400,height=428
+        frame.setSize(400, 428);
 
-        searchPanel.setPresenter(searchPresenter);
+        setSearchPanel();
 
+        setStoragePanel();
 
-        storagePanel.setPresenter(searchPresenter);
-        storagePanel.setSavedPanel();
-
-        searchPanel.setUpView();
-        searchPanel.setVisible(true);
-
-        setRatedSeriesPanel();
+        setScoredSeriesPanel();
 
 
         try {
-            // Set System L&F
             UIManager.put("nimbusSelection", new Color(247,248,250));
-            //UIManager.put("nimbusBase", new Color(51,98,140)); //This is redundant!
 
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -60,6 +52,17 @@ public class MainView implements SearchView {
         }
 
 
+    }
+
+    private void setStoragePanel() {
+        storagePanel.setPresenter(searchPresenter);
+        storagePanel.setSavedPanel();
+    }
+
+    private void setSearchPanel() {
+        searchPanel.setPresenter(searchPresenter);
+        searchPanel.setUpView();
+        searchPanel.setVisible(true);
     }
 
 
@@ -78,8 +81,8 @@ public class MainView implements SearchView {
     }
 
 
-    private void setRatedSeriesPanel() {
-        ratedPanel.showView();
+    private void setScoredSeriesPanel() {
+        scoredSeriesPanel.showView();
     }
 
 

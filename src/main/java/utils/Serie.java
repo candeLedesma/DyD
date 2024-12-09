@@ -12,11 +12,6 @@ public class Serie extends JMenuItem {
 
     public int score;
 
-    public boolean hasScore() {
-        return hasScore;
-    }
-
-
     public boolean hasScore = false;
 
 
@@ -52,9 +47,6 @@ public class Serie extends JMenuItem {
         hasScore = true;
     }
 
-    public int getScore() {
-        return score;
-    }
 
 
 

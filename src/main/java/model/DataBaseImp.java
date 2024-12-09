@@ -93,12 +93,11 @@ public class DataBaseImp implements DataBase {
   @Override
   public int getScore(String title) {
     System.out.println("Buscando score de " + title);
-    Integer score = executeQuery(
+    return executeQuery(
             "SELECT score FROM scored WHERE title = ?",
             rs -> rs.next() ? rs.getInt("score") : 0, // Retorna 0 si no se encuentra
             title
     );
-    return score;
   }
 
 

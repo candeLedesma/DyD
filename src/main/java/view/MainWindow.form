@@ -19,26 +19,21 @@
         <properties/>
         <border type="none"/>
         <children>
-          <!-- Search Panel -->
           <component id="9cc97" class="view.SearchPanel" binding="searchPanel" default-binding="true">
             <constraints>
               <tabbedpane title="Search in Wikipedia"/>
             </constraints>
             <properties/>
           </component>
-
-          <!-- Storage Panel -->
           <component id="563e4" class="view.StoragePanel" binding="storagePanel" default-binding="true">
             <constraints>
               <tabbedpane title="Stored Info"/>
             </constraints>
             <properties/>
           </component>
-
-          <!-- Rated Panel -->
-          <component id="1e7b" class="view.ScoredSeriesPanel" binding="ratedPanel" default-binding="true">
+          <component id="1e7b" class="view.ScoredSeriesPanel" binding="scoredSeriesPanel">
             <constraints>
-              <tabbedpane title="Rated Series"/>
+              <tabbedpane title="Scored Series"/>
             </constraints>
             <properties/>
           </component>
