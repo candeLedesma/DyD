@@ -92,6 +92,7 @@ public class SearchPresenterImp implements SearchPresenter {
         int newScore = view.getScore();
         lastSearchedSeries.setScore(newScore);
         model.setScore();
+        view.atualizeScore();
     }
 
 

@@ -89,8 +89,6 @@ public class MainView implements SearchView {
 
 
 
-
-
     public void showSuccessMessage(String s) {
         JOptionPane.showMessageDialog(contentPane, s);
     }
@@ -132,5 +130,9 @@ public class MainView implements SearchView {
 
     public int getScore() {
         return searchPanel.getScoreSliderValue();
+    }
+
+    public void atualizeScore() {
+        scoredSeriesPanel.atualizeScore();
     }
 }

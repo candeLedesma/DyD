@@ -31,11 +31,8 @@ public class ScoredSeriesPanel extends JPanel {
 
     public void showView() {
 
-        //tableModel.setRowCount(0);
-
         List<Serie> scoredSeries = searchPresenter.getScoredSeries();
         for (Serie serie : scoredSeries) {
-            System.out.println("Agregando: " + serie.getTitle());
             tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore()});
         }
 
@@ -44,5 +41,9 @@ public class ScoredSeriesPanel extends JPanel {
 
     public void setPresenter(SearchPresenter searchPresenter) {
         this.searchPresenter = searchPresenter;
+    }
+
+    public void atualizeScore() {
+        showView();
     }
 }
