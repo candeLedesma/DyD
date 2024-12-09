@@ -1,8 +1,8 @@
 package view;
 
 import utils.Serie;
-import presenter.SearchPresenter;
-import presenter.SearchPresenterImp;
+import presenter.Presenter;
+import presenter.PresenterImp;
 
 import javax.swing.*;
 import java.util.LinkedList;
@@ -14,7 +14,7 @@ public class SearchPanel extends JPanel{
     private JTextPane searchResultsTextPane;
     private JButton saveLocallyButton;
     private JPanel scorePanel;
-    private SearchPresenter searchPresenter;
+    private Presenter searchPresenter;
     String serieName = ""; // Last searched text! this variable is central for everything
     private Serie lastSearchedSeries;
     private JLabel scoreLabel;
@@ -89,7 +89,7 @@ public class SearchPanel extends JPanel{
     }
 
 
-    public void setPresenter(SearchPresenterImp searchPresenter) {
+    public void setPresenter(PresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
     }
 

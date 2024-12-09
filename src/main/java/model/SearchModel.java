@@ -1,10 +1,9 @@
 package model;
 
 import utils.Serie;
-import presenter.SearchPresenter;
+import presenter.Presenter;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public interface SearchModel {
     LinkedList<Serie> searchSeries(String query);
@@ -17,6 +16,6 @@ public interface SearchModel {
 
     void saveStoredInfo(String title, String text);
 
-    void setPresenter(SearchPresenter presenter);
+    void setPresenter(Presenter presenter);
 
 }

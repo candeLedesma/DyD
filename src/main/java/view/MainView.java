@@ -1,13 +1,13 @@
 package view;
 import utils.Serie;
-import presenter.SearchPresenterImp;
+import presenter.PresenterImp;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 
 public class MainView implements SearchView {
-    private final SearchPresenterImp searchPresenter;
+    private final PresenterImp searchPresenter;
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;
     private SearchPanel searchPanel;
@@ -15,7 +15,7 @@ public class MainView implements SearchView {
     private StoragePanel storagePanel;
 
 
-    public MainView(SearchPresenterImp searchPresenter) {
+    public MainView(PresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
     }
 

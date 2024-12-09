@@ -7,8 +7,8 @@ import com.google.gson.JsonObject;
 import utils.Serie;
 import model.API.WikipediaPageAPI;
 import model.API.WikipediaSearchAPI;
-import presenter.SearchPresenter;
-import presenter.SearchPresenterImp;
+import presenter.Presenter;
+import presenter.PresenterImp;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -19,7 +19,7 @@ import static utils.TextoHTML.textToHtml;
 
 public class SearchModelImp implements SearchModel {
 
-    private SearchPresenterImp searchPresenter;
+    private PresenterImp searchPresenter;
 
     private WikipediaSearchAPI searchAPI;
 
@@ -43,6 +43,10 @@ public class SearchModelImp implements SearchModel {
         database = new DataBaseImp();
         database.loadDatabase();
     }
+
+    public SearchModelImp(WikipediaSearchAPI searchAPI) {
+    }
+
 
     @Override
     public LinkedList<Serie> searchSeries(String seriesName) {
@@ -128,8 +132,8 @@ public class SearchModelImp implements SearchModel {
     }
 
     @Override
-    public void setPresenter(SearchPresenter presenter) {
-        this.searchPresenter = (SearchPresenterImp) presenter;
+    public void setPresenter(Presenter presenter) {
+        this.searchPresenter = (PresenterImp) presenter;
     }
 
     public void saveLocally() {

@@ -1,5 +1,7 @@
 package utils;
 
+import model.API.WikipediaSearchAPI;
+
 import javax.swing.*;
 
 public class Serie extends JMenuItem {
@@ -32,6 +34,7 @@ public class Serie extends JMenuItem {
 
         setTextToDisplay();
     }
+
 
     private void setTextToDisplay() {
         String itemText = "<html><font face=\"arial\">" + title + ": " + snippet;

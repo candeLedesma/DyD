@@ -7,16 +7,16 @@ import view.MainView;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchPresenterImp implements SearchPresenter {
+public class PresenterImp implements Presenter {
 
 
-    private MainView view;
+    public MainView view;
 
     private SearchModelImp model;
 
     private Thread taskThread;
 
-    public SearchPresenterImp(SearchModelImp model) {
+    public PresenterImp(SearchModelImp model) {
         this.model = model;
         model.setPresenter(this);
     }

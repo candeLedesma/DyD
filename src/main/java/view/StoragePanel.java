@@ -1,5 +1,5 @@
 package view;
-import presenter.SearchPresenterImp;
+import presenter.PresenterImp;
 
 import javax.swing.*;
 
@@ -9,7 +9,7 @@ public class StoragePanel extends JPanel {
 
     private JPanel storagePanel;
 
-    private SearchPresenterImp searchPresenter;
+    private PresenterImp searchPresenter;
 
     private JComboBox storedSeriesComboBox;
 
@@ -23,7 +23,7 @@ public class StoragePanel extends JPanel {
     }
 
 
-    public void setPresenter(SearchPresenterImp searchPresenter) {
+    public void setPresenter(PresenterImp searchPresenter) {
         this.searchPresenter = searchPresenter;
     }
 

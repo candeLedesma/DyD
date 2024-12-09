@@ -3,4 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="19" />
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="DyD-Cande.test" options="--add-exports java.base/jdk.internal.org.objectweb.asm.util=ALL-UNNAMED" />
+    </option>
+  </component>
 </project>
