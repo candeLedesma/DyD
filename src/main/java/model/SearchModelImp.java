@@ -106,6 +106,9 @@ public class SearchModelImp implements SearchModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println("set extract");
+        searchResult.setExtract(pageContent);
         return pageContent;
     }
 
@@ -130,7 +133,7 @@ public class SearchModelImp implements SearchModel {
     }
 
     public void saveLocally() {
-        database.saveInfo(searchPresenter.getLastSearchedSeries().getTitle(), searchPresenter.getLastSearchedSeries().getSnippet());
+        database.saveInfo(searchPresenter.getLastSearchedSeries().getTitle(), searchPresenter.getLastSearchedSeries().getExtract());
     }
 
     public void setScore() {

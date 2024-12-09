@@ -12,6 +12,8 @@ public class Serie extends JMenuItem {
 
     public int score;
 
+    public String extract;
+
     public boolean hasScore = false;
 
 
@@ -58,5 +60,13 @@ public class Serie extends JMenuItem {
 
     public int getScore() {
         return score;
+    }
+
+    public String getExtract() {
+        return extract;
+    }
+
+    public void setExtract(String extract) {
+        this.extract = extract;
     }
 }
