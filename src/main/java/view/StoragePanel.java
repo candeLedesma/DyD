@@ -91,4 +91,8 @@ public class StoragePanel extends JPanel {
         storedSeriesComboBox.removeItemAt(storedSeriesComboBox.getSelectedIndex());
         storedInfoTextPane.setText("");
     }
+
+    public String getStoredTextPane() {
+        return storedInfoTextPane.getText();
+    }
 }

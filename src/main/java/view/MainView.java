@@ -98,7 +98,7 @@ public class MainView implements SearchView {
     }
 
     public String getSearchResultTextPane() {
-        return searchPanel.getSearchResultTextPane();
+        return storagePanel.getStoredTextPane();
     }
 
     public Serie getLastSearchedSeries() {

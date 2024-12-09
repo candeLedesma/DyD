@@ -63,6 +63,7 @@ public class SearchPresenterImp implements SearchPresenter {
         if (view.hasSelectedIndex()) {
             String title = view.getSeletedSavedTitle();
             String text = view.getSearchResultTextPane();
+            System.out.println("title: " + title + " text: " + text);
             model.saveStoredInfo(title, text);
         }
     }
