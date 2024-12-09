@@ -1,30 +1,48 @@
 package view;
 
+import presenter.SearchPresenter;
 import utils.Serie;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
-public class ScoredSeriesPanel extends JPanel implements SearchView {
+public class ScoredSeriesPanel extends JPanel {
     private JPanel scoredPanel;
-    private JList scoredSeriesList;
+    private JTable scoredSeriesTable;
+    private DefaultTableModel tableModel; // Modelo de la tabla
+    private SearchPresenter searchPresenter;
 
     public ScoredSeriesPanel() {
-        this.setVisible(true);
-
         this.add(scoredPanel);
+        this.setVisible(true);
     }
 
-    @Override
+    public void setUpView() {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.tableModel = new DefaultTableModel();
+
+        tableModel.addColumn("Title");
+        tableModel.addColumn("Score");
+
+        scoredSeriesTable.setModel(tableModel);
+
+    }
+
     public void showView() {
-        scoredPanel.add(new JScrollPane(scoredSeriesList), BorderLayout.CENTER);
+
+        //tableModel.setRowCount(0);
+
+        List<Serie> scoredSeries = searchPresenter.getScoredSeries();
+        for (Serie serie : scoredSeries) {
+            System.out.println("Agregando: " + serie.getTitle());
+            tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore()});
+        }
+
+        scoredSeriesTable.setVisible(true);
     }
 
-    @Override
-    public void showResults(LinkedList<Serie> results) {
-
+    public void setPresenter(SearchPresenter searchPresenter) {
+        this.searchPresenter = searchPresenter;
     }
-
-
 }

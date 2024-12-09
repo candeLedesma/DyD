@@ -2,6 +2,8 @@ package presenter;
 
 import utils.Serie;
 
+import java.util.List;
+
 public interface SearchPresenter {
 
     void searchSeries();
@@ -24,4 +26,6 @@ public interface SearchPresenter {
     int getScore();
 
     int getScoreSerie(String title);
+
+    List<Serie> getScoredSeries();
 }

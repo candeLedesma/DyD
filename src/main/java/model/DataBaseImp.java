@@ -1,8 +1,11 @@
 package model;
 
 
+import utils.Serie;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseImp implements DataBase {
 
@@ -93,8 +96,9 @@ public class DataBaseImp implements DataBase {
   @Override
   public int getScore(String title) {
     System.out.println("Buscando score de " + title);
+    String query = "SELECT score FROM scored WHERE title = ?";
     return executeQuery(
-            "SELECT score FROM scored WHERE title = ?",
+            query,
             rs -> rs.next() ? rs.getInt("score") : 0, // Retorna 0 si no se encuentra
             title
     );
@@ -126,6 +130,20 @@ public class DataBaseImp implements DataBase {
     } catch (SQLException e) {
       System.err.println("Error al cargar la base de datos: " + e.getMessage());
     }
+  }
+
+  @Override
+  public List<Serie> getScoredSeries() {
+    return executeQuery(
+            "SELECT title, score FROM scored",
+            rs -> {
+              List<Serie> series = new ArrayList<>();
+              while (rs.next()) {
+                series.add(new Serie(rs.getString("title"), rs.getInt("score")));
+              }
+              return series;
+            }
+    );
   }
 
 

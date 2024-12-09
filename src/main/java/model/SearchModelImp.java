@@ -153,4 +153,7 @@ public class SearchModelImp implements SearchModel {
         return database.getScore(searchPresenter.getLastSearchedSeries().getTitle());
     }
 
+    public List<Serie> getScoredSeries() {
+        return database.getScoredSeries();
+    }
 }

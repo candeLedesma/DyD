@@ -5,6 +5,7 @@ import model.SearchModelImp;
 import view.MainView;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class SearchPresenterImp implements SearchPresenter {
 
@@ -119,5 +120,10 @@ public class SearchPresenterImp implements SearchPresenter {
     @Override
     public int getScoreSerie(String title) {
         return model.getScore();
+    }
+
+    @Override
+    public List<Serie> getScoredSeries() {
+        return model.getScoredSeries();
     }
 }

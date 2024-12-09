@@ -23,6 +23,14 @@ public class Serie extends JMenuItem {
         setTextToDisplay();
     }
 
+    public Serie(String title, int score) {
+        this.title = title;
+        this.score = score;
+        hasScore = true;
+
+        setTextToDisplay();
+    }
+
     private void setTextToDisplay() {
         String itemText = "<html><font face=\"arial\">" + title + ": " + snippet;
         itemText = itemText.replace("<span class=\"searchmatch\">", "")
@@ -48,6 +56,7 @@ public class Serie extends JMenuItem {
     }
 
 
-
-
+    public int getScore() {
+        return score;
+    }
 }

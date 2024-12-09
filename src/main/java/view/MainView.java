@@ -65,6 +65,13 @@ public class MainView implements SearchView {
         searchPanel.setVisible(true);
     }
 
+    private void setScoredSeriesPanel() {
+        scoredSeriesPanel.setPresenter(searchPresenter);
+        scoredSeriesPanel.setUpView();
+        scoredSeriesPanel.showView();
+
+    }
+
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storagePanel.setSelectSavedComboBox(savedTitles);
@@ -81,9 +88,7 @@ public class MainView implements SearchView {
     }
 
 
-    private void setScoredSeriesPanel() {
-        scoredSeriesPanel.showView();
-    }
+
 
 
     public void showSuccessMessage(String s) {

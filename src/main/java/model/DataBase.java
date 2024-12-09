@@ -22,4 +22,5 @@ public interface DataBase {
 
     void loadDatabase();
 
+    List<Serie> getScoredSeries();
 }
