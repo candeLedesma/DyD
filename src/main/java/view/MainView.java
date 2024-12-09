@@ -40,12 +40,7 @@ public class MainView implements SearchView {
         try {
             UIManager.put("nimbusSelection", new Color(247,248,250));
 
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
         catch (Exception e) {
             System.out.println("Something went wrong with UI!");

@@ -68,6 +68,7 @@ public class StoragePanel extends JPanel {
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
 
+
         storedSeriesComboBox.addActionListener(actionEvent -> {
             searchPresenter.getStoredInfo();
         });
