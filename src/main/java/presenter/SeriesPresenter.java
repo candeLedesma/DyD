@@ -5,6 +5,7 @@ import utils.Serie;
 import view.MainView;
 
 import javax.swing.*;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SeriesPresenter implements Presenter {
@@ -69,8 +70,8 @@ public class SeriesPresenter implements Presenter {
     }
 
     @Override
-    public boolean hasScore(String title) {
-        return model.hasScore(title);
+    public void showResults(LinkedList<Serie> results) {
+        searchPresenter.showResults(results);
     }
 
     @Override

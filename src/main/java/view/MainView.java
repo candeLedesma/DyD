@@ -120,4 +120,16 @@ public class MainView implements View {
     public void atualizeScore(Serie lastSearchedSeries) {
         scoredSeriesPanel.atualizeScore(lastSearchedSeries);
     }
+
+    public void setLastSearchedSeries(Serie searchResult) {
+        searchPanel.setLastSearchedSeries(searchResult);
+    }
+
+    public void setSerieName(String title) {
+        searchPanel.setSerieName(title);
+    }
+
+    public void showSearchOptionsMenu(JPopupMenu searchOptionsMenu) {
+        searchPanel.showSearchOptionsMenu(searchOptionsMenu);
+    }
 }

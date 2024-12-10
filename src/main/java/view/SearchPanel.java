@@ -49,22 +49,7 @@ public class SearchPanel extends JPanel{
 
 
     public void showResults(LinkedList<Serie> results) {
-        JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
-
-        for (Serie searchResult : results) {
-            boolean hasScore = searchPresenter.hasScore(searchResult.getTitle());
-            String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
-            JMenuItem menuItem = new JMenuItem(displayTitle);
-
-            menuItem.addActionListener(actionEvent -> {
-                lastSearchedSeries = searchResult;
-                serieName = searchResult.getTitle();
-                searchPresenter.getSelectedExtract(searchResult);
-            });
-
-            searchOptionsMenu.add(menuItem);
-        }
-        searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
+        searchPresenter.showResults(results);
     }
 
     public void showScorePanel() {
@@ -118,4 +103,15 @@ public class SearchPanel extends JPanel{
         return sliderScore.getValue();
     }
 
+    public void setLastSearchedSeries(Serie searchResult) {
+        this.lastSearchedSeries = searchResult;
+    }
+
+    public void setSerieName(String title) {
+        this.serieName = title;
+    }
+
+    public void showSearchOptionsMenu(JPopupMenu searchOptionsMenu) {
+        searchOptionsMenu.show(searchButton, 0, searchButton.getHeight());
+    }
 }

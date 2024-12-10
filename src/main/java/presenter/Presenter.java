@@ -2,6 +2,7 @@ package presenter;
 
 import utils.Serie;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public interface Presenter {
@@ -35,5 +36,6 @@ public interface Presenter {
 
     Object getLastUpdatedScore();
 
-    boolean hasScore(String title);
+
+    void showResults(LinkedList<Serie> results);
 }

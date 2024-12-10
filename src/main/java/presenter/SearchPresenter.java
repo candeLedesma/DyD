@@ -4,6 +4,7 @@ import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -29,6 +30,7 @@ public class SearchPresenter {
         }).start();
     }
 
+
     public void getSelectedExtract(Serie selectedResult) {
         String extract = null;
         try {
@@ -39,4 +41,26 @@ public class SearchPresenter {
         view.setSearchResultTextPane(extract);
     }
 
+    public void showResults(LinkedList<Serie> results) {
+        JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
+
+        for (Serie searchResult : results) {
+            boolean hasScore = hasScore(searchResult.getTitle());
+            String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
+            JMenuItem menuItem = new JMenuItem(displayTitle);
+
+            menuItem.addActionListener(actionEvent -> {
+                view.setLastSearchedSeries(searchResult);
+                view.setSerieName(searchResult.getTitle());
+                getSelectedExtract(searchResult);
+            });
+
+            searchOptionsMenu.add(menuItem);
+        }
+        view.showSearchOptionsMenu(searchOptionsMenu);
+    }
+
+    private boolean hasScore(String title) {
+        return model.hasScore(title);
+    }
 }
