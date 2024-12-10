@@ -1,9 +1,6 @@
 package model;
 
 import model.database.DataBase;
-import model.database.DataBaseImp;
-import presenter.Presenter;
-import presenter.SeriesPresenter;
 import utils.Serie;
 
 import java.util.List;

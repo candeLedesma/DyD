@@ -23,7 +23,7 @@ public class ScoredSeriesPanel extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.tableModel = new DefaultTableModel();
 
-        tableModel.setColumnCount(0);//clear table
+        tableModel.setColumnCount(0);
 
         tableModel.addColumn("Title");
         tableModel.addColumn("Score");

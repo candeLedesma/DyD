@@ -10,5 +10,4 @@ public interface View {
 
     void showResults(LinkedList<Serie> results);
 
-
 }

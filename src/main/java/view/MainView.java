@@ -83,7 +83,6 @@ public class MainView implements View {
     }
 
 
-
     public void showSuccessMessage(String s) {
         JOptionPane.showMessageDialog(contentPane, s);
     }

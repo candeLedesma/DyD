@@ -1,6 +1,5 @@
 package model.database;
 
-
 import utils.Serie;
 
 import java.sql.*;
@@ -11,12 +10,6 @@ import java.util.List;
 public class DataBaseImp implements DataBase {
 
   private final String DB_URL = "jdbc:sqlite:./dictionary.db";
-
-
-  public DataBaseImp(DataBase dataBaseStub) {}
-
-  public DataBaseImp() {}
-
 
   private interface ResultSetHandler<T> {
     T handle(ResultSet rs) throws SQLException;

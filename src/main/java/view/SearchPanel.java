@@ -15,7 +15,7 @@ public class SearchPanel extends JPanel{
     private JButton saveLocallyButton;
     private JPanel scorePanel;
     private Presenter searchPresenter;
-    String serieName = ""; // Last searched text! this variable is central for everything
+    String serieName = "";
     private Serie lastSearchedSeries;
     private JLabel scoreLabel;
     private JSlider sliderScore;
@@ -103,11 +103,6 @@ public class SearchPanel extends JPanel{
         searchResultsTextPane.setCaretPosition(0);
         showScorePanel();
     }
-
-    public String getSearchResultTextPane() {
-        return searchResultsTextPane.getText();
-    }
-
 
     public String getsSearchSerieField() {
         return searchSerieField.getText();
