@@ -4,7 +4,6 @@ import utils.Serie;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -16,26 +15,21 @@ public class DataBaseImp implements DataBase {
     T handle(ResultSet rs) throws SQLException;
   }
 
-  private <T> T executeQuery(String query, ResultSetHandler<T> handler, Object... params) {
+  private <T> T executeQuery(String query, ResultSetHandler<T> handler, Object... params) throws SQLException {
     try (Connection connection = DriverManager.getConnection(DB_URL);
          PreparedStatement statement = connection.prepareStatement(query)) {
       setParameters(statement, params);
       try (ResultSet rs = statement.executeQuery()) {
         return handler.handle(rs);
       }
-    } catch (SQLException e) {
-      System.err.println("Error en consulta: " + e.getMessage());
-      return null;
     }
   }
 
-  private void executeUpdate(String query, Object... params) {
+  private void executeUpdate(String query, Object... params) throws SQLException {
     try (Connection connection = DriverManager.getConnection(DB_URL);
          PreparedStatement statement = connection.prepareStatement(query)) {
       setParameters(statement, params);
       statement.executeUpdate();
-    } catch (SQLException e) {
-      System.err.println("Error en actualización: " + e.getMessage());
     }
   }
 
@@ -45,7 +39,7 @@ public class DataBaseImp implements DataBase {
     }
   }
 
-  public void testDB() {
+  public void testDB() throws SQLException {
     executeQuery("SELECT * FROM catalog", rs -> {
       while (rs.next()) {
         System.out.println("id = " + rs.getInt("id"));
@@ -58,7 +52,7 @@ public class DataBaseImp implements DataBase {
   }
 
   @Override
-  public ArrayList<String> getTitles() {
+  public ArrayList<String> getTitles() throws SQLException {
     return executeQuery("SELECT title FROM catalog", rs -> {
       ArrayList<String> titles = new ArrayList<>();
       while (rs.next()) {
@@ -69,7 +63,7 @@ public class DataBaseImp implements DataBase {
   }
 
   @Override
-  public String getExtract(String title) {
+  public String getExtract(String title) throws SQLException {
     return executeQuery(
             "SELECT extract FROM catalog WHERE title = ?",
             rs -> rs.next() ? rs.getString("extract") : null,
@@ -78,24 +72,20 @@ public class DataBaseImp implements DataBase {
   }
 
   @Override
-  public void saveScore(String title, int score) {
+  public void saveScore(String title, int score) throws SQLException {
     String sql = "INSERT OR REPLACE INTO scored (title, score, updated_at) VALUES (?, ?, datetime('now'))";
     try (Connection connection = DriverManager.getConnection(DB_URL);
          PreparedStatement pstmt = connection.prepareStatement(sql)) {
-          pstmt.setString(1, title);
-            pstmt.setInt(2, score);
-          pstmt.executeUpdate();
-
-
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+      pstmt.setString(1, title);
+      pstmt.setInt(2, score);
+      pstmt.executeUpdate();
     }
   }
 
 
 
   @Override
-  public int getScore(String title) {
+  public int getScore(String title) throws SQLException {
     String query = "SELECT score FROM scored WHERE title = ?";
     Integer score = executeQuery(
             query,
@@ -107,12 +97,12 @@ public class DataBaseImp implements DataBase {
 
 
   @Override
-  public void deleteEntry(String title) {
+  public void deleteEntry(String title) throws SQLException {
     executeUpdate("DELETE FROM catalog WHERE title = ?", title);
   }
 
   @Override
-  public void saveInfo(String title, String extract) {
+  public void saveInfo(String title, String extract) throws SQLException {
     executeUpdate(
             "REPLACE INTO catalog (id, title, extract, source) VALUES (NULL, ?, ?, 1)",
             title, extract
@@ -132,7 +122,7 @@ public class DataBaseImp implements DataBase {
   }
 
   @Override
-  public List<Serie> getScoredSeries() {
+  public List<Serie> getScoredSeries() throws SQLException {
     return executeQuery(
             "SELECT title, updated_at, score FROM scored ORDER BY score ASC",
             rs -> {

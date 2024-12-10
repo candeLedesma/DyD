@@ -2,6 +2,7 @@ package presenter;
 
 import utils.Serie;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Presenter {
@@ -11,10 +12,10 @@ public interface Presenter {
 
     void saveLocally();
 
-    void getSelectedExtract(Serie searchResult);
+    void getSelectedExtract(Serie searchResult) throws SQLException;
 
 
-    String getScoreSerie(String title);
+    String getScoreSerie(String title) throws SQLException;
 
     void recordScore();
 
@@ -33,4 +34,6 @@ public interface Presenter {
     void saveStoredInfo();
 
     boolean hasScore(String title);
+
+    void showError(String errorGettingScoredSeries);
 }

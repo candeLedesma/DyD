@@ -10,19 +10,19 @@ public class ScoredModel {
     private DataBase database;
 
 
-    public void setScore(String title, int score){
+    public void setScore(String title, int score) throws SQLException {
         database.saveScore(title, score);
     }
 
-    public boolean hasScore(String title) {
+    public boolean hasScore(String title) throws SQLException {
         return database.getScore(title) > 0;
     }
 
-    public int getScore(String title) {
+    public int getScore(String title) throws SQLException {
         return database.getScore(title);
     }
 
-    public List<Serie> getScoredSeries() {
+    public List<Serie> getScoredSeries() throws SQLException {
         return database.getScoredSeries();
     }
 

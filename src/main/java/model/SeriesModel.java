@@ -7,7 +7,7 @@ import presenter.SeriesPresenter;
 import utils.Serie;
 
 import java.io.IOException;
-import java.util.Date;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,48 +43,84 @@ public class SeriesModel  implements Model {
 
     @Override
     public void deleteSavedInfo(String title) {
-        storedModel.deleteSavedInfo(title);
+        try {
+            storedModel.deleteSavedInfo(title);
+        } catch (SQLException e) {
+            presenter.showError("Error deleting saved information");
+        }
     }
 
     @Override
     public Object[] getSavedTitles() {
-        return storedModel.getSavedTitles();
+        try {
+            return storedModel.getSavedTitles();
+        } catch (SQLException e) {
+            presenter.showError("Error getting saved titles");
+            return null;
+        }
     }
 
 
     @Override
     public void saveStoredInfo(String title, String text) {
-        storedModel.saveStoredInfo(title, text);
+        try {
+            storedModel.saveStoredInfo(title, text);
+        } catch (SQLException e) {
+            presenter.showError("Error saving stored information");
+        }
     }
 
     @Override
     public void saveLocally() {
-        storedModel.saveLocally(presenter.getLastSearchedSeries().getTitle(), presenter.getLastSearchedSeries().getExtract());
+        try {
+            storedModel.saveLocally(presenter.getLastSearchedSeries().getTitle(), presenter.getLastSearchedSeries().getExtract());
+        } catch (SQLException e) {
+            presenter.showError("Error saving locally");
+        }
     }
 
     @Override
-    public void setScore() {
-        scoredModel.setScore(presenter.getLastSearchedSeries().getTitle(), presenter.getScore());
+    public void setScore(){
+        try {
+            scoredModel.setScore(presenter.getLastSearchedSeries().getTitle(), presenter.getScore());
+        } catch (SQLException e) {
+            presenter.showError("Error setting score");
+        }
     }
 
     @Override
-    public boolean hasScore(String title) {
-        return scoredModel.hasScore(title);
+    public boolean hasScore(String title){
+        try {
+            return scoredModel.hasScore(title);
+        } catch (SQLException e) {
+            presenter.showError("Error getting score");
+            return false;
+        }
     }
 
     @Override
-    public int getScore() {
+    public int getScore() throws SQLException {
         return scoredModel.getScore(presenter.getLastSearchedSeries().getTitle());
     }
 
     @Override
     public List<Serie> getScoredSeries() {
-        return scoredModel.getScoredSeries();
+        try {
+            return scoredModel.getScoredSeries();
+        } catch (SQLException e) {
+            presenter.showError("Error getting scored series");
+            return null;
+        }
     }
 
     @Override
     public String getExtract(String selectedTitle) {
-        return storedModel.getExtract(selectedTitle);
+        try {
+            return storedModel.getExtract(selectedTitle);
+        } catch (SQLException e) {
+            presenter.showError("Error getting extract");
+            return null;
+        }
     }
 
     @Override

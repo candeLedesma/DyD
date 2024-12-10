@@ -5,6 +5,7 @@ import utils.Serie;
 import presenter.Presenter;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,13 +23,13 @@ public interface Model {
 
     void saveLocally();
 
-    void setScore();
+    void setScore() throws SQLException;
 
-    boolean hasScore(String title);
+    boolean hasScore(String title) throws SQLException;
 
-    int getScore();
+    int getScore() throws SQLException;
 
-    List<Serie> getScoredSeries();
+    List<Serie> getScoredSeries() throws SQLException;
 
     String getExtract(String selectedTitle);
 

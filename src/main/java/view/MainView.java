@@ -4,6 +4,7 @@ import presenter.SeriesPresenter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class MainView implements View {
@@ -23,7 +24,7 @@ public class MainView implements View {
     @Override
     public void showView() throws Exception {
 
-        JFrame frame = new JFrame("TV Series Info Repo");
+        JFrame frame = new JFrame("TV Series");
         frame.setContentPane(contentPane);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -83,7 +84,7 @@ public class MainView implements View {
     }
 
 
-    public void setSearchResultTextPane(String text) {
+    public void setSearchResultTextPane(String text) throws SQLException {
         searchPanel.setSearchResultTextPane(text);
         searchPanel.showScorePanel();
     }

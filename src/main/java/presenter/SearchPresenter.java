@@ -5,6 +5,7 @@ import utils.Serie;
 import view.MainView;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class SearchPresenter {
@@ -29,7 +30,7 @@ public class SearchPresenter {
         }).start();
     }
 
-    public void getSelectedExtract(Serie selectedResult) {
+    public void getSelectedExtract(Serie selectedResult) throws SQLException {
         String extract = null;
         try {
             extract = model.searchPageExtract(selectedResult);

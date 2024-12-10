@@ -5,6 +5,7 @@ import utils.Serie;
 import view.MainView;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class SeriesPresenter implements Presenter {
@@ -70,6 +71,11 @@ public class SeriesPresenter implements Presenter {
     }
 
     @Override
+    public void showError(String errorGettingScoredSeries) {
+        view.showErrorMessage(errorGettingScoredSeries);
+    }
+
+    @Override
     public List<Serie> getScoredSeries() {
         return model.getScoredSeries();
     }
@@ -86,13 +92,13 @@ public class SeriesPresenter implements Presenter {
     }
 
     @Override
-    public void getSelectedExtract(Serie searchResult) {
+    public void getSelectedExtract(Serie searchResult) throws SQLException {
         searchPresenter.getSelectedExtract(searchResult);
     }
 
 
     @Override
-    public String getScoreSerie(String title) {
+    public String getScoreSerie(String title) throws SQLException {
         if (model.hasScore(view.getLastSearchedSeries().getTitle())) {
             return String.valueOf(model.getScore());
         }else{

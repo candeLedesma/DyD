@@ -9,19 +9,19 @@ import java.util.List;
 
 public interface DataBase {
 
-    void saveInfo(String title, String snippet);
+    void saveInfo(String title, String snippet) throws SQLException;
 
-    ArrayList<String> getTitles();
+    ArrayList<String> getTitles() throws SQLException;
 
-    void deleteEntry(String title);
+    void deleteEntry(String title) throws SQLException;
 
-    String getExtract(String title);
+    String getExtract(String title) throws SQLException;
 
-    void saveScore(String title, int score);
+    void saveScore(String title, int score) throws SQLException;
 
-    int getScore(String title);
+    int getScore(String title) throws SQLException;
 
     void loadDatabase();
 
-    List<Serie> getScoredSeries();
+    List<Serie> getScoredSeries() throws SQLException;
 }

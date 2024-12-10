@@ -5,6 +5,7 @@ import presenter.Presenter;
 import presenter.SeriesPresenter;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class SearchPanel extends JPanel{
@@ -59,7 +60,11 @@ public class SearchPanel extends JPanel{
             menuItem.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;
                 serieName = searchResult.getTitle();
-                searchPresenter.getSelectedExtract(searchResult);
+                try {
+                    searchPresenter.getSelectedExtract(searchResult);
+                } catch (SQLException e) {
+                    searchPresenter.showError(e.getMessage());
+                }
             });
 
             searchOptionsMenu.add(menuItem);
@@ -67,7 +72,7 @@ public class SearchPanel extends JPanel{
         searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
     }
 
-    public void showScorePanel() {
+    public void showScorePanel() throws SQLException {
 
         sliderScore.setVisible(true);
         setScoreButton.setVisible(true);
