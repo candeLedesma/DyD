@@ -3,6 +3,7 @@ package model;
 import model.database.DataBase;
 import utils.Serie;
 
+import java.util.Date;
 import java.util.List;
 
 public class ScoredModel {
@@ -27,5 +28,9 @@ public class ScoredModel {
 
     public void setDatabase(DataBase database) {
         this.database = database;
+    }
+
+    public Date getLastUpdatedScore(String title) {
+        return database.getLastUpdatedScore(title);
     }
 }

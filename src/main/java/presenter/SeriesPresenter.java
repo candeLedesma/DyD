@@ -64,6 +64,11 @@ public class SeriesPresenter implements Presenter {
     }
 
     @Override
+    public Object getLastUpdatedScore() {
+        return model.getLastUpdatedScore();
+    }
+
+    @Override
     public List<Serie> getScoredSeries() {
         return model.getScoredSeries();
     }

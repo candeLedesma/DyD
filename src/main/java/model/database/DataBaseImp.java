@@ -4,6 +4,7 @@ import utils.Serie;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -78,8 +79,7 @@ public class DataBaseImp implements DataBase {
 
   @Override
   public void saveScore(String title, int score) {
-    String query = "INSERT OR REPLACE INTO scored (title, score) VALUES (?, ?)";
-    System.out.println("Guardando scoro de " + title + ": " + score);
+    String query = "INSERT OR REPLACE INTO scored (title, score, updated_at) VALUES (?, ?, datetime('now'))";
     try (Connection connection = DriverManager.getConnection(DB_URL);
          PreparedStatement stmt = connection.prepareStatement(query)) {
       stmt.setString(1, title);
@@ -94,13 +94,13 @@ public class DataBaseImp implements DataBase {
 
   @Override
   public int getScore(String title) {
-    System.out.println("Buscando score de " + title);
     String query = "SELECT score FROM scored WHERE title = ?";
-    return executeQuery(
+    Integer score = executeQuery(
             query,
-            rs -> rs.next() ? rs.getInt("score") : 0, // Retorna 0 si no se encuentra
+            rs -> rs.next() ? rs.getInt("score") : 0,
             title
     );
+    return score;
   }
 
 
@@ -132,7 +132,7 @@ public class DataBaseImp implements DataBase {
   @Override
   public List<Serie> getScoredSeries() {
     return executeQuery(
-            "SELECT title, score FROM scored",
+            "SELECT title, score FROM scored ORDER BY score ASC",
             rs -> {
               List<Serie> series = new ArrayList<>();
               while (rs.next()) {
@@ -143,11 +143,34 @@ public class DataBaseImp implements DataBase {
     );
   }
 
+  @Override
+  public Date getLastUpdatedScore(String title) {
+    return executeQuery(
+            "SELECT updated_at FROM scored WHERE title = ?",
+            rs -> {
+              if (rs.next()) {
+                try {
+                  return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("updated_at"));
+                } catch (java.text.ParseException e) {
+                  e.printStackTrace();
+                }
+              }
+              return null;
+            },
+            title
+    );
+  }
+
 
   private static void createScoredTable(Statement statement) throws SQLException {
-    String createTableSQL = "CREATE TABLE IF NOT EXISTS scored ( id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT UNIQUE, score INTEGER)";
+    String createTableSQL = "CREATE TABLE IF NOT EXISTS scored ("
+            + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "title TEXT UNIQUE, "
+            + "score INTEGER, "
+            + "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP)";
     statement.executeUpdate(createTableSQL);
   }
+
 
 
 
@@ -156,4 +179,5 @@ public class DataBaseImp implements DataBase {
             "CREATE TABLE IF NOT EXISTS catalog (id INTEGER, title STRING PRIMARY KEY, extract STRING, source INTEGER)"
     );
   }
+
 }

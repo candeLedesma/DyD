@@ -3,6 +3,7 @@ package utils;
 import model.API.WikipediaSearchAPI;
 
 import javax.swing.*;
+import java.util.Date;
 
 public class Serie extends JMenuItem {
 
@@ -13,6 +14,8 @@ public class Serie extends JMenuItem {
     public String snippet;
 
     public int score;
+
+    private Date lastUpdated;
 
     public String extract;
 
@@ -55,9 +58,10 @@ public class Serie extends JMenuItem {
         return snippet;
     }
 
-    public void setScore(int score) {
+    public void setScore(int score, Date lastUpdated) {
         this.score = score;
         hasScore = true;
+        this.lastUpdated = lastUpdated;
     }
 
 
@@ -71,5 +75,9 @@ public class Serie extends JMenuItem {
 
     public void setExtract(String extract) {
         this.extract = extract;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 }

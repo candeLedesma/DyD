@@ -4,6 +4,8 @@ import utils.Serie;
 import model.SeriesModel;
 import view.MainView;
 
+import java.util.Date;
+
 
 public class ScoredPresenter {
     private final MainView view;
@@ -18,7 +20,8 @@ public class ScoredPresenter {
         Serie lastSearchedSeries = view.getLastSearchedSeries();
         if (lastSearchedSeries != null) {
             int newScore = view.getScore();
-            lastSearchedSeries.setScore(newScore);
+            Date lastUpdated = model.getLastUpdatedScore();
+            lastSearchedSeries.setScore(newScore, lastUpdated);
             model.setScore();
             view.atualizeScore(lastSearchedSeries);
         }

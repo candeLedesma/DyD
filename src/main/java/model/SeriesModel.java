@@ -7,6 +7,7 @@ import presenter.SeriesPresenter;
 import utils.Serie;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,5 +90,9 @@ public class SeriesModel  implements Model {
     @Override
     public void setPresenter(SeriesPresenter seriesPresenter) {
         this.presenter = seriesPresenter;
+    }
+
+    public Date getLastUpdatedScore() {
+        return scoredModel.getLastUpdatedScore(presenter.getLastSearchedSeries().getTitle());
     }
 }

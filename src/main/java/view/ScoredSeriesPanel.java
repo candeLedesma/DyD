@@ -27,6 +27,7 @@ public class ScoredSeriesPanel extends JPanel {
 
         tableModel.addColumn("Title");
         tableModel.addColumn("Score");
+        tableModel.addColumn("Last Updated");
 
         scoredSeriesTable.setModel(tableModel);
 
@@ -38,7 +39,6 @@ public class ScoredSeriesPanel extends JPanel {
         for (Serie serie : scoredSeries) {
             tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore()});
         }
-
         scoredSeriesTable.setVisible(true);
     }
 
@@ -47,7 +47,7 @@ public class ScoredSeriesPanel extends JPanel {
     }
 
     public void atualizeScore(Serie serie) {
-        tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore()});
+        tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore(), serie.getLastUpdated()});
         repaint();
     }
 }
