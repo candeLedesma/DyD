@@ -92,7 +92,4 @@ public class SeriesModel  implements Model {
         this.presenter = seriesPresenter;
     }
 
-    public Date getLastUpdatedScore() {
-        return scoredModel.getLastUpdatedScore(presenter.getLastSearchedSeries().getTitle());
-    }
 }

@@ -3,14 +3,14 @@ package model;
 import model.database.DataBase;
 import utils.Serie;
 
-import java.util.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ScoredModel {
     private DataBase database;
 
 
-    public void setScore(String title, int score) {
+    public void setScore(String title, int score){
         database.saveScore(title, score);
     }
 
@@ -30,7 +30,4 @@ public class ScoredModel {
         this.database = database;
     }
 
-    public Date getLastUpdatedScore(String title) {
-        return database.getLastUpdatedScore(title);
-    }
 }

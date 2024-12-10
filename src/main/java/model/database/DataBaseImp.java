@@ -79,14 +79,16 @@ public class DataBaseImp implements DataBase {
 
   @Override
   public void saveScore(String title, int score) {
-    String query = "INSERT OR REPLACE INTO scored (title, score, updated_at) VALUES (?, ?, datetime('now'))";
+    String sql = "INSERT OR REPLACE INTO scored (title, score, updated_at) VALUES (?, ?, datetime('now'))";
     try (Connection connection = DriverManager.getConnection(DB_URL);
-         PreparedStatement stmt = connection.prepareStatement(query)) {
-      stmt.setString(1, title);
-      stmt.setInt(2, score);
-      stmt.executeUpdate();
+         PreparedStatement pstmt = connection.prepareStatement(sql)) {
+          pstmt.setString(1, title);
+            pstmt.setInt(2, score);
+          pstmt.executeUpdate();
+
+
     } catch (SQLException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
@@ -132,32 +134,16 @@ public class DataBaseImp implements DataBase {
   @Override
   public List<Serie> getScoredSeries() {
     return executeQuery(
-            "SELECT title, score FROM scored ORDER BY score ASC",
+            "SELECT title, updated_at, score FROM scored ORDER BY score ASC",
             rs -> {
               List<Serie> series = new ArrayList<>();
               while (rs.next()) {
-                series.add(new Serie(rs.getString("title"), rs.getInt("score")));
+                Serie serie = new Serie(rs.getString("title"), rs.getInt("score"));
+                serie.setUpdatedAt(rs.getDate("updated_at"));
+                series.add(serie);
               }
               return series;
             }
-    );
-  }
-
-  @Override
-  public Date getLastUpdatedScore(String title) {
-    return executeQuery(
-            "SELECT updated_at FROM scored WHERE title = ?",
-            rs -> {
-              if (rs.next()) {
-                try {
-                  return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rs.getString("updated_at"));
-                } catch (java.text.ParseException e) {
-                  e.printStackTrace();
-                }
-              }
-              return null;
-            },
-            title
     );
   }
 

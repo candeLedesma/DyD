@@ -20,10 +20,8 @@ public class ScoredPresenter {
         Serie lastSearchedSeries = view.getLastSearchedSeries();
         if (lastSearchedSeries != null) {
             int newScore = view.getScore();
-            Date lastUpdated = model.getLastUpdatedScore();
-            lastSearchedSeries.setScore(newScore, lastUpdated);
+            lastSearchedSeries.setScore(newScore);
             model.setScore();
-            view.atualizeScore(lastSearchedSeries);
         }
     }
 

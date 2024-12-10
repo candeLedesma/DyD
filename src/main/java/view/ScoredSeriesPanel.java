@@ -37,7 +37,7 @@ public class ScoredSeriesPanel extends JPanel {
         //sacar logica de la vista
         List<Serie> scoredSeries = searchPresenter.getScoredSeries();
         for (Serie serie : scoredSeries) {
-            tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore()});
+            tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore(), serie.getLastUpdated()});
         }
         scoredSeriesTable.setVisible(true);
     }

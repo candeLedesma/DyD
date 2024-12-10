@@ -32,8 +32,5 @@ public interface Presenter {
 
     void saveStoredInfo();
 
-
-    Object getLastUpdatedScore();
-
     boolean hasScore(String title);
 }

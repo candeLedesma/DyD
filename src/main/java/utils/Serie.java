@@ -58,10 +58,9 @@ public class Serie extends JMenuItem {
         return snippet;
     }
 
-    public void setScore(int score, Date lastUpdated) {
+    public void setScore(int score) {
         this.score = score;
         hasScore = true;
-        this.lastUpdated = lastUpdated;
     }
 
 
@@ -79,5 +78,9 @@ public class Serie extends JMenuItem {
 
     public Date getLastUpdated() {
         return lastUpdated;
+    }
+
+    public void setUpdatedAt(java.sql.Date updatedAt) {
+        this.lastUpdated = updatedAt;
     }
 }

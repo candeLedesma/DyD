@@ -63,10 +63,6 @@ public class SeriesPresenter implements Presenter {
         storedPresenter.saveStoredInfo();
     }
 
-    @Override
-    public Object getLastUpdatedScore() {
-        return model.getLastUpdatedScore();
-    }
 
     @Override
     public boolean hasScore(String title) {
