@@ -69,6 +69,11 @@ public class SeriesPresenter implements Presenter {
     }
 
     @Override
+    public boolean hasScore(String title) {
+        return model.hasScore(title);
+    }
+
+    @Override
     public List<Serie> getScoredSeries() {
         return model.getScoredSeries();
     }
@@ -92,7 +97,7 @@ public class SeriesPresenter implements Presenter {
 
     @Override
     public String getScoreSerie(String title) {
-        if (model.hasScore(view.getLastSearchedSeries())) {
+        if (model.hasScore(view.getLastSearchedSeries().getTitle())) {
             return String.valueOf(model.getScore());
         }else{
             return "Not found";

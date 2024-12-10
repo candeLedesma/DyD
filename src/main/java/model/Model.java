@@ -24,7 +24,7 @@ public interface Model {
 
     void setScore();
 
-    boolean hasScore(Serie serie);
+    boolean hasScore(String title);
 
     int getScore();
 

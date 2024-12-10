@@ -51,15 +51,18 @@ public class SearchPanel extends JPanel{
     public void showResults(LinkedList<Serie> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
 
-        //mover logica de presentacion a presenter
         for (Serie searchResult : results) {
-            searchResult.addActionListener(actionEvent -> {
+            boolean hasScore = searchPresenter.hasScore(searchResult.getTitle());
+            String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
+            JMenuItem menuItem = new JMenuItem(displayTitle);
+
+            menuItem.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;
                 serieName = searchResult.getTitle();
                 searchPresenter.getSelectedExtract(searchResult);
-
             });
-            searchOptionsMenu.add(searchResult);
+
+            searchOptionsMenu.add(menuItem);
         }
         searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
     }

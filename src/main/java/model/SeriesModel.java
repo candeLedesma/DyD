@@ -68,8 +68,8 @@ public class SeriesModel  implements Model {
     }
 
     @Override
-    public boolean hasScore(Serie serie) {
-        return scoredModel.hasScore(serie.getTitle());
+    public boolean hasScore(String title) {
+        return scoredModel.hasScore(title);
     }
 
     @Override

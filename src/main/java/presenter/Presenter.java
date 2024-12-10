@@ -34,4 +34,6 @@ public interface Presenter {
 
 
     Object getLastUpdatedScore();
+
+    boolean hasScore(String title);
 }
