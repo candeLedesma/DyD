@@ -1,14 +1,14 @@
 package presenter;
 
-import model.SearchModelImp;
+import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
 
 public class StoredPresenter {
     private final MainView view;
-    private final SearchModelImp model;
+    private final SeriesModel model;
 
-    public StoredPresenter(MainView view, SearchModelImp model) {
+    public StoredPresenter(MainView view, SeriesModel model) {
         this.view = view;
         this.model = model;
     }

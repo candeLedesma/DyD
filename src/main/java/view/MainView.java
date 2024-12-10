@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class MainView implements SearchView {
+public class MainView implements View {
     private final SeriesPresenter searchPresenter;
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;

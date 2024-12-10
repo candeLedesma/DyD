@@ -1,10 +1,10 @@
 package presenter;
 
-import model.SearchModelImp;
+import model.SeriesModel;
 
 public class Main {
     public static void main(String[] args) {
-        SearchModelImp model = new SearchModelImp();
+        SeriesModel model = new SeriesModel();
         SeriesPresenter presenter = new SeriesPresenter(model);
         presenter.start();
     }

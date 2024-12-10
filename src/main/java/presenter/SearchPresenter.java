@@ -1,6 +1,6 @@
 package presenter;
 
-import model.SearchModelImp;
+import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
 
@@ -8,9 +8,9 @@ import java.util.LinkedList;
 
 public class SearchPresenter {
     private final MainView view;
-    private final SearchModelImp model;
+    private final SeriesModel model;
 
-    public SearchPresenter(MainView view, SearchModelImp model) {
+    public SearchPresenter(MainView view, SeriesModel model) {
         this.view = view;
         this.model = model;
     }

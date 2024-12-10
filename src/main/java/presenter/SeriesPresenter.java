@@ -1,6 +1,6 @@
 package presenter;
 
-import model.SearchModelImp;
+import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
 
@@ -8,13 +8,13 @@ import java.util.List;
 
 public class SeriesPresenter implements Presenter {
     private final MainView view;
-    private final SearchModelImp model;
+    private final SeriesModel model;
 
     private final ScoredPresenter scoredPresenter;
     private final StoredPresenter storedPresenter;
     private final SearchPresenter searchPresenter;
 
-    public SeriesPresenter(SearchModelImp model) {
+    public SeriesPresenter(SeriesModel model) {
         this.model = model;
         model.setPresenter(this);
         this.view = new MainView(this);

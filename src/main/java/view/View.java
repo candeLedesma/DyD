@@ -4,7 +4,7 @@ import utils.Serie;
 
 import java.util.LinkedList;
 
-public interface SearchView {
+public interface View {
 
     void showView();
 
