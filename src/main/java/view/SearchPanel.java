@@ -54,27 +54,22 @@ public class SearchPanel extends JPanel{
 
         for (Serie searchResult : results) {
             boolean hasScore = searchPresenter.hasScore(searchResult.getTitle());
-            JMenuItem menuItem = getjMenuItem(searchResult, hasScore);
+            String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
+            JMenuItem menuItem = new JMenuItem(displayTitle);
+
+            menuItem.addActionListener(actionEvent -> {
+                lastSearchedSeries = searchResult;
+                serieName = searchResult.getTitle();
+                try {
+                    searchPresenter.getSelectedExtract(searchResult);
+                } catch (SQLException e) {
+                    searchPresenter.showError(e.getMessage());
+                }
+            });
 
             searchOptionsMenu.add(menuItem);
         }
         searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
-    }
-
-    private JMenuItem getjMenuItem(Serie searchResult, boolean hasScore) {
-        String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
-        JMenuItem menuItem = new JMenuItem(displayTitle);
-
-        menuItem.addActionListener(actionEvent -> {
-            lastSearchedSeries = searchResult;
-            serieName = searchResult.getTitle();
-            try {
-                searchPresenter.getSelectedExtract(searchResult);
-            } catch (SQLException e) {
-                searchPresenter.showError(e.getMessage());
-            }
-        });
-        return menuItem;
     }
 
     public void showScorePanel() throws SQLException {
