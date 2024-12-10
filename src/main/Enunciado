@@ -77,7 +77,8 @@ Testing:
 
 Realizar testing unitario (usando JUnit) tomando como unidad al Modelo(os) resultante(es) de la refactorización en base a MVP. Debe utilizarse la estrategia de Testeo Solitario para manejar las dependencias de tal unidad.
 
-Realizar testing de integración para la aplicación (usando JUnit) tomando como entradas y resultados los valores de los componentes gráficos, es decir, los test deben arrancar en una vista y comprobar el exito en una vista. En este testing deben utilizarse dobles de prueba (Stubs o Mocks) del repositorio/servicio externo, que simulen las respuestas de Wikipedia.
+Realizar testing de integración para la aplicación (usando JUnit) tomando como entradas y resultados los valores de los componentes gráficos, es decir, los test deben arrancar en una vista y comprobar el exito en una vista.
+En este testing deben utilizarse dobles de prueba (Stubs o Mocks) del repositorio/servicio externo, que simulen las respuestas de Wikipedia.
 
 Desarrollo de un informe, explicando los siguientes aspectos:
 

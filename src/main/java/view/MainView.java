@@ -127,7 +127,7 @@ public class MainView implements SearchView {
         return searchPanel.getScoreSliderValue();
     }
 
-    public void atualizeScore() {
-        scoredSeriesPanel.atualizeScore();
+    public void atualizeScore(Serie lastSearchedSeries) {
+        scoredSeriesPanel.atualizeScore(lastSearchedSeries);
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public class ScoredSeriesPanel extends JPanel {
     private JPanel scoredPanel;
     private JTable scoredSeriesTable;
-    private DefaultTableModel tableModel; // Modelo de la tabla
+    private DefaultTableModel tableModel;
     private Presenter searchPresenter;
 
     public ScoredSeriesPanel() {
@@ -21,6 +21,8 @@ public class ScoredSeriesPanel extends JPanel {
     public void setUpView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.tableModel = new DefaultTableModel();
+
+        tableModel.setColumnCount(0);//clear table
 
         tableModel.addColumn("Title");
         tableModel.addColumn("Score");
@@ -43,7 +45,8 @@ public class ScoredSeriesPanel extends JPanel {
         this.searchPresenter = searchPresenter;
     }
 
-    public void atualizeScore() {
-        showView();
+    public void atualizeScore(Serie serie) {
+        tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore()});
+        repaint();
     }
 }

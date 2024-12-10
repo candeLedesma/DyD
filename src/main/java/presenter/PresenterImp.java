@@ -93,7 +93,7 @@ public class PresenterImp implements Presenter {
         int newScore = view.getScore();
         lastSearchedSeries.setScore(newScore);
         model.setScore();
-        view.atualizeScore();
+        view.atualizeScore(lastSearchedSeries);
     }
 
 
