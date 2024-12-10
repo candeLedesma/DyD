@@ -5,7 +5,7 @@ import model.SearchModelImp;
 public class Main {
     public static void main(String[] args) {
         SearchModelImp model = new SearchModelImp();
-        PresenterImp presenter = new PresenterImp(model);
+        SeriesPresenter presenter = new SeriesPresenter(model);
         presenter.start();
     }
 }

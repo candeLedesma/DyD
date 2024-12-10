@@ -5,26 +5,33 @@ import utils.Serie;
 import java.util.List;
 
 public interface Presenter {
+    List<Serie> getScoredSeries();
 
     void searchSeries();
 
+    void saveLocally();
+
     void getSelectedExtract(Serie searchResult);
+
+    boolean hasScore();
+
+    int getScoreSerie(String title);
+
+    void recordScore();
+
+    void start();
+
+    Serie getLastSearchedSeries();
+
+    void initializeSavedPanel();
+
+    int getScore();
+
+    void getStoredInfo();
 
     void deleteStoredInfo();
 
     void saveStoredInfo();
 
-    void saveLocally();
 
-    Serie getLastSearchedSeries();
-
-    void recordScore();
-
-    boolean hasScore();
-
-    int getScore();
-
-    int getScoreSerie(String title);
-
-    List<Serie> getScoredSeries();
 }

@@ -2,7 +2,7 @@ package view;
 
 import utils.Serie;
 import presenter.Presenter;
-import presenter.PresenterImp;
+import presenter.SeriesPresenter;
 
 import javax.swing.*;
 import java.util.LinkedList;
@@ -89,7 +89,7 @@ public class SearchPanel extends JPanel{
     }
 
 
-    public void setPresenter(PresenterImp searchPresenter) {
+    public void setPresenter(SeriesPresenter searchPresenter) {
         this.searchPresenter = searchPresenter;
     }
 

@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import model.database.DataBase;
+import model.database.DataBaseImp;
 import utils.Serie;
 import model.API.WikipediaPageAPI;
 import model.API.WikipediaSearchAPI;
 import presenter.Presenter;
-import presenter.PresenterImp;
+import presenter.SeriesPresenter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -19,7 +21,7 @@ import static utils.TextoHTML.textToHtml;
 
 public class SearchModelImp implements SearchModel {
 
-    private PresenterImp searchPresenter;
+    private SeriesPresenter searchPresenter;
 
     private WikipediaSearchAPI searchAPI;
 
@@ -44,9 +46,6 @@ public class SearchModelImp implements SearchModel {
         database.loadDatabase();
     }
 
-    public SearchModelImp(WikipediaSearchAPI searchAPI) {
-    }
-
 
     @Override
     public LinkedList<Serie> searchSeries(String seriesName) {
@@ -60,7 +59,6 @@ public class SearchModelImp implements SearchModel {
 
             JsonObject jobj = gson.fromJson(callForSearchResponse.body(), JsonObject.class);
             JsonObject query = jobj.get("query").getAsJsonObject();
-            //Iterator<JsonElement> resultIterator = query.get("search").getAsJsonArray().iterator();
             JsonArray jsonResults = query.get("search").getAsJsonArray();
 
 
@@ -87,7 +85,7 @@ public class SearchModelImp implements SearchModel {
 
         Response<String> callForPageResponse;
 
-        String pageContent = "";
+        String extract = "";
 
         try {
             callForPageResponse = pageAPI.getExtractByPageID(searchResult.pageID).execute();
@@ -100,20 +98,19 @@ public class SearchModelImp implements SearchModel {
             JsonObject page = first.getValue().getAsJsonObject();
             JsonElement searchResultExtract2 = page.get("extract");
             if (searchResultExtract2 == null) {
-                pageContent = "No Results";
+                extract = "No Results";
             } else {
-                pageContent = "<h1>" + searchResult.title + "</h1>";
-                //selectedResultTitle = searchResult.title;
-                pageContent+= searchResultExtract2.getAsString().replace("\\n", "\n");
-                pageContent = textToHtml(pageContent);
+                extract = "<h1>" + searchResult.title + "</h1>";
+                extract+= searchResultExtract2.getAsString().replace("\\n", "\n");
+                extract = textToHtml(extract);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         System.out.println("set extract");
-        searchResult.setExtract(pageContent);
-        return pageContent;
+        searchResult.setExtract(extract);
+        return extract;
     }
 
     @Override
@@ -133,7 +130,7 @@ public class SearchModelImp implements SearchModel {
 
     @Override
     public void setPresenter(Presenter presenter) {
-        this.searchPresenter = (PresenterImp) presenter;
+        this.searchPresenter = (SeriesPresenter) presenter;
     }
 
     public void saveLocally() {

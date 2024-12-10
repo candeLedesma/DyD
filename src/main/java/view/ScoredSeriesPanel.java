@@ -1,6 +1,7 @@
 package view;
 
 import presenter.Presenter;
+import presenter.SeriesPresenter;
 import utils.Serie;
 
 import javax.swing.*;
@@ -41,7 +42,7 @@ public class ScoredSeriesPanel extends JPanel {
         scoredSeriesTable.setVisible(true);
     }
 
-    public void setPresenter(Presenter searchPresenter) {
+    public void setPresenter(SeriesPresenter searchPresenter) {
         this.searchPresenter = searchPresenter;
     }
 
