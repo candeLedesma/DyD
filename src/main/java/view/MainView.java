@@ -21,7 +21,7 @@ public class MainView implements View {
 
 
     @Override
-    public void showView() {
+    public void showView() throws Exception {
 
         JFrame frame = new JFrame("TV Series Info Repo");
         frame.setContentPane(contentPane);
@@ -36,17 +36,8 @@ public class MainView implements View {
 
         setScoredSeriesPanel();
 
-
-        try {
-            UIManager.put("nimbusSelection", new Color(247,248,250));
-
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }
-        catch (Exception e) {
-            System.out.println("Something went wrong with UI!");
-        }
-
-
+        UIManager.put("nimbusSelection", new Color(247,248,250));
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     }
 
     private void setStoragePanel() {
@@ -94,6 +85,7 @@ public class MainView implements View {
 
     public void setSearchResultTextPane(String text) {
         searchPanel.setSearchResultTextPane(text);
+        searchPanel.showScorePanel();
     }
 
     public String getSearchResultTextPane() {
@@ -104,9 +96,8 @@ public class MainView implements View {
         return searchPanel.getLastSearchedSeries();
     }
 
-    @Override
-    public void showResults(LinkedList<Serie> results) {
-        searchPanel.showResults(results);
+    public void showResults(LinkedList<Serie> searchResults) {
+        searchPanel.showResults(searchResults);
     }
 
     public void setStoredTextPane(String extract) {

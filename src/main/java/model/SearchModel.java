@@ -11,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import utils.Serie;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -32,51 +33,47 @@ public class SearchModel {
         gson = new Gson();
     }
 
-    public LinkedList<Serie> searchSeries(String seriesName) {
+    public LinkedList<Serie> searchSeries(String seriesName) throws IOException {
         LinkedList<Serie> searchResults = new LinkedList<>();
-        try {
-            Response<String> response = searchAPI.searchForTerm(seriesName + " (Tv series) articletopic:\"television\"").execute();
-            JsonObject query = gson.fromJson(response.body(), JsonObject.class)
-                    .get("query").getAsJsonObject();
-            JsonArray jsonResults = query.get("search").getAsJsonArray();
 
-            for (JsonElement element : jsonResults) {
-                JsonObject result = element.getAsJsonObject();
-                Serie serie = new Serie(
-                        result.get("title").getAsString(),
-                        result.get("pageid").getAsString(),
-                        result.get("snippet").getAsString()
-                );
-                searchResults.add(serie);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Response<String> response = searchAPI.searchForTerm(seriesName + " (Tv series) articletopic:\"television\"").execute();
+        JsonObject query = gson.fromJson(response.body(), JsonObject.class)
+                .get("query").getAsJsonObject();
+        JsonArray jsonResults = query.get("search").getAsJsonArray();
+
+        for (JsonElement element : jsonResults) {
+            JsonObject result = element.getAsJsonObject();
+            Serie serie = new Serie(
+                    result.get("title").getAsString(),
+                    result.get("pageid").getAsString(),
+                    result.get("snippet").getAsString()
+            );
+            searchResults.add(serie);
         }
+
         return searchResults;
     }
 
-    public String searchPageExtract(Serie searchResult) {
+    public String searchPageExtract(Serie searchResult) throws IOException {
         String extract = "";
-        try {
-            Response<String> response = pageAPI.getExtractByPageID(searchResult.pageID).execute();
-            JsonObject pages = gson.fromJson(response.body(), JsonObject.class)
-                    .get("query").getAsJsonObject()
-                    .get("pages").getAsJsonObject();
 
-            Map.Entry<String, JsonElement> firstPage = pages.entrySet().iterator().next();
-            JsonObject page = firstPage.getValue().getAsJsonObject();
-            JsonElement pageExtract = page.get("extract");
+        Response<String> response = pageAPI.getExtractByPageID(searchResult.pageID).execute();
+        JsonObject pages = gson.fromJson(response.body(), JsonObject.class)
+                .get("query").getAsJsonObject()
+                .get("pages").getAsJsonObject();
 
-            if (pageExtract == null) {
-                extract = "No Results";
-            } else {
-                extract = "<h1>" + searchResult.title + "</h1>";
-                extract += pageExtract.getAsString().replace("\\n", "\n");
-                extract = textToHtml(extract);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Map.Entry<String, JsonElement> firstPage = pages.entrySet().iterator().next();
+        JsonObject page = firstPage.getValue().getAsJsonObject();
+        JsonElement pageExtract = page.get("extract");
+
+        if (pageExtract == null) {
+            extract = "No Results";
+        } else {
+            extract = "<h1>" + searchResult.title + "</h1>";
+            extract += pageExtract.getAsString().replace("\\n", "\n");
+            extract = textToHtml(extract);
         }
+
         searchResult.setExtract(extract);
         return extract;
     }

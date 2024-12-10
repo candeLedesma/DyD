@@ -46,8 +46,12 @@ public class SearchPanel extends JPanel{
         scorePanel.setVisible(true);
     }
 
+
+
     public void showResults(LinkedList<Serie> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
+
+        //mover logica de presentacion a presenter
         for (Serie searchResult : results) {
             searchResult.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;
@@ -60,18 +64,14 @@ public class SearchPanel extends JPanel{
         searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
     }
 
-    private void showScorePanel() {
+    public void showScorePanel() {
 
         sliderScore.setVisible(true);
         setScoreButton.setVisible(true);
 
-        if (searchPresenter.hasScore()) {
-            System.out.println("Score found for this series.");
-            int currentScore = searchPresenter.getScoreSerie(lastSearchedSeries.getTitle());
-            scoreLabel.setText("Score: " + currentScore);
-        } else {
-            scoreLabel.setText("Score: No score found for this series.");
-        }
+
+        String currentScore = searchPresenter.getScoreSerie(lastSearchedSeries.getTitle());
+        scoreLabel.setText("Score: " + currentScore);
 
         scoreLabel.repaint();
 
@@ -101,7 +101,6 @@ public class SearchPanel extends JPanel{
         this.serieName = seriesName;
         searchResultsTextPane.setText(seriesName);
         searchResultsTextPane.setCaretPosition(0);
-        showScorePanel();
     }
 
     public String getsSearchSerieField() {
@@ -115,4 +114,5 @@ public class SearchPanel extends JPanel{
     public int getScoreSliderValue() {
         return sliderScore.getValue();
     }
+
 }

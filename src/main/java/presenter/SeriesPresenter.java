@@ -4,6 +4,7 @@ import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
 
+import javax.swing.*;
 import java.util.List;
 
 public class SeriesPresenter implements Presenter {
@@ -25,7 +26,11 @@ public class SeriesPresenter implements Presenter {
 
     @Override
     public void start() {
-        view.showView();
+        try {
+            view.showView();
+        } catch (Exception e) {
+            view.showErrorMessage(e.getMessage());
+        }
     }
 
     @Override
@@ -79,14 +84,14 @@ public class SeriesPresenter implements Presenter {
         searchPresenter.getSelectedExtract(searchResult);
     }
 
-    @Override
-    public boolean hasScore() {
-        return model.hasScore(view.getLastSearchedSeries());
-    }
 
     @Override
-    public int getScoreSerie(String title) {
-        return model.getScore();
+    public String getScoreSerie(String title) {
+        if (model.hasScore(view.getLastSearchedSeries())) {
+            return String.valueOf(model.getScore());
+        }else{
+            return "Not found";
+        }
     }
 
     @Override

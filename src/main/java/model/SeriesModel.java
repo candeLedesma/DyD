@@ -6,6 +6,7 @@ import presenter.Presenter;
 import presenter.SeriesPresenter;
 import utils.Serie;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,13 +29,13 @@ public class SeriesModel  implements Model {
 
 
     @Override
-    public LinkedList<Serie> searchSeries(String seriesName) {
+    public LinkedList<Serie> searchSeries(String seriesName) throws IOException {
         return searchModel.searchSeries(seriesName);
     }
 
 
     @Override
-    public String searchPageExtract(Serie searchResult) {
+    public String searchPageExtract(Serie searchResult) throws IOException {
         return searchModel.searchPageExtract(searchResult);
     }
 

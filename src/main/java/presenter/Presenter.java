@@ -13,9 +13,8 @@ public interface Presenter {
 
     void getSelectedExtract(Serie searchResult);
 
-    boolean hasScore();
 
-    int getScoreSerie(String title);
+    String getScoreSerie(String title);
 
     void recordScore();
 

@@ -4,6 +4,7 @@ import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class SearchPresenter {
@@ -18,13 +19,23 @@ public class SearchPresenter {
     public void searchSeries() {
         new Thread(() -> {
             String seriesName = view.getSearchSerieField();
-            LinkedList<Serie> results = model.searchSeries(seriesName);
+            LinkedList<Serie> results = null;
+            try {
+                results = model.searchSeries(seriesName);
+            } catch (IOException e) {
+                view.showErrorMessage(e.getMessage());
+            }
             view.showResults(results);
         }).start();
     }
 
     public void getSelectedExtract(Serie selectedResult) {
-        String extract = model.searchPageExtract(selectedResult);
+        String extract = null;
+        try {
+            extract = model.searchPageExtract(selectedResult);
+        } catch (IOException e) {
+            view.showErrorMessage(e.getMessage());
+        }
         view.setSearchResultTextPane(extract);
     }
 

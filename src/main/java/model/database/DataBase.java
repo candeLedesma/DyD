@@ -17,7 +17,6 @@ public interface DataBase {
 
     void saveScore(String title, int score);
 
-
     int getScore(String title);
 
     void loadDatabase();

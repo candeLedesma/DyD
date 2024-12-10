@@ -4,14 +4,15 @@ import presenter.SeriesPresenter;
 import utils.Serie;
 import presenter.Presenter;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 public interface Model {
 
-    LinkedList<Serie> searchSeries(String seriesName);
+    LinkedList<Serie> searchSeries(String seriesName) throws IOException;
 
-    String searchPageExtract(Serie searchResult);
+    String searchPageExtract(Serie searchResult) throws IOException;
 
     void deleteSavedInfo(String title);
 

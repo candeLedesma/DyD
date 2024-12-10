@@ -33,7 +33,7 @@ public class ScoredSeriesPanel extends JPanel {
     }
 
     public void showView() {
-
+        //sacar logica de la vista
         List<Serie> scoredSeries = searchPresenter.getScoredSeries();
         for (Serie serie : scoredSeries) {
             tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore()});
