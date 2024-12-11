@@ -94,6 +94,7 @@ public class SearchPanel extends JPanel{
 
         setScoreButton.addActionListener(e -> {
             searchPresenter.recordScore();
+
         });
 
 

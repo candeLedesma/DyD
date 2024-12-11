@@ -4,6 +4,7 @@ import utils.Serie;
 import model.SeriesModel;
 import view.MainView;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 
@@ -16,7 +17,7 @@ public class ScoredPresenter {
         this.model = model;
     }
 
-    public void recordScore() {
+    public void recordScore() throws SQLException {
         Serie lastSearchedSeries = view.getLastSearchedSeries();
         if (lastSearchedSeries != null) {
             int newScore = view.getScore();

@@ -140,4 +140,12 @@ public class SeriesModel  implements Model {
         this.presenter = seriesPresenter;
     }
 
+    public Serie getScoredSerie(){
+        try {
+            return scoredModel.getScoredSerie(presenter.getLastSearchedSeries().getTitle());
+        } catch (SQLException e) {
+            presenter.showError("Error getting scored serie");
+        }
+        return null;
+    }
 }

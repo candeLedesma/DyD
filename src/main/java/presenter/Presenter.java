@@ -35,4 +35,6 @@ public interface Presenter {
     boolean hasScore(String title);
 
     void showError(String errorGettingScoredSeries);
+
+    Serie getScoredSerie() throws SQLException;
 }

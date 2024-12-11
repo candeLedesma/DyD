@@ -77,6 +77,11 @@ public class SeriesPresenter implements Presenter {
     }
 
     @Override
+    public Serie getScoredSerie() throws SQLException {
+        return model.getScoredSerie();
+    }
+
+    @Override
     public List<Serie> getScoredSeries() {
         return model.getScoredSeries();
     }
@@ -109,7 +114,11 @@ public class SeriesPresenter implements Presenter {
 
     @Override
     public void recordScore() {
-        scoredPresenter.recordScore();
+        try {
+            scoredPresenter.recordScore();
+        } catch (SQLException e) {
+            view.showErrorMessage(e.getMessage());
+        }
     }
 
     public View getView() {

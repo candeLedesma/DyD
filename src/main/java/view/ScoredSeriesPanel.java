@@ -6,6 +6,7 @@ import utils.Serie;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ScoredSeriesPanel extends JPanel {
@@ -50,7 +51,8 @@ public class ScoredSeriesPanel extends JPanel {
         return scoredSeriesTable;
     }
 
-    public void updateTable(Serie serie) {
+    public void updateTable(Serie lastSearchedSeries) throws SQLException {
+        Serie serie = searchPresenter.getScoredSerie();
         tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore(), serie.getLastUpdated()});
         repaint();
     }

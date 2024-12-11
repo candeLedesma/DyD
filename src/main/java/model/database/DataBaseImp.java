@@ -139,6 +139,22 @@ public class DataBaseImp implements DataBase {
   }
 
 
+  public Serie getScoredSerie(String title) throws SQLException {
+    return executeQuery(
+            "SELECT updated_at, score FROM scored WHERE title = ?",
+            rs -> {
+              if (rs.next()) {
+                Serie serie = new Serie(title, rs.getInt("score"));
+                serie.setUpdatedAt(rs.getDate("updated_at"));
+                return serie;
+              }
+              return null;
+            },
+            title
+    );
+  }
+
+
   private static void createScoredTable(Statement statement) throws SQLException {
     String createTableSQL = "CREATE TABLE IF NOT EXISTS scored ("
             + "id INTEGER PRIMARY KEY AUTOINCREMENT, "

@@ -24,4 +24,6 @@ public interface DataBase {
     void loadDatabase();
 
     List<Serie> getScoredSeries() throws SQLException;
+
+    Serie getScoredSerie(String title) throws SQLException;
 }

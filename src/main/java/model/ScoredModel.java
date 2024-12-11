@@ -30,4 +30,7 @@ public class ScoredModel {
         this.database = database;
     }
 
+    public Serie getScoredSerie(String title) throws SQLException {
+        return database.getScoredSerie(title);
+    }
 }
