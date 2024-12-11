@@ -15,36 +15,36 @@ class ScoredModelTest {
 
     @BeforeEach
     void setUp() {
-        testDataBase = new TestDataBase(); // Base de datos de prueba
+        testDataBase = new TestDataBase();
         scoredModel = new ScoredModel();
         scoredModel.setDatabase(testDataBase);
     }
 
     @Test
     void testSetScore() throws SQLException {
-        scoredModel.setScore("Title1", 5);
-        assertEquals(5, testDataBase.getScore("Title1"));
+        scoredModel.setScore("Breaking Bad", 5);
+        assertEquals(5, testDataBase.getScore("Breaking Bad"));
     }
 
     @Test
     void testHasScore() throws SQLException {
-        scoredModel.setScore("Title1", 5);
-        assertTrue(scoredModel.hasScore("Title1"));
+        scoredModel.setScore("Breaking Bad", 5);
+        assertTrue(scoredModel.hasScore("Breaking Bad"));
     }
 
     @Test
     void testGetScore() throws SQLException {
-        scoredModel.setScore("Title1", 5);
-        assertEquals(5, scoredModel.getScore("Title1"));
+        scoredModel.setScore("Breaking Bad", 5);
+        assertEquals(5, scoredModel.getScore("Breaking Bad"));
     }
 
     @Test
     void testGetScoredSeries() throws SQLException {
-        Serie serie1 = new Serie("Title1", 2);
-        Serie serie2 = new Serie("Title2", 3);
-        testDataBase.saveScore("Title1", 5);
-        testDataBase.saveScore("Title2", 4);
-        List<Serie> series = scoredModel.getScoredSeries();
+        testDataBase.saveScore("Breaking Bad", 5);
+        testDataBase.saveScore("Game of thrones", 4);
+
+        List<Serie> series = testDataBase.getScoredSeries();
         assertEquals(2, series.size());
     }
+
 }

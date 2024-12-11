@@ -13,35 +13,35 @@ class StoredModelTest {
 
     @BeforeEach
     void setUp() {
-        testDataBase = new TestDataBase(); // Base de datos de prueba
+        testDataBase = new TestDataBase();
         storedModel = new StoredModel();
         storedModel.setDatabase(testDataBase);
     }
 
     @Test
     void testSaveStoredInfo() throws SQLException {
-        storedModel.saveStoredInfo("Title1", "Extract1");
-        assertEquals("Extract1", testDataBase.getExtract("Title1"));
+        storedModel.saveStoredInfo("Breaking Bad", "Un pelado cocina metanfetaminas con su ex alumno");
+        assertEquals("Un pelado cocina metanfetaminas con su ex alumno", testDataBase.getExtract("Breaking Bad"));
     }
 
     @Test
     void testDeleteSavedInfo() throws SQLException {
-        storedModel.saveStoredInfo("Title1", "Extract1");
-        storedModel.deleteSavedInfo("Title1");
-        assertNull(testDataBase.getExtract("Title1"));
+        storedModel.saveStoredInfo("Breaking Bad", "Un pelado cocina metanfetaminas con su ex alumno");
+        storedModel.deleteSavedInfo("Breaking Bad");
+        assertNull(testDataBase.getExtract("Breaking Bad"));
     }
 
     @Test
     void testGetSavedTitles() throws SQLException {
-        storedModel.saveStoredInfo("Title1", "Extract1");
-        storedModel.saveStoredInfo("Title2", "Extract2");
+        storedModel.saveStoredInfo("Braking Bad", "Un pelado cocina metanfetaminas con su ex alumno");
+        storedModel.saveStoredInfo("Game of thrones", "Jon Snow sabe algo");
         Object[] titles = storedModel.getSavedTitles();
-        assertArrayEquals(new String[]{"Title1", "Title2"}, titles);
+        assertArrayEquals(new String[]{"Braking Bad", "Game of thrones"}, titles);
     }
 
     @Test
     void testGetExtract() throws SQLException {
-        storedModel.saveStoredInfo("Title1", "Extract1");
-        assertEquals("Extract1", storedModel.getExtract("Title1"));
+        storedModel.saveStoredInfo("Braking Bad", "Un pelado cocina metanfetaminas con su ex alumno");
+        assertEquals("Un pelado cocina metanfetaminas con su ex alumno", storedModel.getExtract("Braking Bad"));
     }
 }

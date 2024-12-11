@@ -7,7 +7,7 @@ import java.util.*;
 public class TestDataBase implements DataBase {
 
     private final Map<String, String> data = new HashMap<>();
-    private final Map<String, Integer> scores = new HashMap<>();
+    private final List<Serie> scoredSeries = new ArrayList<>();
 
     @Override
     public void loadDatabase() {
@@ -22,7 +22,6 @@ public class TestDataBase implements DataBase {
     @Override
     public void deleteEntry(String title) throws SQLException {
         data.remove(title);
-        scores.remove(title);
     }
 
     @Override
@@ -37,18 +36,20 @@ public class TestDataBase implements DataBase {
 
     @Override
     public void saveScore(String title, int score) throws SQLException {
-        scores.put(title, score);
+        scoredSeries.add(new Serie(title, score));
     }
 
     @Override
     public int getScore(String title) throws SQLException {
-        return scores.getOrDefault(title, 0);
+        return scoredSeries.stream()
+                .filter(serie -> serie.getTitle().equals(title))
+                .map(Serie::getScore)
+                .findFirst()
+                .orElse(0);
     }
 
     @Override
     public List<Serie> getScoredSeries() throws SQLException {
-        List<Serie> series = new ArrayList<>();
-        //TODO: Implementar
-        return series;
+        return scoredSeries;
     }
 }
