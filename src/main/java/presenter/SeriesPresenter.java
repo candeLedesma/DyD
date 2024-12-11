@@ -76,10 +76,6 @@ public class SeriesPresenter implements Presenter {
         view.showErrorMessage(errorGettingScoredSeries);
     }
 
-    @Override
-    public Serie getScoredSerie() throws SQLException {
-        return model.getScoredSerie();
-    }
 
     @Override
     public List<Serie> getScoredSeries() {

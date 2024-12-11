@@ -25,5 +25,4 @@ public interface DataBase {
 
     List<Serie> getScoredSeries() throws SQLException;
 
-    Serie getScoredSerie(String title) throws SQLException;
 }

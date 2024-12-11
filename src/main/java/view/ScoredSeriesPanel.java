@@ -35,6 +35,9 @@ public class ScoredSeriesPanel extends JPanel {
     }
 
     public void showView() {
+
+        tableModel.setRowCount(0);
+
         //sacar logica de la vista
         List<Serie> scoredSeries = searchPresenter.getScoredSeries();
         for (Serie serie : scoredSeries) {
@@ -51,9 +54,8 @@ public class ScoredSeriesPanel extends JPanel {
         return scoredSeriesTable;
     }
 
-    public void updateTable(Serie lastSearchedSeries) throws SQLException {
-        Serie serie = searchPresenter.getScoredSerie();
-        tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore(), serie.getLastUpdated()});
+    public void updateTable() {
+        showView();
         repaint();
     }
 }

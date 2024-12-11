@@ -72,7 +72,7 @@ public class Serie extends JMenuItem {
         return lastUpdated;
     }
 
-    public void setUpdatedAt(java.sql.Date updatedAt) {
+    public void setUpdatedAt(java.util.Date updatedAt) {
         this.lastUpdated = updatedAt;
     }
 }

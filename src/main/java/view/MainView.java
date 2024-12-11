@@ -142,7 +142,7 @@ public class MainView implements View {
         return tabbedPaneRatedSeries;
     }
 
-    public void updateScore(Serie lastSearchedSeries) throws SQLException {
-        scoredSeriesPanel.updateTable(lastSearchedSeries);
+    public void updateScore() {
+        scoredSeriesPanel.updateTable();
     }
 }

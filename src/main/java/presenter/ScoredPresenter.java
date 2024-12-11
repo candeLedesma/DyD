@@ -23,7 +23,7 @@ public class ScoredPresenter {
             int newScore = view.getScore();
             lastSearchedSeries.setScore(newScore);
             model.setScore();
-            view.updateScore(lastSearchedSeries);
+            view.updateScore();
         }
     }
 

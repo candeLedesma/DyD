@@ -36,5 +36,4 @@ public interface Presenter {
 
     void showError(String errorGettingScoredSeries);
 
-    Serie getScoredSerie() throws SQLException;
 }

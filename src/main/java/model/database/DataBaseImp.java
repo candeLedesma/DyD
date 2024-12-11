@@ -40,18 +40,6 @@ public class DataBaseImp implements DataBase {
     }
   }
 
-  public void testDB() throws SQLException {
-    executeQuery("SELECT * FROM catalog", rs -> {
-      while (rs.next()) {
-        System.out.println("id = " + rs.getInt("id"));
-        System.out.println("title = " + rs.getString("title"));
-        System.out.println("extract = " + rs.getString("extract"));
-        System.out.println("source = " + rs.getInt("source"));
-      }
-      return null;
-    });
-  }
-
   @Override
   public ArrayList<String> getTitles() throws SQLException {
     return executeQuery("SELECT title FROM catalog", rs -> {
@@ -130,7 +118,7 @@ public class DataBaseImp implements DataBase {
               List<Serie> series = new ArrayList<>();
               while (rs.next()) {
                 Serie serie = new Serie(rs.getString("title"), rs.getInt("score"));
-                serie.setUpdatedAt(rs.getDate("updated_at"));
+                serie.setUpdatedAt(new java.util.Date(rs.getTimestamp("updated_at").getTime()));
                 series.add(serie);
               }
               return series;
@@ -138,21 +126,6 @@ public class DataBaseImp implements DataBase {
     );
   }
 
-
-  public Serie getScoredSerie(String title) throws SQLException {
-    return executeQuery(
-            "SELECT updated_at, score FROM scored WHERE title = ?",
-            rs -> {
-              if (rs.next()) {
-                Serie serie = new Serie(title, rs.getInt("score"));
-                serie.setUpdatedAt(rs.getDate("updated_at"));
-                return serie;
-              }
-              return null;
-            },
-            title
-    );
-  }
 
 
   private static void createScoredTable(Statement statement) throws SQLException {
