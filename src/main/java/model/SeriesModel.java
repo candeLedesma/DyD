@@ -1,5 +1,7 @@
 package model;
 
+import model.API.WikipediaPageAPI;
+import model.API.WikipediaSearchAPI;
 import model.database.DataBase;
 import model.database.DataBaseImp;
 import presenter.Presenter;
@@ -20,6 +22,16 @@ public class SeriesModel  implements Model {
 
     public SeriesModel() {
         this.searchModel = new SearchModel();
+        this.storedModel = new StoredModel();
+        this.scoredModel = new ScoredModel();
+        database = new DataBaseImp();
+        database.loadDatabase();
+        scoredModel.setDatabase(database);
+        storedModel.setDatabase(database);
+    }
+
+    public SeriesModel(WikipediaSearchAPI wikipediaSearchAPI, WikipediaPageAPI wikipediaPageAPI) {
+        searchModel = new SearchModel(wikipediaSearchAPI, wikipediaPageAPI);
         this.storedModel = new StoredModel();
         this.scoredModel = new ScoredModel();
         database = new DataBaseImp();

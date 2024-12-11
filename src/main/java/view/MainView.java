@@ -118,7 +118,22 @@ public class MainView implements View {
         return searchPanel.getScoreSliderValue();
     }
 
-    public void atualizeScore(Serie lastSearchedSeries) {
-        scoredSeriesPanel.atualizeScore(lastSearchedSeries);
+    public AbstractButton getSearchButton() {
+        return searchPanel.getSearchButton();
+    }
+
+    @Override
+    public SearchPanel getSearchView() {
+        return searchPanel;
+    }
+
+    @Override
+    public StoragePanel getStoredView() {
+        return storagePanel;
+    }
+
+    @Override
+    public ScoredSeriesPanel getScoredView() {
+        return scoredSeriesPanel;
     }
 }

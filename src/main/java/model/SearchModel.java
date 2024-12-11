@@ -33,6 +33,12 @@ public class SearchModel {
         gson = new Gson();
     }
 
+    public SearchModel(WikipediaSearchAPI searchAPI, WikipediaPageAPI pageAPI) {
+        this.searchAPI = searchAPI;
+        this.pageAPI = pageAPI;
+        this.gson = new Gson();
+    }
+
     public LinkedList<Serie> searchSeries(String seriesName) throws IOException {
         LinkedList<Serie> searchResults = new LinkedList<>();
 

@@ -3,6 +3,7 @@ package presenter;
 import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
+import view.View;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -109,5 +110,9 @@ public class SeriesPresenter implements Presenter {
     @Override
     public void recordScore() {
         scoredPresenter.recordScore();
+    }
+
+    public View getView() {
+        return view;
     }
 }

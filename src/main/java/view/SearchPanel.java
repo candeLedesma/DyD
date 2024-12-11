@@ -21,6 +21,7 @@ public class SearchPanel extends JPanel{
     private JLabel scoreLabel;
     private JSlider sliderScore;
     private JButton setScoreButton;
+    private LinkedList<Serie> results;
 
     public SearchPanel() {
         this.setVisible(true);
@@ -51,6 +52,8 @@ public class SearchPanel extends JPanel{
 
     public void showResults(LinkedList<Serie> results) {
         JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
+
+        this.results = results;
 
         for (Serie searchResult : results) {
             boolean hasScore = searchPresenter.hasScore(searchResult.getTitle());
@@ -123,4 +126,11 @@ public class SearchPanel extends JPanel{
         return sliderScore.getValue();
     }
 
+    public AbstractButton getSearchButton() {
+        return searchButton;
+    }
+
+    public Serie getResult() {
+        return results.get(0);
+    }
 }
