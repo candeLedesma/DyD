@@ -60,13 +60,13 @@ public class IntegrationTest {
         JMenuItem firstItem = (JMenuItem) searcherView.getResult();
         firstItem.doClick();
         Thread.sleep(2000);
-        System.out.println(searcherView.getsSearchSerieField());
-        assertEquals(searcherView.getsSearchSerieField(),"<html>\n" +
+        System.out.println(searcherView.getSearchResultTextPane());
+        assertEquals(searcherView.getSearchResultTextPane(),"<html>\n" +
                 "  <head>\n" +
                 "    \n" +
                 "  </head>\n" +
                 "  <body>\n" +
-                "    EXAMPLE EXTRACT<a href=\"https://en.wikipedia.org/?curid=1\">https://en.wikipedia.org/?curid=1</a>\n" +
+                "    Breaking Bad\n" +
                 "  </body>\n" +
                 "</html>\n");
     }
@@ -84,10 +84,8 @@ public class IntegrationTest {
         Thread.sleep(2000);
         storedView.getStoredSeries().setSelectedIndex(0);
         Thread.sleep(2000);
-        assertEquals( "<html>\n" + "  <head>\n" +  "    \n" + "  </head>\n" +"  <body>\n" +"    <font face=\"arial\">EXAMPLE EXTRACT</font>\n" +
-                        "  </body>\n" +
-                        "</html>\n",
-                storedView.getSeletedSavedTitle());
+
+        assertEquals( "Breaking Bad", storedView.getSeletedSavedTitle());
     }
 
     @Test

@@ -133,4 +133,8 @@ public class SearchPanel extends JPanel{
     public Serie getResult() {
         return results.get(0);
     }
+
+    public String getSearchResultTextPane() {
+        return searchResultsTextPane.getText();
+    }
 }
