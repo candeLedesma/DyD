@@ -10,6 +10,7 @@ import utils.Serie;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class SeriesModel  implements Model {
     private final ScoredModel scoredModel;
     private Presenter presenter;
     private DataBase database;
+    private List<SearchSeriesModelListener> listeners;
 
     public SeriesModel() {
         this.searchModel = new SearchModel();
@@ -28,6 +30,7 @@ public class SeriesModel  implements Model {
         database.loadDatabase();
         scoredModel.setDatabase(database);
         storedModel.setDatabase(database);
+        this.listeners = new ArrayList<>();
     }
 
     public SeriesModel(WikipediaSearchAPI wikipediaSearchAPI, WikipediaPageAPI wikipediaPageAPI, DataBase databaseStub) {
@@ -38,12 +41,29 @@ public class SeriesModel  implements Model {
         database.loadDatabase();
         scoredModel.setDatabase(database);
         storedModel.setDatabase(database);
+        this.listeners = new ArrayList<>();
+    }
+
+    public void addListener(SearchSeriesModelListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(SearchSeriesModelListener listener) {
+        listeners.remove(listener);
+    }
+
+    private void notifyListeners() {
+        for (SearchSeriesModelListener listener : listeners) {
+            listener.seriesSearchFinished();
+        }
     }
 
 
     @Override
     public LinkedList<Serie> searchSeries(String seriesName) throws IOException {
-        return searchModel.searchSeries(seriesName);
+        LinkedList<Serie> results = searchModel.searchSeries(seriesName);
+        notifyListeners();
+        return results;
     }
 
 

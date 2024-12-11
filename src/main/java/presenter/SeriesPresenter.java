@@ -1,5 +1,6 @@
 package presenter;
 
+import model.SearchSeriesModelListener;
 import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
@@ -9,7 +10,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SeriesPresenter implements Presenter {
+public class SeriesPresenter implements Presenter, SearchSeriesModelListener {
     private final MainView view;
     private final SeriesModel model;
 
@@ -24,6 +25,7 @@ public class SeriesPresenter implements Presenter {
         this.scoredPresenter = new ScoredPresenter(view, model);
         this.storedPresenter = new StoredPresenter(view, model);
         this.searchPresenter = new SearchPresenter(view, model);
+        this.model.addListener(this);
     }
 
     @Override
@@ -119,5 +121,10 @@ public class SeriesPresenter implements Presenter {
 
     public View getView() {
         return view;
+    }
+
+    @Override
+    public void seriesSearchFinished() {
+        System.out.println("Search finished! Updating the view...");
     }
 }
