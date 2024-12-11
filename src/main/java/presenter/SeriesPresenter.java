@@ -7,7 +7,9 @@ import view.MainView;
 import view.View;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SeriesPresenter implements Presenter, SearchSeriesModelListener {
@@ -17,15 +19,17 @@ public class SeriesPresenter implements Presenter, SearchSeriesModelListener {
     private final ScoredPresenter scoredPresenter;
     private final StoredPresenter storedPresenter;
     private final SearchPresenter searchPresenter;
+    boolean isSearchInProgress = false;
 
     public SeriesPresenter(SeriesModel model) {
         this.model = model;
         model.setPresenter(this);
+        this.model.addListener(this);
         this.view = new MainView(this);
         this.scoredPresenter = new ScoredPresenter(view, model);
         this.storedPresenter = new StoredPresenter(view, model);
         this.searchPresenter = new SearchPresenter(view, model);
-        this.model.addListener(this);
+
     }
 
     @Override
@@ -125,6 +129,28 @@ public class SeriesPresenter implements Presenter, SearchSeriesModelListener {
 
     @Override
     public void seriesSearchFinished() {
+        if (isSearchInProgress) return;
+        isSearchInProgress = true;
+
         System.out.println("Search finished! Updating the view...");
+        try {
+            LinkedList<Serie> searchResults = model.searchSeries(view.getSearchSerieField());
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    view.updateSearchResults(searchResults);
+                } catch (Exception e) {
+                    view.showErrorMessage("Error updating search results: " + e.getMessage());
+                }
+                isSearchInProgress = false;
+            });
+        } catch (IOException e) {
+            SwingUtilities.invokeLater(() -> {
+                view.showErrorMessage("Error retrieving search results: " + e.getMessage());
+                isSearchInProgress = false;
+            });
+        }
     }
+
+
+
 }

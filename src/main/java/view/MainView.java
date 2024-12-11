@@ -146,4 +146,10 @@ public class MainView implements View {
     public void showSuccessSaveMessage() {
         storagePanel.showSuccessSavedMessage();
     }
+
+
+    public void updateSearchResults(LinkedList<Serie> searchResults) throws Exception {
+        showView();
+    }
+
 }
