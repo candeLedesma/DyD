@@ -141,4 +141,8 @@ public class MainView implements View {
     public JTabbedPane getTabbedPane() {
         return tabbedPaneRatedSeries;
     }
+
+    public void updateScore(Serie lastSearchedSeries) {
+        scoredSeriesPanel.updateTable(lastSearchedSeries);
+    }
 }

@@ -49,4 +49,9 @@ public class ScoredSeriesPanel extends JPanel {
     public JTable getScoresTable() {
         return scoredSeriesTable;
     }
+
+    public void updateTable(Serie serie) {
+        tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore(), serie.getLastUpdated()});
+        repaint();
+    }
 }

@@ -50,14 +50,6 @@ public class Serie extends JMenuItem {
         return title;
     }
 
-    public String getPageID() {
-        return pageID;
-    }
-
-    public String getSnippet() {
-        return snippet;
-    }
-
     public void setScore(int score) {
         this.score = score;
         hasScore = true;
