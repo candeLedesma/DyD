@@ -72,8 +72,8 @@ public class SeriesPresenter implements Presenter {
     }
 
     @Override
-    public void showError(String errorGettingScoredSeries) {
-        view.showErrorMessage(errorGettingScoredSeries);
+    public void showError(String messageError) {
+        view.showErrorMessage(messageError);
     }
 
 

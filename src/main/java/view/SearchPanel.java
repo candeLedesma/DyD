@@ -16,7 +16,6 @@ public class SearchPanel extends JPanel{
     private JButton saveLocallyButton;
     private JPanel scorePanel;
     private Presenter searchPresenter;
-    String serieName = "";
     private Serie lastSearchedSeries;
     private JLabel scoreLabel;
     private JSlider sliderScore;
@@ -36,7 +35,7 @@ public class SearchPanel extends JPanel{
         searchButton.addActionListener(e -> searchPresenter.searchSeries());
 
         saveLocallyButton.addActionListener(actionEvent -> {
-            if (!serieName.isEmpty()) {
+            if (lastSearchedSeries != null) {
                 searchPresenter.saveLocally();
             }
         });
@@ -62,7 +61,6 @@ public class SearchPanel extends JPanel{
 
             menuItem.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;
-                serieName = searchResult.getTitle();
                 try {
                     searchPresenter.getSelectedExtract(searchResult);
                 } catch (SQLException e) {
@@ -97,7 +95,6 @@ public class SearchPanel extends JPanel{
 
         });
 
-
     }
 
 
@@ -110,7 +107,6 @@ public class SearchPanel extends JPanel{
     }
 
     public void setSearchResultTextPane(String seriesName) {
-        this.serieName = seriesName;
         searchResultsTextPane.setText(seriesName);
         searchResultsTextPane.setCaretPosition(0);
     }
