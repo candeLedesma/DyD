@@ -1,8 +1,12 @@
 package presenter;
 
 import utils.Serie;
+import view.SearchPanel;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public interface Presenter {
@@ -36,4 +40,7 @@ public interface Presenter {
 
     void showError(String errorGettingScoredSeries);
 
+    void handleShowResults(LinkedList<Serie> results, JTextPane searchResultsTextPane, SearchPanel searchPanel);
+
+    void updateScoredSeriesTable();
 }

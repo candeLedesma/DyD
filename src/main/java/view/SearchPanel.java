@@ -48,29 +48,13 @@ public class SearchPanel extends JPanel{
     }
 
 
-
     public void showResults(LinkedList<Serie> results) {
-        JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
-
         this.results = results;
+        searchPresenter.handleShowResults(results, searchResultsTextPane, this);
+    }
 
-        for (Serie searchResult : results) {
-            boolean hasScore = searchPresenter.hasScore(searchResult.getTitle());
-            String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
-            JMenuItem menuItem = new JMenuItem(displayTitle);
-
-            menuItem.addActionListener(actionEvent -> {
-                lastSearchedSeries = searchResult;
-                try {
-                    searchPresenter.getSelectedExtract(searchResult);
-                } catch (SQLException e) {
-                    searchPresenter.showError(e.getMessage());
-                }
-            });
-
-            searchOptionsMenu.add(menuItem);
-        }
-        searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
+    public void setLastSearchedSeries(Serie lastSearchedSeries) {
+        this.lastSearchedSeries = lastSearchedSeries;
     }
 
     public void showScorePanel() throws SQLException {

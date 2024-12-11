@@ -5,6 +5,7 @@ import presenter.SeriesPresenter;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class MainView implements View {
@@ -145,5 +146,9 @@ public class MainView implements View {
 
     public void showSuccessSaveMessage() {
         storagePanel.showSuccessSavedMessage();
+    }
+
+    public void addSerieToTable(String title, int score, Date lastUpdated) {
+        scoredSeriesPanel.addSerieToTable(title, score, lastUpdated);
     }
 }

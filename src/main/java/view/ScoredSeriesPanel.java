@@ -2,11 +2,9 @@ package view;
 
 import presenter.Presenter;
 import presenter.SeriesPresenter;
-import utils.Serie;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.List;
+import java.util.Date;
 
 public class ScoredSeriesPanel extends JPanel {
     private JPanel scoredPanel;
@@ -34,13 +32,8 @@ public class ScoredSeriesPanel extends JPanel {
     }
 
     public void showView() {
-
         tableModel.setRowCount(0);
-
-        List<Serie> scoredSeries = searchPresenter.getScoredSeries();
-        for (Serie serie : scoredSeries) {
-            tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore(), serie.getLastUpdated()});
-        }
+        searchPresenter.updateScoredSeriesTable();
         scoredSeriesTable.setVisible(true);
     }
 
@@ -55,5 +48,9 @@ public class ScoredSeriesPanel extends JPanel {
     public void updateTable() {
         showView();
         repaint();
+    }
+
+    public void addSerieToTable(String title, int score, Date lastUpdated) {
+        tableModel.addRow(new Object[]{title, score, lastUpdated});
     }
 }

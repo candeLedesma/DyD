@@ -3,10 +3,13 @@ package presenter;
 import model.SeriesModel;
 import utils.Serie;
 import view.MainView;
+import view.SearchPanel;
 import view.View;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SeriesPresenter implements Presenter {
@@ -74,6 +77,37 @@ public class SeriesPresenter implements Presenter {
     @Override
     public void showError(String messageError) {
         view.showErrorMessage(messageError);
+    }
+
+    @Override
+    public void handleShowResults(LinkedList<Serie> results, JTextPane searchResultsTextPane, SearchPanel searchPanel) {
+        JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
+
+        for (Serie searchResult : results) {
+            boolean hasScore = hasScore(searchResult.getTitle());
+            String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
+            JMenuItem menuItem = new JMenuItem(displayTitle);
+
+            menuItem.addActionListener(actionEvent -> {
+                searchPanel.setLastSearchedSeries(searchResult);
+                try {
+                    getSelectedExtract(searchResult);
+                } catch (SQLException e) {
+                    showError(e.getMessage());
+                }
+            });
+
+            searchOptionsMenu.add(menuItem);
+        }
+        searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
+    }
+
+    @Override
+    public void updateScoredSeriesTable() {
+        List<Serie> scoredSeries = getScoredSeries();
+        for (Serie serie : scoredSeries) {
+            view.addSerieToTable(serie.getTitle(), serie.getScore(), serie.getLastUpdated());
+        }
     }
 
 
