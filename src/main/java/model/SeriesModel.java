@@ -30,11 +30,11 @@ public class SeriesModel  implements Model {
         storedModel.setDatabase(database);
     }
 
-    public SeriesModel(WikipediaSearchAPI wikipediaSearchAPI, WikipediaPageAPI wikipediaPageAPI) {
+    public SeriesModel(WikipediaSearchAPI wikipediaSearchAPI, WikipediaPageAPI wikipediaPageAPI, DataBase databaseStub) {
         searchModel = new SearchModel(wikipediaSearchAPI, wikipediaPageAPI);
         this.storedModel = new StoredModel();
         this.scoredModel = new ScoredModel();
-        database = new DataBaseImp();
+        database = databaseStub;
         database.loadDatabase();
         scoredModel.setDatabase(database);
         storedModel.setDatabase(database);

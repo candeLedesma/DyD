@@ -1,9 +1,11 @@
 import model.API.WikipediaPageAPI;
 import model.API.WikipediaSearchAPI;
 import model.SeriesModel;
+import model.database.DataBase;
 import org.junit.Before;
 import org.junit.Test;
 import presenter.SeriesPresenter;
+import stub.DataBaseStub;
 import stub.WikipediaPageAPIStub;
 import stub.WikipediaSearchAPIStub;
 import view.*;
@@ -28,7 +30,8 @@ public class IntegrationTest {
     public void setUp() {
         WikipediaSearchAPI searchAPI = new WikipediaSearchAPIStub();
         WikipediaPageAPI pageAPI = new WikipediaPageAPIStub();
-        SeriesModel seriesModel = new SeriesModel(searchAPI, pageAPI);
+        DataBase dataBaseStub = new DataBaseStub();
+        SeriesModel seriesModel = new SeriesModel(searchAPI, pageAPI, dataBaseStub);
 
         presenter = new SeriesPresenter(seriesModel);
         presenter.start();
@@ -72,7 +75,7 @@ public class IntegrationTest {
     public void testShowSavedSeries() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(1);
         Thread.sleep(2000);
-        assertEquals(storedView.getStoredSeries().getItemAt(0).toString(), "title");
+        assertEquals(storedView.getStoredSeries().getItemAt(0).toString(), "Breaking Bad");
     }
 
     @Test
@@ -91,6 +94,6 @@ public class IntegrationTest {
     public void testShowScoredSeries() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(2);
         Thread.sleep(2000);
-        assertEquals("title",scoredView.getScoresTable().getValueAt(0, 0));
+        assertEquals("Breaking Bad",scoredView.getScoresTable().getValueAt(0, 0));
     }
 }
