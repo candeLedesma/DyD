@@ -119,10 +119,6 @@ public class SearchPanel extends JPanel{
         return searchSerieField.getText();
     }
 
-    public void showSuccessMessage() {
-        JOptionPane.showMessageDialog(this, "The series was correctly saved!");
-    }
-
     public int getScoreSliderValue() {
         return sliderScore.getValue();
     }

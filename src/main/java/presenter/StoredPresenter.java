@@ -26,6 +26,7 @@ public class StoredPresenter {
             String title = view.getSeletedSavedTitle();
             String text = view.getSearchResultTextPane();
             model.saveStoredInfo(title, text);
+            view.showSuccessSaveMessage();
         }
     }
 
@@ -34,7 +35,7 @@ public class StoredPresenter {
             Serie lastSearchedSeries = view.getLastSearchedSeries();
             if (lastSearchedSeries != null) {
                 model.saveLocally();
-                view.showSuccessMessage("The series was correctly saved!");
+                view.showSuccessMessage("Saved locally");
                 view.setSelectSavedComboBox(model.getSavedTitles());
             }
         } catch (Exception e) {

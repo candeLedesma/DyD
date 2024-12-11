@@ -111,16 +111,13 @@ public class MainView implements View {
 
     public void deleteSelectedIndex() {
         storagePanel.deleteSelectedIndex();
-        searchPanel.showSuccessMessage();
+        storagePanel.showSuccessDeletedMessage();
     }
 
     public int getScore() {
         return searchPanel.getScoreSliderValue();
     }
 
-    public AbstractButton getSearchButton() {
-        return searchPanel.getSearchButton();
-    }
 
     @Override
     public SearchPanel getSearchView() {
@@ -144,5 +141,9 @@ public class MainView implements View {
 
     public void updateScore() {
         scoredSeriesPanel.updateTable();
+    }
+
+    public void showSuccessSaveMessage() {
+        storagePanel.showSuccessSavedMessage();
     }
 }

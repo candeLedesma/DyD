@@ -99,4 +99,12 @@ public class StoragePanel extends JPanel {
     public JComboBox<Object> getStoredSeries() {
         return storedSeriesComboBox;
     }
+
+    public void showSuccessSavedMessage() {
+        JOptionPane.showMessageDialog(this, "The series was correctly saved!");
+    }
+
+    public void showSuccessDeletedMessage() {
+        JOptionPane.showMessageDialog(this, "The series was correctly deleted!");
+    }
 }
