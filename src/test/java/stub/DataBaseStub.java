@@ -17,8 +17,7 @@ public class DataBaseStub implements DataBase {
     public DataBaseStub() {
         seriesExtracts = new HashMap<>();
         seriesScores = new HashMap<>();
-        // Adding some initial data for testing
-        seriesExtracts.put("Breaking Bad", "EXAMPLE EXTRACT");
+        seriesExtracts.put("Breaking Bad", "Example for Breaking Bad");
         seriesScores.put("Breaking Bad", 10);
     }
 

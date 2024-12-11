@@ -10,7 +10,6 @@ public interface View {
 
     void setSearchResultTextPane(String breakingBad) throws SQLException;
 
-    AbstractButton getSearchButton();
 
     SearchPanel getSearchView();
 

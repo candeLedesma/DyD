@@ -14,7 +14,6 @@ public interface Presenter {
 
     void getSelectedExtract(Serie searchResult) throws SQLException;
 
-
     String getScoreSerie(String title) throws SQLException;
 
     void recordScore();
