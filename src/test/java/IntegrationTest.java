@@ -6,7 +6,6 @@ import org.junit.Test;
 import presenter.SeriesPresenter;
 import stub.WikipediaPageAPIStub;
 import stub.WikipediaSearchAPIStub;
-import utils.Serie;
 import view.*;
 
 import javax.swing.*;
@@ -52,46 +51,46 @@ public class IntegrationTest {
 
     @Test
     public void testSearchWikiPage() throws InterruptedException {
-        /*searcherView.setSearchTextField("Breaking Bad");
+        searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
         Thread.sleep(2000);
-        JMenuItem firstItem = (JMenuItem) searcherView.getResults().getComponent(0);
+        JMenuItem firstItem = (JMenuItem) searcherView.getResult();
         firstItem.doClick();
         Thread.sleep(2000);
-        System.out.println(searcherView.getSearchResultTextPane());
-        assertEquals(searcherView.getSearchResultTextPane(),"<html>\n" +
+        System.out.println(searcherView.getsSearchSerieField());
+        assertEquals(searcherView.getsSearchSerieField(),"<html>\n" +
                 "  <head>\n" +
                 "    \n" +
                 "  </head>\n" +
                 "  <body>\n" +
                 "    EXAMPLE EXTRACT<a href=\"https://en.wikipedia.org/?curid=1\">https://en.wikipedia.org/?curid=1</a>\n" +
                 "  </body>\n" +
-                "</html>\n");*/
+                "</html>\n");
     }
 
     @Test
     public void testShowSavedSeries() throws InterruptedException {
-        /*mainView.getTabbedPane().setSelectedIndex(1);
+        mainView.getTabbedPane().setSelectedIndex(1);
         Thread.sleep(2000);
-        assertEquals(storedView.getStoredSeries().getItemAt(0).toString(), "title");*/
+        assertEquals(storedView.getStoredSeries().getItemAt(0).toString(), "title");
     }
 
     @Test
     public void testShowSavedExtract() throws InterruptedException {
-        /*mainView.getTabbedPane().setSelectedIndex(1);
+        mainView.getTabbedPane().setSelectedIndex(1);
         Thread.sleep(2000);
         storedView.getStoredSeries().setSelectedIndex(0);
         Thread.sleep(2000);
         assertEquals( "<html>\n" + "  <head>\n" +  "    \n" + "  </head>\n" +"  <body>\n" +"    <font face=\"arial\">EXAMPLE EXTRACT</font>\n" +
                         "  </body>\n" +
                         "</html>\n",
-                storedView.getSelectedSavedExtract());*/
+                storedView.getSeletedSavedTitle());
     }
 
     @Test
     public void testShowScoredSeries() throws InterruptedException {
-        /*mainView.getTabbedPane().setSelectedIndex(2);
+        mainView.getTabbedPane().setSelectedIndex(2);
         Thread.sleep(2000);
-        assertEquals("title",scoredView.getScoresTable().getValueAt(0, 0));*/
+        assertEquals("title",scoredView.getScoresTable().getValueAt(0, 0));
     }
 }

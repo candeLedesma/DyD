@@ -46,8 +46,7 @@ public class ScoredSeriesPanel extends JPanel {
         this.searchPresenter = searchPresenter;
     }
 
-    public void atualizeScore(Serie serie) {
-        tableModel.addRow(new Object[]{serie.getTitle(), serie.getScore(), serie.getLastUpdated()});
-        repaint();
+    public JTable getScoresTable() {
+        return scoredSeriesTable;
     }
 }

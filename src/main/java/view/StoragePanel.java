@@ -95,4 +95,8 @@ public class StoragePanel extends JPanel {
     public String getStoredTextPane() {
         return storedInfoTextPane.getText();
     }
+
+    public JComboBox<Object> getStoredSeries() {
+        return storedSeriesComboBox;
+    }
 }

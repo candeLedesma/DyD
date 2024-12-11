@@ -17,4 +17,6 @@ public interface View {
     StoragePanel getStoredView();
 
     ScoredSeriesPanel getScoredView();
+
+    JTabbedPane getTabbedPane();
 }

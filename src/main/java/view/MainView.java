@@ -136,4 +136,9 @@ public class MainView implements View {
     public ScoredSeriesPanel getScoredView() {
         return scoredSeriesPanel;
     }
+
+    @Override
+    public JTabbedPane getTabbedPane() {
+        return tabbedPaneRatedSeries;
+    }
 }
