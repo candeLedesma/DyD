@@ -25,10 +25,21 @@ class StoredModelTest {
     }
 
     @Test
-    void testDeleteSavedInfo() throws SQLException {
-        storedModel.saveStoredInfo("Breaking Bad", "Un pelado cocina metanfetaminas con su ex alumno");
+    void testSavedInfo() throws SQLException {
+        storedModel.saveStoredInfo("Breaking Bad", "Un pelado cocina metanfetaminas");
+        assertTrue(testDataBase.getTitles().contains("Breaking Bad"));
+    }
+
+    @Test
+    void testDeletedInfo() throws SQLException {
         storedModel.deleteSavedInfo("Breaking Bad");
         assertNull(testDataBase.getExtract("Breaking Bad"));
+    }
+
+    @Test
+    void testDeleteInfoEmptySerach() throws SQLException {
+        storedModel.deleteSavedInfo("");
+        assertNull(testDataBase.getExtract(""));
     }
 
     @Test
