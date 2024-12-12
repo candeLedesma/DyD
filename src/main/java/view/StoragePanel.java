@@ -49,10 +49,8 @@ public class StoragePanel extends JPanel {
 
     void setUpPopupMenu() {
         JPopupMenu storedInfoPopup = new JPopupMenu();
-
         addMenuItem(storedInfoPopup, "Delete!", actionEvent -> searchPresenter.deleteStoredInfo());
         addMenuItem(storedInfoPopup, "Save Changes!", actionEvent -> searchPresenter.saveStoredInfo());
-
         storedInfoTextPane.setComponentPopupMenu(storedInfoPopup);
     }
 

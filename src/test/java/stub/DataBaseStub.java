@@ -1,7 +1,7 @@
 package stub;
 
 import model.database.DataBase;
-import utils.Serie;
+import model.Serie;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

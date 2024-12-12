@@ -6,7 +6,6 @@ import model.database.DataBase;
 import model.database.DataBaseImp;
 import presenter.Presenter;
 import presenter.SeriesPresenter;
-import utils.Serie;
 
 import java.io.IOException;
 import java.sql.SQLException;

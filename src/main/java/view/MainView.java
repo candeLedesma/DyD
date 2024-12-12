@@ -1,5 +1,5 @@
 package view;
-import utils.Serie;
+import model.Serie;
 import presenter.SeriesPresenter;
 
 import javax.swing.*;
@@ -33,9 +33,7 @@ public class MainView implements View {
         frame.setSize(400, 428);
 
         setSearchPanel();
-
         setStoragePanel();
-
         setScoredSeriesPanel();
 
         UIManager.put("nimbusSelection", new Color(247,248,250));

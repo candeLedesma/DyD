@@ -1,7 +1,7 @@
 import model.ScoredModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.Serie;
+import model.Serie;
 
 import java.sql.SQLException;
 import java.util.List;

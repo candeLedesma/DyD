@@ -1,7 +1,7 @@
 package presenter;
 
 import model.SeriesModel;
-import utils.Serie;
+import model.Serie;
 import view.MainView;
 
 public class StoredPresenter {

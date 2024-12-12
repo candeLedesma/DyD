@@ -1,10 +1,9 @@
 package model.database;
 
-import utils.Serie;
+import model.Serie;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -118,7 +117,7 @@ public class DataBaseImp implements DataBase {
               List<Serie> series = new ArrayList<>();
               while (rs.next()) {
                 Serie serie = new Serie(rs.getString("title"), rs.getInt("score"));
-                serie.setUpdatedAt(new java.util.Date(rs.getTimestamp("updated_at").getTime()));
+                serie.setLastUpdated(new java.util.Date(rs.getTimestamp("updated_at").getTime()));
                 series.add(serie);
               }
               return series;
