@@ -45,7 +45,7 @@ public class IntegrationTest {
     public void testSearchSeries() throws InterruptedException {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         SerieMenuItem firstItem = searcherView.getResult();
         assertEquals(firstItem.getText(), "<html><font face=\"arial\">★ Breaking Bad: Snippet for Breaking Bad");
     }
@@ -54,10 +54,10 @@ public class IntegrationTest {
     public void testSearchWikiPage() throws InterruptedException {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         SerieMenuItem firstItem = searcherView.getResult();
         firstItem.doClick();
-        Thread.sleep(1000);
+        Thread.sleep(500);
         String htmlString =  "<html>\n" +
                 "  <head>\n" +
                 "    \n" +
@@ -75,16 +75,16 @@ public class IntegrationTest {
     @Test
     public void testShowSavedSeries() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(1);
-        Thread.sleep(1000);
+        Thread.sleep(500);
         assertEquals(storedView.getStoredSeries().getItemAt(0).toString(), "Breaking Bad");
     }
 
     @Test
     public void testShowSavedExtract() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(1);
-        Thread.sleep(1000);
+        Thread.sleep(500);
         storedView.getStoredSeries().setSelectedIndex(0);
-        Thread.sleep(1000);
+        Thread.sleep(500);
 
         assertEquals("Breaking Bad", storedView.getSeletedSavedTitle());
     }
@@ -92,7 +92,7 @@ public class IntegrationTest {
     @Test
     public void testShowScoredSeries() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(2);
-        Thread.sleep(1000);
+        Thread.sleep(500);
         assertEquals("Breaking Bad", scoredView.getScoresTable().getValueAt(0, 0));
     }
 }

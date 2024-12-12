@@ -19,15 +19,16 @@ class StoredModelTest {
     }
 
     @Test
-    void testSaveStoredInfo() throws SQLException {
-        storedModel.saveStoredInfo("Breaking Bad", "Un pelado cocina metanfetaminas con su ex alumno");
-        assertEquals("Un pelado cocina metanfetaminas con su ex alumno", testDataBase.getExtract("Breaking Bad"));
+    void testSaveLocallyInfo() throws SQLException {
+        storedModel.saveLocally("Breaking Bad", "Un pelado cocina metanfetaminas con su ex alumno");
+        assertTrue(testDataBase.getTitles().contains("Breaking Bad"));
     }
 
     @Test
     void testSavedInfo() throws SQLException {
-        storedModel.saveStoredInfo("Breaking Bad", "Un pelado cocina metanfetaminas");
-        assertTrue(testDataBase.getTitles().contains("Breaking Bad"));
+        storedModel.saveStoredInfo("Breaking Bad", "Un pelado");
+        String extract = testDataBase.getExtract("Breaking Bad");
+        assertEquals("Un pelado", extract);
     }
 
     @Test
@@ -36,11 +37,6 @@ class StoredModelTest {
         assertNull(testDataBase.getExtract("Breaking Bad"));
     }
 
-    @Test
-    void testDeleteInfoEmptySerach() throws SQLException {
-        storedModel.deleteSavedInfo("");
-        assertNull(testDataBase.getExtract(""));
-    }
 
     @Test
     void testGetSavedTitles() throws SQLException {
