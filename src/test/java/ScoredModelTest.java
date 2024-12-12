@@ -21,7 +21,7 @@ class ScoredModelTest {
     }
 
     @Test
-    void testSetScore() throws SQLException {
+    void testSetGetScore() throws SQLException {
         scoredModel.setScore("Breaking Bad", 5);
         assertEquals(5, testDataBase.getScore("Breaking Bad"));
     }
@@ -33,18 +33,14 @@ class ScoredModelTest {
     }
 
     @Test
-    void testGetScore() throws SQLException {
-        scoredModel.setScore("Breaking Bad", 5);
-        assertEquals(5, scoredModel.getScore("Breaking Bad"));
-    }
-
-    @Test
     void testGetScoredSeries() throws SQLException {
         testDataBase.saveScore("Breaking Bad", 5);
         testDataBase.saveScore("Game of thrones", 4);
 
         List<Serie> series = testDataBase.getScoredSeries();
         assertEquals(2, series.size());
+        assertEquals(5, testDataBase.getScore("Breaking Bad"));
+        assertEquals(4, testDataBase.getScore("Game of thrones"));
     }
 
 }
