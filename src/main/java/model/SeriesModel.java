@@ -24,17 +24,20 @@ public class SeriesModel  implements Model {
         this.searchModel = new SearchModel();
         this.storedModel = new StoredModel();
         this.scoredModel = new ScoredModel();
-        database = new DataBaseImp();
-        database.loadDatabase();
-        scoredModel.setDatabase(database);
-        storedModel.setDatabase(database);
+        this.database = new DataBaseImp();
+        initDatabase();
     }
+
 
     public SeriesModel(WikipediaSearchAPI wikipediaSearchAPI, WikipediaPageAPI wikipediaPageAPI, DataBase databaseStub) {
         searchModel = new SearchModel(wikipediaSearchAPI, wikipediaPageAPI);
         this.storedModel = new StoredModel();
         this.scoredModel = new ScoredModel();
         database = databaseStub;
+        initDatabase();
+    }
+
+    private void initDatabase() {
         database.loadDatabase();
         scoredModel.setDatabase(database);
         storedModel.setDatabase(database);
