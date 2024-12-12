@@ -31,20 +31,28 @@ public class SearchPanel extends JPanel{
     }
 
     public void setUpView() {
+        configureSearchResultsTextPane();
+        configureSearchButton();
+        configureSaveLocallyButton();
+        configureSliderScore();
+        scorePanel.setVisible(true);
+    }
 
+    private void configureSearchResultsTextPane() {
         searchResultsTextPane.setContentType("text/html");
+    }
 
+    private void configureSearchButton() {
         searchButton.addActionListener(e -> searchPresenter.searchSeries());
+    }
 
-        saveLocallyButton.addActionListener(actionEvent -> {
-            searchPresenter.saveLocally();
-        });
+    private void configureSaveLocallyButton() {
+        saveLocallyButton.addActionListener(actionEvent -> searchPresenter.saveLocally());
+    }
 
-
+    private void configureSliderScore() {
         sliderScore.setMinimum(1);
         sliderScore.setMaximum(10);
-
-        scorePanel.setVisible(true);
     }
 
 
@@ -59,13 +67,13 @@ public class SearchPanel extends JPanel{
         setScoreButton.setVisible(true);
 
         String currentScore = searchPresenter.getScoreSerie(searchPresenter.getLastSearchedSeries().getTitle());
-        scoreLabel.setText("Score: " + currentScore);
+        updateScoreLabel(currentScore);
 
         scoreLabel.repaint();
 
         sliderScore.addChangeListener(e -> {
             if (!sliderScore.getValueIsAdjusting()) {
-                scoreLabel.setText("Score: "+ sliderScore.getValue());
+                updateScoreLabel(String.valueOf(sliderScore.getValue()));
             }
         });
 
@@ -74,6 +82,10 @@ public class SearchPanel extends JPanel{
 
         });
 
+    }
+
+    private void updateScoreLabel(String value) {
+        scoreLabel.setText("Score: " + value);
     }
 
 
