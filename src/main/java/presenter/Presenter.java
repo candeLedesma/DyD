@@ -43,4 +43,6 @@ public interface Presenter {
     void handleShowResults(LinkedList<Serie> results, JTextPane searchResultsTextPane, SearchPanel searchPanel);
 
     void updateScoredSeriesTable();
+
+    void showSuccess(String scoreSetSuccessfully);
 }

@@ -107,6 +107,11 @@ public class SeriesPresenter implements Presenter {
         scoredPresenter.updateScoredSeriesTable(getScoredSeries());
     }
 
+    @Override
+    public void showSuccess(String scoreSetSuccessfully) {
+        view.showSuccessMessage(scoreSetSuccessfully);
+    }
+
 
     @Override
     public List<Serie> getScoredSeries() {

@@ -98,6 +98,7 @@ public class SeriesModel  implements Model {
     public void setScore(){
         try {
             scoredModel.setScore(presenter.getLastSearchedSeries().getTitle(), presenter.getScore());
+            presenter.showSuccess("Score set successfully");
         } catch (SQLException e) {
             presenter.showError("Error setting score");
         }

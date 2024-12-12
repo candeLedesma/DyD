@@ -46,7 +46,7 @@ public class IntegrationTest {
     public void testSearchSeries() throws InterruptedException {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         JMenuItem firstItem = (JMenuItem) searcherView.getResult();
         System.out.println(firstItem.getText());
         assertEquals(firstItem.getText(), "<html><font face=\"arial\">Breaking Bad: Snippet for Breaking Bad");
@@ -56,10 +56,10 @@ public class IntegrationTest {
     public void testSearchWikiPage() throws InterruptedException {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         JMenuItem firstItem = (JMenuItem) searcherView.getResult();
         firstItem.doClick();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         System.out.println(searcherView.getSearchResultTextPane());
         assertEquals(searcherView.getSearchResultTextPane(),"<html>\n" +
                 "  <head>\n" +
@@ -74,16 +74,16 @@ public class IntegrationTest {
     @Test
     public void testShowSavedSeries() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(1);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         assertEquals(storedView.getStoredSeries().getItemAt(0).toString(), "Breaking Bad");
     }
 
     @Test
     public void testShowSavedExtract() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(1);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         storedView.getStoredSeries().setSelectedIndex(0);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
         assertEquals( "Breaking Bad", storedView.getSeletedSavedTitle());
     }
@@ -91,7 +91,7 @@ public class IntegrationTest {
     @Test
     public void testShowScoredSeries() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(2);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         assertEquals("Breaking Bad",scoredView.getScoresTable().getValueAt(0, 0));
     }
 }
