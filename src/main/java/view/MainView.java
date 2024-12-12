@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 public class MainView implements View {
-    private final SeriesPresenter searchPresenter;
+    private final SeriesPresenter seriesPresenter;
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;
     private SearchPanel searchPanel;
@@ -18,7 +18,7 @@ public class MainView implements View {
 
 
     public MainView(SeriesPresenter searchPresenter) {
-        this.searchPresenter = searchPresenter;
+        this.seriesPresenter = searchPresenter;
     }
 
 
@@ -41,18 +41,18 @@ public class MainView implements View {
     }
 
     private void setStoragePanel() {
-        storagePanel.setPresenter(searchPresenter);
+        storagePanel.setPresenter(seriesPresenter);
         storagePanel.setSavedPanel();
     }
 
     private void setSearchPanel() {
-        searchPanel.setPresenter(searchPresenter);
+        searchPanel.setPresenter(seriesPresenter);
         searchPanel.setUpView();
         searchPanel.setVisible(true);
     }
 
     private void setScoredSeriesPanel() {
-        scoredSeriesPanel.setPresenter(searchPresenter);
+        scoredSeriesPanel.setPresenter(seriesPresenter);
         scoredSeriesPanel.setUpView();
         scoredSeriesPanel.showView();
 
@@ -93,7 +93,7 @@ public class MainView implements View {
     }
 
     public Serie getLastSearchedSeries() {
-        return searchPresenter.getLastSearchedSeries();
+        return seriesPresenter.getLastSearchedSeries();
     }
 
     public void showResults(LinkedList<Serie> searchResults) {
