@@ -21,19 +21,21 @@ public class ScoredSeriesPanel extends JPanel {
         this.setVisible(true);
     }
 
+
     public void setUpView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        initializeTableModel();
+        scoredSeriesTable.setModel(tableModel);
+    }
+
+    private void initializeTableModel() {
         this.tableModel = new DefaultTableModel();
-
         tableModel.setColumnCount(0);
-
         tableModel.addColumn("Title");
         tableModel.addColumn("Score");
         tableModel.addColumn("Last Updated");
-
-        scoredSeriesTable.setModel(tableModel);
-
     }
+
 
     public void showView() {
         tableModel.setRowCount(0);
