@@ -81,7 +81,11 @@ public class SeriesPresenter implements Presenter {
         JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
 
         for (Serie searchResult : results) {
-            SerieMenuItem menuItem = new SerieMenuItem(searchResult.getTitle(), searchResult.getSnippet());
+            String title = searchResult.getTitle();
+            boolean hasScore = model.hasScore(title);
+            String displayTitle = hasScore ? "★ " + title : title; // Add star icon if scored
+
+            SerieMenuItem menuItem = new SerieMenuItem(displayTitle, searchResult.getSnippet());
 
             menuItem.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;

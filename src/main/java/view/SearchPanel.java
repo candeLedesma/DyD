@@ -1,7 +1,6 @@
 package view;
 
 import model.Serie;
-import view.SerieMenuItem;
 import presenter.Presenter;
 import presenter.SeriesPresenter;
 
@@ -16,7 +15,7 @@ public class SearchPanel extends JPanel {
     private JTextPane searchResultsTextPane;
     private JButton saveLocallyButton;
     private JPanel scorePanel;
-    private Presenter searchPresenter;
+    private Presenter presenter;
     private JLabel scoreLabel;
     private JSlider sliderScore;
     private JButton setScoreButton;
@@ -44,11 +43,11 @@ public class SearchPanel extends JPanel {
     }
 
     private void configureSearchButton() {
-        searchButton.addActionListener(e -> searchPresenter.searchSeries());
+        searchButton.addActionListener(e -> presenter.searchSeries());
     }
 
     private void configureSaveLocallyButton() {
-        saveLocallyButton.addActionListener(actionEvent -> searchPresenter.saveLocally());
+        saveLocallyButton.addActionListener(actionEvent -> presenter.saveLocally());
     }
 
     private void configureSliderScore() {
@@ -57,14 +56,14 @@ public class SearchPanel extends JPanel {
     }
 
     public void showResults(LinkedList<Serie> results) {
-        searchPresenter.handleShowResults(results, searchResultsTextPane, this);
+        presenter.handleShowResults(results, searchResultsTextPane, this);
     }
 
     public void showScorePanel() throws SQLException {
         sliderScore.setVisible(true);
         setScoreButton.setVisible(true);
 
-        String currentScore = searchPresenter.getScoreSerie(searchPresenter.getLastSearchedSeries().getTitle());
+        String currentScore = presenter.getScoreSerie(presenter.getLastSearchedSeries().getTitle());
         updateScoreLabel(currentScore);
 
         scoreLabel.repaint();
@@ -75,15 +74,17 @@ public class SearchPanel extends JPanel {
             }
         });
 
-        setScoreButton.addActionListener(e -> searchPresenter.recordScore());
+        setScoreButton.addActionListener(e -> {
+            presenter.recordScore();
+        });
     }
 
     private void updateScoreLabel(String value) {
         scoreLabel.setText("Score: " + value);
     }
 
-    public void setPresenter(SeriesPresenter searchPresenter) {
-        this.searchPresenter = searchPresenter;
+    public void setPresenter(SeriesPresenter presenter) {
+        this.presenter = presenter;
     }
 
     public void setSearchResultTextPane(String seriesName) {

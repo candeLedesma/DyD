@@ -10,7 +10,7 @@ public class ScoredSeriesPanel extends JPanel {
     private JPanel scoredPanel;
     private JTable scoredSeriesTable;
     private DefaultTableModel tableModel;
-    private Presenter searchPresenter;
+    private Presenter presenter;
 
     public ScoredSeriesPanel() {
         inicomponents();
@@ -39,12 +39,12 @@ public class ScoredSeriesPanel extends JPanel {
 
     public void showView() {
         tableModel.setRowCount(0);
-        searchPresenter.updateScoredSeriesTable();
+        presenter.updateScoredSeriesTable();
         scoredSeriesTable.setVisible(true);
     }
 
-    public void setPresenter(SeriesPresenter searchPresenter) {
-        this.searchPresenter = searchPresenter;
+    public void setPresenter(SeriesPresenter presenter) {
+        this.presenter = presenter;
     }
 
     public JTable getScoresTable() {

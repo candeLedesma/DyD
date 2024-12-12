@@ -11,7 +11,7 @@ public class StoragePanel extends JPanel {
 
     private JPanel storagePanel;
 
-    private SeriesPresenter searchPresenter;
+    private SeriesPresenter presenter;
 
     private JComboBox storedSeriesComboBox;
 
@@ -29,8 +29,8 @@ public class StoragePanel extends JPanel {
     }
 
 
-    public void setPresenter(SeriesPresenter searchPresenter) {
-        this.searchPresenter = searchPresenter;
+    public void setPresenter(SeriesPresenter presenter) {
+        this.presenter = presenter;
     }
 
     public void setSavedPanel() {
@@ -49,8 +49,8 @@ public class StoragePanel extends JPanel {
 
     void setUpPopupMenu() {
         JPopupMenu storedInfoPopup = new JPopupMenu();
-        addMenuItem(storedInfoPopup, "Delete!", actionEvent -> searchPresenter.deleteStoredInfo());
-        addMenuItem(storedInfoPopup, "Save Changes!", actionEvent -> searchPresenter.saveStoredInfo());
+        addMenuItem(storedInfoPopup, "Delete!", actionEvent -> presenter.deleteStoredInfo());
+        addMenuItem(storedInfoPopup, "Save Changes!", actionEvent -> presenter.saveStoredInfo());
         storedInfoTextPane.setComponentPopupMenu(storedInfoPopup);
     }
 
@@ -61,7 +61,7 @@ public class StoragePanel extends JPanel {
     }
 
     void setUpComboBox() {
-        searchPresenter.initializeSavedPanel();
+        presenter.initializeSavedPanel();
     }
 
 
@@ -69,7 +69,7 @@ public class StoragePanel extends JPanel {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
 
         storedSeriesComboBox.addActionListener(actionEvent -> {
-            searchPresenter.getStoredInfo();
+            presenter.getStoredInfo();
         });
     }
 
