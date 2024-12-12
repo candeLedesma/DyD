@@ -72,11 +72,6 @@ public class SeriesPresenter implements Presenter {
 
 
     @Override
-    public boolean hasScore(String title) {
-        return model.hasScore(title);
-    }
-
-    @Override
     public void showError(String messageError) {
         view.showErrorMessage(messageError);
     }

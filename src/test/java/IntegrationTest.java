@@ -8,9 +8,8 @@ import presenter.SeriesPresenter;
 import stub.DataBaseStub;
 import stub.WikipediaPageAPIStub;
 import stub.WikipediaSearchAPIStub;
+import view.SerieMenuItem;
 import view.*;
-
-import javax.swing.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -47,7 +46,7 @@ public class IntegrationTest {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
         Thread.sleep(1000);
-        JMenuItem firstItem = (JMenuItem) searcherView.getResult();
+        SerieMenuItem firstItem = (SerieMenuItem) searcherView.getResult(); // Cambiar a SerieMenuItem
         System.out.println(firstItem.getText());
         assertEquals(firstItem.getText(), "<html><font face=\"arial\">Breaking Bad: Snippet for Breaking Bad");
     }
@@ -57,11 +56,11 @@ public class IntegrationTest {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
         Thread.sleep(1000);
-        JMenuItem firstItem = (JMenuItem) searcherView.getResult();
+        SerieMenuItem firstItem = (SerieMenuItem) searcherView.getResult(); // Cambiar a SerieMenuItem
         firstItem.doClick();
         Thread.sleep(1000);
         System.out.println(searcherView.getSearchResultTextPane());
-        assertEquals(searcherView.getSearchResultTextPane(),"<html>\n" +
+        assertEquals(searcherView.getSearchResultTextPane(), "<html>\n" +
                 "  <head>\n" +
                 "    \n" +
                 "  </head>\n" +
@@ -85,13 +84,13 @@ public class IntegrationTest {
         storedView.getStoredSeries().setSelectedIndex(0);
         Thread.sleep(1000);
 
-        assertEquals( "Breaking Bad", storedView.getSeletedSavedTitle());
+        assertEquals("Breaking Bad", storedView.getSeletedSavedTitle());
     }
 
     @Test
     public void testShowScoredSeries() throws InterruptedException {
         mainView.getTabbedPane().setSelectedIndex(2);
         Thread.sleep(1000);
-        assertEquals("Breaking Bad",scoredView.getScoresTable().getValueAt(0, 0));
+        assertEquals("Breaking Bad", scoredView.getScoresTable().getValueAt(0, 0));
     }
 }

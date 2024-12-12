@@ -1,6 +1,7 @@
 package view;
 
 import model.Serie;
+import view.SerieMenuItem;
 import presenter.Presenter;
 import presenter.SeriesPresenter;
 
@@ -8,7 +9,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-public class SearchPanel extends JPanel{
+public class SearchPanel extends JPanel {
     private JPanel searchPanel;
     private JTextField searchSerieField;
     private JButton searchButton;
@@ -19,7 +20,7 @@ public class SearchPanel extends JPanel{
     private JLabel scoreLabel;
     private JSlider sliderScore;
     private JButton setScoreButton;
-    private LinkedList<Serie> results;
+    private LinkedList<SerieMenuItem> resultItems;
 
     public SearchPanel() {
         initComponents();
@@ -55,14 +56,11 @@ public class SearchPanel extends JPanel{
         sliderScore.setMaximum(10);
     }
 
-
     public void showResults(LinkedList<Serie> results) {
-        this.results = results;
         searchPresenter.handleShowResults(results, searchResultsTextPane, this);
     }
 
     public void showScorePanel() throws SQLException {
-
         sliderScore.setVisible(true);
         setScoreButton.setVisible(true);
 
@@ -77,17 +75,12 @@ public class SearchPanel extends JPanel{
             }
         });
 
-        setScoreButton.addActionListener(e -> {
-            searchPresenter.recordScore();
-
-        });
-
+        setScoreButton.addActionListener(e -> searchPresenter.recordScore());
     }
 
     private void updateScoreLabel(String value) {
         scoreLabel.setText("Score: " + value);
     }
-
 
     public void setPresenter(SeriesPresenter searchPresenter) {
         this.searchPresenter = searchPresenter;
@@ -110,8 +103,8 @@ public class SearchPanel extends JPanel{
         return searchButton;
     }
 
-    public Serie getResult() {
-        return results.get(0);
+    public SerieMenuItem getResult() {
+        return resultItems.isEmpty() ? null : resultItems.get(0);
     }
 
     public String getSearchResultTextPane() {

@@ -35,7 +35,6 @@ public interface Presenter {
 
     void saveStoredInfo();
 
-    boolean hasScore(String title);
 
     void showError(String errorGettingScoredSeries);
 
@@ -44,4 +43,5 @@ public interface Presenter {
     void updateScoredSeriesTable();
 
     void showSuccess(String scoreSetSuccessfully);
+
 }
