@@ -16,7 +16,6 @@ public class SearchPanel extends JPanel{
     private JButton saveLocallyButton;
     private JPanel scorePanel;
     private Presenter searchPresenter;
-    private Serie lastSearchedSeries;
     private JLabel scoreLabel;
     private JSlider sliderScore;
     private JButton setScoreButton;
@@ -54,17 +53,12 @@ public class SearchPanel extends JPanel{
         searchPresenter.handleShowResults(results, searchResultsTextPane, this);
     }
 
-    public void setLastSearchedSeries(Serie lastSearchedSeries) {
-        this.lastSearchedSeries = lastSearchedSeries;
-    }
-
     public void showScorePanel() throws SQLException {
 
         sliderScore.setVisible(true);
         setScoreButton.setVisible(true);
 
-
-        String currentScore = searchPresenter.getScoreSerie(lastSearchedSeries.getTitle());
+        String currentScore = searchPresenter.getScoreSerie(searchPresenter.getLastSearchedSeries().getTitle());
         scoreLabel.setText("Score: " + currentScore);
 
         scoreLabel.repaint();
@@ -85,10 +79,6 @@ public class SearchPanel extends JPanel{
 
     public void setPresenter(SeriesPresenter searchPresenter) {
         this.searchPresenter = searchPresenter;
-    }
-
-    public Serie getLastSearchedSeries() {
-        return this.lastSearchedSeries;
     }
 
     public void setSearchResultTextPane(String seriesName) {

@@ -20,6 +20,8 @@ public class SeriesPresenter implements Presenter {
     private final StoredPresenter storedPresenter;
     private final SearchPresenter searchPresenter;
 
+    private Serie lastSearchedSeries;
+
     public SeriesPresenter(SeriesModel model) {
         this.model = model;
         model.setPresenter(this);
@@ -40,7 +42,7 @@ public class SeriesPresenter implements Presenter {
 
     @Override
     public Serie getLastSearchedSeries() {
-        return view.getLastSearchedSeries();
+        return lastSearchedSeries;
     }
 
     @Override
@@ -89,7 +91,7 @@ public class SeriesPresenter implements Presenter {
             JMenuItem menuItem = new JMenuItem(displayTitle);
 
             menuItem.addActionListener(actionEvent -> {
-                searchPanel.setLastSearchedSeries(searchResult);
+                lastSearchedSeries = searchResult;
                 try {
                     getSelectedExtract(searchResult);
                 } catch (SQLException e) {

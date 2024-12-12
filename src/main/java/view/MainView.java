@@ -95,7 +95,7 @@ public class MainView implements View {
     }
 
     public Serie getLastSearchedSeries() {
-        return searchPanel.getLastSearchedSeries();
+        return searchPresenter.getLastSearchedSeries();
     }
 
     public void showResults(LinkedList<Serie> searchResults) {
