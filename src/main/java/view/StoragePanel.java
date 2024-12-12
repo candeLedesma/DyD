@@ -5,6 +5,8 @@ import javax.swing.*;
 
 import utils.TextoHTML;
 
+import java.awt.event.ActionListener;
+
 public class StoragePanel extends JPanel {
 
     private JPanel storagePanel;
@@ -48,20 +50,16 @@ public class StoragePanel extends JPanel {
     void setUpPopupMenu() {
         JPopupMenu storedInfoPopup = new JPopupMenu();
 
-        JMenuItem deleteItem = new JMenuItem("Delete!");
-
-        deleteItem.addActionListener(actionEvent -> {
-            searchPresenter.deleteStoredInfo();
-        });
-        storedInfoPopup.add(deleteItem);
-
-        JMenuItem saveItem = new JMenuItem("Save Changes!");
-        saveItem.addActionListener(actionEvent -> {
-            searchPresenter.saveStoredInfo();
-        });
-        storedInfoPopup.add(saveItem);
+        addMenuItem(storedInfoPopup, "Delete!", actionEvent -> searchPresenter.deleteStoredInfo());
+        addMenuItem(storedInfoPopup, "Save Changes!", actionEvent -> searchPresenter.saveStoredInfo());
 
         storedInfoTextPane.setComponentPopupMenu(storedInfoPopup);
+    }
+
+    private void addMenuItem(JPopupMenu menu, String title, ActionListener actionListener) {
+        JMenuItem menuItem = new JMenuItem(title);
+        menuItem.addActionListener(actionListener);
+        menu.add(menuItem);
     }
 
     void setUpComboBox() {
@@ -71,7 +69,6 @@ public class StoragePanel extends JPanel {
 
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storedSeriesComboBox.setModel(new DefaultComboBoxModel(savedTitles));
-
 
         storedSeriesComboBox.addActionListener(actionEvent -> {
             searchPresenter.getStoredInfo();

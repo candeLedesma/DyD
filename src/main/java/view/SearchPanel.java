@@ -38,9 +38,7 @@ public class SearchPanel extends JPanel{
         searchButton.addActionListener(e -> searchPresenter.searchSeries());
 
         saveLocallyButton.addActionListener(actionEvent -> {
-            if (lastSearchedSeries != null) {
-                searchPresenter.saveLocally();
-            }
+            searchPresenter.saveLocally();
         });
 
 

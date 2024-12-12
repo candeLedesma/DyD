@@ -37,6 +37,8 @@ public class StoredPresenter {
                 model.saveLocally();
                 view.showSuccessMessage("Saved locally");
                 view.setSelectSavedComboBox(model.getSavedTitles());
+            }else{
+                view.showErrorMessage("No series selected");
             }
         } catch (Exception e) {
             view.showErrorMessage(e.getMessage());
