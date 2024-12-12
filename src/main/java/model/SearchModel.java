@@ -2,6 +2,7 @@ package model;
 
 import model.API.WikipediaPageAPI;
 import model.API.WikipediaSearchAPI;
+import model.database.DataBase;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -44,4 +45,5 @@ public class SearchModel {
         searchResult.setExtract(textToHtml(extract));
         return extract;
     }
+
 }
