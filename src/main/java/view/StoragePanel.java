@@ -3,7 +3,7 @@ import presenter.SeriesPresenter;
 
 import javax.swing.*;
 
-import utils.TextoHTML;
+import utils.HtmlTextFormatter;
 
 import java.awt.event.ActionListener;
 
@@ -83,7 +83,7 @@ public class StoragePanel extends JPanel {
 
 
     public void setStoredTextPane(String extract) {
-        storedInfoTextPane.setText(TextoHTML.textToHtml(extract));
+        storedInfoTextPane.setText(HtmlTextFormatter.textToHtml(extract));
     }
 
     public void deleteSelectedIndex() {

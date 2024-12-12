@@ -9,7 +9,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import static utils.TextoHTML.textToHtml;
+import static utils.HtmlTextFormatter.textToHtml;
 
 public class SearchModel {
     private final WikipediaSearchAPI searchAPI;

@@ -1,6 +1,6 @@
 package utils;
 
-public class TextoHTML {
+public class HtmlTextFormatter {
 
     public static String textToHtml(String text) {
 
