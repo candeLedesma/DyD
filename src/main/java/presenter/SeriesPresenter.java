@@ -1,160 +1,47 @@
 package presenter;
 
-import model.SeriesModel;
 import model.Serie;
-import view.MainView;
 import view.SearchPanel;
-import view.SerieMenuItem;
-import view.View;
 
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SeriesPresenter implements Presenter {
-    private final MainView view;
-    private final SeriesModel model;
+public interface SeriesPresenter {
 
-    private final ScoredPresenter scoredPresenter;
-    private final StoredPresenter storedPresenter;
-    private final SearchPresenter searchPresenter;
+    List<Serie> getScoredSeries();
 
-    private Serie lastSearchedSeries;
+    void searchSeries();
 
-    public SeriesPresenter(SeriesModel model) {
-        this.model = model;
-        model.setPresenter(this);
-        this.view = new MainView(this);
-        this.scoredPresenter = new ScoredPresenter(view, model);
-        this.storedPresenter = new StoredPresenter(view, model);
-        this.searchPresenter = new SearchPresenter(view, model);
-    }
+    void saveLocally();
 
-    @Override
-    public void start() {
-        try {
-            view.showView();
-        } catch (Exception e) {
-            view.showErrorMessage(e.getMessage());
-        }
-    }
+    void getSelectedExtract(Serie searchResult) throws SQLException;
 
-    @Override
-    public Serie getLastSearchedSeries() {
-        return lastSearchedSeries;
-    }
+    String getScoreSerie(String title) throws SQLException;
 
-    @Override
-    public void initializeSavedPanel() {
-        storedPresenter.initializeSavedPanel();
-    }
+    void recordScore();
 
-    @Override
-    public int getScore() {
-        return view.getScore();
-    }
+    void start();
 
-    @Override
-    public void getStoredInfo() {
-        storedPresenter.getStoredInfo();
-    }
+    Serie getLastSearchedSeries();
 
-    @Override
-    public void deleteStoredInfo() {
-        storedPresenter.deleteStoredInfo();
-    }
+    void initializeSavedPanel();
 
-    @Override
-    public void saveStoredInfo() {
-        storedPresenter.saveStoredInfo();
-    }
+    int getScore();
 
+    void getStoredInfo();
 
-    @Override
-    public void showError(String messageError) {
-        view.showErrorMessage(messageError);
-    }
+    void deleteStoredInfo();
 
-    @Override
-    public void handleShowResults(LinkedList<Serie> results, JTextPane searchResultsTextPane, SearchPanel searchPanel) {
-        JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
+    void saveStoredInfo();
 
-        for (Serie searchResult : results) {
-            String title = searchResult.getTitle();
-            boolean hasScore = model.hasScore(title);
-            String displayTitle = hasScore ? "★ " + title : title; // Add star icon if scored
+    void showError(String messageError);
 
-            SerieMenuItem menuItem = new SerieMenuItem(displayTitle, searchResult.getSnippet());
-           view.setMenuItem(menuItem);
+    void handleShowResults(LinkedList<Serie> results, JTextPane searchResultsTextPane, SearchPanel searchPanel);
 
-            menuItem.addActionListener(actionEvent -> {
-                lastSearchedSeries = searchResult;
-                try {
-                    getSelectedExtract(searchResult);
-                } catch (SQLException e) {
-                    showError(e.getMessage());
-                }
-            });
+    void updateScoredSeriesTable();
 
-            searchOptionsMenu.add(menuItem);
-        }
-        searchOptionsMenu.show(searchResultsTextPane, searchResultsTextPane.getX(), searchResultsTextPane.getY());
-    }
-
-
-    @Override
-    public void updateScoredSeriesTable() {
-        scoredPresenter.updateScoredSeriesTable(getScoredSeries());
-    }
-
-    @Override
-    public void showSuccess(String scoreSetSuccessfully) {
-        view.showSuccessMessage(scoreSetSuccessfully);
-    }
-
-
-    @Override
-    public List<Serie> getScoredSeries() {
-        return model.getScoredSeries();
-    }
-
-    @Override
-    public void searchSeries() {
-        searchPresenter.searchSeries();
-    }
-
-    @Override
-    public void saveLocally() {
-        storedPresenter.saveLocally();
-
-    }
-
-    @Override
-    public void getSelectedExtract(Serie searchResult) throws SQLException {
-        searchPresenter.getSelectedExtract(searchResult);
-    }
-
-
-    @Override
-    public String getScoreSerie(String title) throws SQLException {
-        if (model.hasScore(view.getLastSearchedSeries().getTitle())) {
-            return String.valueOf(model.getScore());
-        }else{
-            return "Not found";
-        }
-    }
-
-    @Override
-    public void recordScore() {
-        try {
-            scoredPresenter.recordScore();
-        } catch (SQLException e) {
-            view.showErrorMessage(e.getMessage());
-        }
-    }
-
-    public View getView() {
-        return view;
-    }
+    void showSuccess(String message);
 }
+

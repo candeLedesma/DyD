@@ -1,9 +1,8 @@
 package presenter;
 
-import model.SeriesModel;
+import model.MainModel;
 import model.Serie;
 import view.MainView;
-import view.SerieMenuItem;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,9 +10,9 @@ import java.util.LinkedList;
 
 public class SearchPresenter {
     private final MainView view;
-    private final SeriesModel model;
+    private final MainModel model;
 
-    public SearchPresenter(MainView view, SeriesModel model) {
+    public SearchPresenter(MainView view, MainModel model) {
         this.view = view;
         this.model = model;
     }

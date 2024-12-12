@@ -1,21 +1,21 @@
 package view;
 
 import model.Serie;
-import presenter.Presenter;
 import presenter.SeriesPresenter;
+import presenter.MainPresenter;
 
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-public class SearchPanel extends JPanel {
+public class SearchPanel extends JPanel implements View {
     private JPanel searchPanel;
     private JTextField searchSerieField;
     private JButton searchButton;
     private JTextPane searchResultsTextPane;
     private JButton saveLocallyButton;
     private JPanel scorePanel;
-    private Presenter presenter;
+    private SeriesPresenter presenter;
     private JLabel scoreLabel;
     private JSlider sliderScore;
     private JButton setScoreButton;
@@ -30,6 +30,28 @@ public class SearchPanel extends JPanel {
         this.add(searchPanel);
         resultItems = new LinkedList<>();
     }
+
+    @Override
+    public void showView() throws SQLException {
+        sliderScore.setVisible(true);
+        setScoreButton.setVisible(true);
+
+        String currentScore = presenter.getScoreSerie(presenter.getLastSearchedSeries().getTitle());
+        updateScoreLabel(currentScore);
+
+        scoreLabel.repaint();
+
+        sliderScore.addChangeListener(e -> {
+            if (!sliderScore.getValueIsAdjusting()) {
+                updateScoreLabel(String.valueOf(sliderScore.getValue()));
+            }
+        });
+
+        setScoreButton.addActionListener(e -> {
+            presenter.recordScore();
+        });
+    }
+
 
     public void setUpView() {
         configureSearchResultsTextPane();
@@ -60,31 +82,12 @@ public class SearchPanel extends JPanel {
         presenter.handleShowResults(results, searchResultsTextPane, this);
     }
 
-    public void showScorePanel() throws SQLException {
-        sliderScore.setVisible(true);
-        setScoreButton.setVisible(true);
-
-        String currentScore = presenter.getScoreSerie(presenter.getLastSearchedSeries().getTitle());
-        updateScoreLabel(currentScore);
-
-        scoreLabel.repaint();
-
-        sliderScore.addChangeListener(e -> {
-            if (!sliderScore.getValueIsAdjusting()) {
-                updateScoreLabel(String.valueOf(sliderScore.getValue()));
-            }
-        });
-
-        setScoreButton.addActionListener(e -> {
-            presenter.recordScore();
-        });
-    }
 
     private void updateScoreLabel(String value) {
         scoreLabel.setText("Score: " + value);
     }
 
-    public void setPresenter(SeriesPresenter presenter) {
+    public void setPresenter(MainPresenter presenter) {
         this.presenter = presenter;
     }
 

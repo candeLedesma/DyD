@@ -1,11 +1,11 @@
 package presenter;
 
-import model.SeriesModel;
+import model.MainModel;
 
 public class Main {
     public static void main(String[] args) {
-        SeriesModel model = new SeriesModel();
-        SeriesPresenter presenter = new SeriesPresenter(model);
+        MainModel model = new MainModel();
+        MainPresenter presenter = new MainPresenter(model);
         presenter.start();
     }
 }

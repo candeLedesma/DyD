@@ -1,10 +1,10 @@
 import model.API.WikipediaPageAPI;
 import model.API.WikipediaSearchAPI;
-import model.SeriesModel;
+import model.MainModel;
 import model.database.DataBase;
 import org.junit.Before;
 import org.junit.Test;
-import presenter.SeriesPresenter;
+import presenter.MainPresenter;
 import stub.DataBaseStub;
 import stub.WikipediaPageAPIStub;
 import stub.WikipediaSearchAPIStub;
@@ -15,9 +15,9 @@ import static org.junit.Assert.assertEquals;
 
 public class IntegrationTest {
 
-    private SeriesPresenter presenter;
+    private MainPresenter presenter;
 
-    private View mainView;
+    private SeriesView mainView;
 
     private SearchPanel searcherView;
 
@@ -30,9 +30,9 @@ public class IntegrationTest {
         WikipediaSearchAPI searchAPI = new WikipediaSearchAPIStub();
         WikipediaPageAPI pageAPI = new WikipediaPageAPIStub();
         DataBase dataBaseStub = new DataBaseStub();
-        SeriesModel seriesModel = new SeriesModel(searchAPI, pageAPI, dataBaseStub);
+        MainModel seriesModel = new MainModel(searchAPI, pageAPI, dataBaseStub);
 
-        presenter = new SeriesPresenter(seriesModel);
+        presenter = new MainPresenter(seriesModel);
         presenter.start();
 
         mainView = presenter.getView();

@@ -1,7 +1,7 @@
 package presenter;
 
 import model.Serie;
-import model.SeriesModel;
+import model.MainModel;
 import view.MainView;
 
 import java.sql.SQLException;
@@ -10,9 +10,9 @@ import java.util.List;
 
 public class ScoredPresenter {
     private final MainView view;
-    private final SeriesModel model;
+    private final MainModel model;
 
-    public ScoredPresenter(MainView view, SeriesModel model) {
+    public ScoredPresenter(MainView view, MainModel model) {
         this.view = view;
         this.model = model;
     }

@@ -1,16 +1,16 @@
 package view;
 
-import presenter.Presenter;
 import presenter.SeriesPresenter;
+import presenter.MainPresenter;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
 
-public class ScoredSeriesPanel extends JPanel {
+public class ScoredSeriesPanel extends JPanel implements View {
     private JPanel scoredPanel;
     private JTable scoredSeriesTable;
     private DefaultTableModel tableModel;
-    private Presenter presenter;
+    private SeriesPresenter presenter;
 
     public ScoredSeriesPanel() {
         inicomponents();
@@ -20,6 +20,14 @@ public class ScoredSeriesPanel extends JPanel {
         this.add(scoredPanel);
         this.setVisible(true);
     }
+
+    @Override
+    public void showView() {
+        tableModel.setRowCount(0);
+        presenter.updateScoredSeriesTable();
+        scoredSeriesTable.setVisible(true);
+    }
+
 
 
     public void setUpView() {
@@ -37,13 +45,8 @@ public class ScoredSeriesPanel extends JPanel {
     }
 
 
-    public void showView() {
-        tableModel.setRowCount(0);
-        presenter.updateScoredSeriesTable();
-        scoredSeriesTable.setVisible(true);
-    }
 
-    public void setPresenter(SeriesPresenter presenter) {
+    public void setPresenter(MainPresenter presenter) {
         this.presenter = presenter;
     }
 

@@ -1,6 +1,6 @@
 package view;
 import model.Serie;
-import presenter.SeriesPresenter;
+import presenter.MainPresenter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class MainView implements View {
-    private final SeriesPresenter seriesPresenter;
+public class MainView implements SeriesView, View {
+    private final MainPresenter seriesPresenter;
     private JPanel contentPane;
     private JTabbedPane tabbedPaneRatedSeries;
     private SearchPanel searchPanel;
@@ -17,13 +17,13 @@ public class MainView implements View {
     private StoragePanel storagePanel;
 
 
-    public MainView(SeriesPresenter searchPresenter) {
+    public MainView(MainPresenter searchPresenter) {
         this.seriesPresenter = searchPresenter;
     }
 
 
     @Override
-    public void showView() throws Exception {
+    public void showView() {
 
         JFrame frame = new JFrame("TV Series");
         frame.setContentPane(contentPane);
@@ -32,17 +32,25 @@ public class MainView implements View {
         frame.setVisible(true);
         frame.setSize(400, 428);
 
+        setUpPanels();
+
+        UIManager.put("nimbusSelection", new Color(247,248,250));
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            showErrorMessage("Error setting the look and feel");
+        }
+    }
+
+    public void setUpPanels() {
         setSearchPanel();
         setStoragePanel();
         setScoredSeriesPanel();
-
-        UIManager.put("nimbusSelection", new Color(247,248,250));
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
     }
 
     private void setStoragePanel() {
         storagePanel.setPresenter(seriesPresenter);
-        storagePanel.setSavedPanel();
+        storagePanel.showView();
     }
 
     private void setSearchPanel() {
@@ -59,6 +67,7 @@ public class MainView implements View {
     }
 
 
+    @Override
     public void setSelectSavedComboBox(Object[] savedTitles) {
         storagePanel.setSelectSavedComboBox(savedTitles);
     }
@@ -69,28 +78,34 @@ public class MainView implements View {
     }
 
 
+    @Override
     public String getSeletedSavedTitle() {
         return storagePanel.getSeletedSavedTitle();
     }
 
 
+    @Override
     public void showSuccessMessage(String s) {
         JOptionPane.showMessageDialog(contentPane, s);
     }
 
+    @Override
     public void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(contentPane, message);
     }
 
 
+    @Override
     public void setSearchResultTextPane(String text) throws SQLException {
         searchPanel.setSearchResultTextPane(text);
-        searchPanel.showScorePanel();
+        searchPanel.showView();
     }
+
 
     public String getSearchResultTextPane() {
         return storagePanel.getStoredTextPane();
     }
+
 
     public Serie getLastSearchedSeries() {
         return seriesPresenter.getLastSearchedSeries();
@@ -100,23 +115,31 @@ public class MainView implements View {
         searchPanel.showResults(searchResults);
     }
 
+    @Override
     public void setStoredTextPane(String extract) {
         storagePanel.setStoredTextPane(extract);
     }
 
+    @Override
     public String getSearchSerieField() {
         return searchPanel.getsSearchSerieField();
     }
 
+    @Override
     public void deleteSelectedIndex() {
         storagePanel.deleteSelectedIndex();
         storagePanel.showSuccessDeletedMessage();
     }
 
+    @Override
     public int getScore() {
         return searchPanel.getScoreSliderValue();
     }
 
+    @Override
+    public JTabbedPane getTabbedPane() {
+        return tabbedPaneRatedSeries;
+    }
 
     @Override
     public SearchPanel getSearchView() {
@@ -133,14 +156,12 @@ public class MainView implements View {
         return scoredSeriesPanel;
     }
 
-    @Override
-    public JTabbedPane getTabbedPane() {
-        return tabbedPaneRatedSeries;
-    }
 
+    @Override
     public void updateScore() {
         scoredSeriesPanel.updateTable();
     }
+
 
     public void showSuccessSaveMessage() {
         storagePanel.showSuccessSavedMessage();
@@ -149,6 +170,7 @@ public class MainView implements View {
     public void addSerieToTable(String title, int score, Date lastUpdated) {
         scoredSeriesPanel.addSerieToTable(title, score, lastUpdated);
     }
+
 
     public void setMenuItem(SerieMenuItem menuItem) {
         searchPanel.addMenuItem(menuItem);

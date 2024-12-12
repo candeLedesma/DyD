@@ -1,5 +1,5 @@
 package view;
-import presenter.SeriesPresenter;
+import presenter.MainPresenter;
 
 import javax.swing.*;
 
@@ -7,11 +7,11 @@ import utils.HtmlTextFormatter;
 
 import java.awt.event.ActionListener;
 
-public class StoragePanel extends JPanel {
+public class StoragePanel extends JPanel implements View {
 
     private JPanel storagePanel;
 
-    private SeriesPresenter presenter;
+    private MainPresenter presenter;
 
     private JComboBox storedSeriesComboBox;
 
@@ -29,11 +29,12 @@ public class StoragePanel extends JPanel {
     }
 
 
-    public void setPresenter(SeriesPresenter presenter) {
+    public void setPresenter(MainPresenter presenter) {
         this.presenter = presenter;
     }
 
-    public void setSavedPanel() {
+    @Override
+    public void showView() {
         setUpComboBox();
 
         setUpStoredInfoTextPane();
