@@ -28,6 +28,7 @@ public class SearchPanel extends JPanel {
     private void initComponents() {
         this.setVisible(true);
         this.add(searchPanel);
+        resultItems = new LinkedList<>();
     }
 
     public void setUpView() {
@@ -105,10 +106,14 @@ public class SearchPanel extends JPanel {
     }
 
     public SerieMenuItem getResult() {
-        return resultItems.isEmpty() ? null : resultItems.get(0);
+        return resultItems.get(0);
     }
 
     public String getSearchResultTextPane() {
         return searchResultsTextPane.getText();
+    }
+
+    public void addMenuItem(SerieMenuItem menuItem) {
+        resultItems.add(menuItem);
     }
 }

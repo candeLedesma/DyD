@@ -46,9 +46,8 @@ public class IntegrationTest {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
         Thread.sleep(1000);
-        SerieMenuItem firstItem = (SerieMenuItem) searcherView.getResult(); // Cambiar a SerieMenuItem
-        System.out.println(firstItem.getText());
-        assertEquals(firstItem.getText(), "<html><font face=\"arial\">Breaking Bad: Snippet for Breaking Bad");
+        SerieMenuItem firstItem = searcherView.getResult();
+        assertEquals(firstItem.getText(), "<html><font face=\"arial\">★ Breaking Bad: Snippet for Breaking Bad");
     }
 
     @Test
@@ -56,18 +55,21 @@ public class IntegrationTest {
         searcherView.setSearchResultTextPane("Breaking Bad");
         searcherView.getSearchButton().doClick();
         Thread.sleep(1000);
-        SerieMenuItem firstItem = (SerieMenuItem) searcherView.getResult(); // Cambiar a SerieMenuItem
+        SerieMenuItem firstItem = searcherView.getResult();
         firstItem.doClick();
         Thread.sleep(1000);
-        System.out.println(searcherView.getSearchResultTextPane());
-        assertEquals(searcherView.getSearchResultTextPane(), "<html>\n" +
+        String htmlString =  "<html>\n" +
                 "  <head>\n" +
                 "    \n" +
                 "  </head>\n" +
                 "  <body>\n" +
-                "    Breaking Bad\n" +
+                "    <h1>\n" +
+                "      Breaking Bad\n" +
+                "    </h1>\n" +
+                "    This is a sample extract for Breaking Bad.\n" +
                 "  </body>\n" +
-                "</html>\n");
+                "</html>\n";
+        assertEquals(searcherView.getSearchResultTextPane(), htmlString);
     }
 
     @Test

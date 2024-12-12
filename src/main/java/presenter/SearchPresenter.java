@@ -3,6 +3,7 @@ package presenter;
 import model.SeriesModel;
 import model.Serie;
 import view.MainView;
+import view.SerieMenuItem;
 
 import java.io.IOException;
 import java.sql.SQLException;

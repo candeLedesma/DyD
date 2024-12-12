@@ -86,6 +86,7 @@ public class SeriesPresenter implements Presenter {
             String displayTitle = hasScore ? "★ " + title : title; // Add star icon if scored
 
             SerieMenuItem menuItem = new SerieMenuItem(displayTitle, searchResult.getSnippet());
+           view.setMenuItem(menuItem);
 
             menuItem.addActionListener(actionEvent -> {
                 lastSearchedSeries = searchResult;

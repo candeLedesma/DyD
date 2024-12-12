@@ -149,4 +149,8 @@ public class MainView implements View {
     public void addSerieToTable(String title, int score, Date lastUpdated) {
         scoredSeriesPanel.addSerieToTable(title, score, lastUpdated);
     }
+
+    public void setMenuItem(SerieMenuItem menuItem) {
+        searchPanel.addMenuItem(menuItem);
+    }
 }
