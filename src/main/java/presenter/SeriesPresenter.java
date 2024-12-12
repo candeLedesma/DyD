@@ -104,10 +104,7 @@ public class SeriesPresenter implements Presenter {
 
     @Override
     public void updateScoredSeriesTable() {
-        List<Serie> scoredSeries = getScoredSeries();
-        for (Serie serie : scoredSeries) {
-            view.addSerieToTable(serie.getTitle(), serie.getScore(), serie.getLastUpdated());
-        }
+        scoredPresenter.updateScoredSeriesTable(getScoredSeries());
     }
 
 

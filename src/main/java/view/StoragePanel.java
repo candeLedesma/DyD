@@ -17,6 +17,10 @@ public class StoragePanel extends JPanel {
 
 
     public StoragePanel() {
+        initComponents();
+    }
+
+    private void initComponents() {
         this.setVisible(true);
 
         this.add(storagePanel);

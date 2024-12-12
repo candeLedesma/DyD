@@ -23,8 +23,11 @@ public class SearchPanel extends JPanel{
     private LinkedList<Serie> results;
 
     public SearchPanel() {
-        this.setVisible(true);
+        initComponents();
+    }
 
+    private void initComponents() {
+        this.setVisible(true);
         this.add(searchPanel);
     }
 

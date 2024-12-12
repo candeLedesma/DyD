@@ -13,6 +13,10 @@ public class ScoredSeriesPanel extends JPanel {
     private Presenter searchPresenter;
 
     public ScoredSeriesPanel() {
+        inicomponents();
+    }
+
+    private void inicomponents() {
         this.add(scoredPanel);
         this.setVisible(true);
     }
