@@ -1,13 +1,13 @@
 package presenter;
 
 import model.SeriesModel;
-import utils.Serie;
+import model.Serie;
 import view.MainView;
 import view.SearchPanel;
+import view.SerieMenuItem;
 import view.View;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,6 +79,7 @@ public class SeriesPresenter implements Presenter {
         view.showErrorMessage(messageError);
     }
 
+
     @Override
     public void handleShowResults(LinkedList<Serie> results, JTextPane searchResultsTextPane, SearchPanel searchPanel) {
         JPopupMenu searchOptionsMenu = new JPopupMenu("Search Results");
@@ -86,7 +87,7 @@ public class SeriesPresenter implements Presenter {
         for (Serie searchResult : results) {
             boolean hasScore = hasScore(searchResult.getTitle());
             String displayTitle = hasScore ? "★ " + searchResult.getTitle() : searchResult.getTitle();
-            JMenuItem menuItem = new JMenuItem(displayTitle);
+            SerieMenuItem menuItem = new SerieMenuItem(displayTitle, searchResult.getSnippet());
 
             menuItem.addActionListener(actionEvent -> {
                 searchPanel.setLastSearchedSeries(searchResult);

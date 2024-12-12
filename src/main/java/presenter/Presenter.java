@@ -1,10 +1,9 @@
 package presenter;
 
-import utils.Serie;
+import model.Serie;
 import view.SearchPanel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;

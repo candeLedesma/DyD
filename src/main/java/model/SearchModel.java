@@ -5,7 +5,6 @@ import model.API.WikipediaSearchAPI;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import utils.Serie;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -40,7 +39,7 @@ public class SearchModel {
     }
 
     public String searchPageExtract(Serie searchResult) throws IOException {
-        Response<String> response = pageAPI.getExtractByPageID(searchResult.pageID).execute();
+        Response<String> response = pageAPI.getExtractByPageID(searchResult.getPageID()).execute();
         String extract = jsonParser.parsePageExtract(response.body(), searchResult);
         searchResult.setExtract(textToHtml(extract));
         return extract;

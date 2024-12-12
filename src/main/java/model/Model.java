@@ -1,8 +1,6 @@
 package model;
 
 import presenter.SeriesPresenter;
-import utils.Serie;
-import presenter.Presenter;
 
 import java.io.IOException;
 import java.sql.SQLException;

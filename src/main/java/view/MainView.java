@@ -1,5 +1,5 @@
 package view;
-import utils.Serie;
+import model.Serie;
 import presenter.SeriesPresenter;
 
 import javax.swing.*;

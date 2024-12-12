@@ -1,11 +1,10 @@
 package presenter;
 
-import utils.Serie;
+import model.Serie;
 import model.SeriesModel;
 import view.MainView;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 

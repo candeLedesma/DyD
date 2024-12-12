@@ -1,6 +1,6 @@
 package view;
 
-import utils.Serie;
+import model.Serie;
 import presenter.Presenter;
 import presenter.SeriesPresenter;
 

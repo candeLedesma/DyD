@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import utils.Serie;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -47,7 +46,7 @@ public class JsonParser {
         if (pageExtract == null) {
             return "No Results";
         } else {
-            String extract = "<h1>" + searchResult.title + "</h1>";
+            String extract = "<h1>" + searchResult.getTitle() + "</h1>";
             extract += pageExtract.getAsString().replace("\\n", "\n");
             return extract;
         }
